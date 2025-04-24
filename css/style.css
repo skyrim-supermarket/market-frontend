@@ -1,6 +1,6 @@
 @font-face {
     font-family: Futura;
-    src: url('../assets/fonts/futuraBook.woff') format("WOFF");
+    src: url('../assets/fonts/futura.woff') format("WOFF");
     font-weight: 400;
 }
 
@@ -29,7 +29,7 @@ body {
 .buttonText {
     fill: white;
     font-weight: 400;
-    font-size: 1.4em;
+    font-size: 1.6em;
 }
 
 
@@ -52,7 +52,7 @@ body {
 
 .registerTitle {
     font-weight: 400;
-    font-size: 1.5em;
+    font-size: 1.7em;
 }
 
 .cell {
@@ -62,13 +62,11 @@ body {
     text-align: center;
 }
 
-form {
-    margin-bottom: 3vh;
-}
-
 input[type="email"], input[type="password"] {
     background: none;
     width: 14em;
+    font-family: Futura;
+    font-weight: 400;
     color: white;
 
     border-top: none;
@@ -76,7 +74,7 @@ input[type="email"], input[type="password"] {
     border-right: none;
     border-bottom: 2px solid white;
 
-    font-size: 1.6em;
+    font-size: 1.8em;
 }
 
 input[type="submit"] { 
