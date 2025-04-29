@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Login</title>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="icon" href="assets/logoBlack.svg">
+
+        
+    </head>
+    <body>
+        <div id="vertDiv" style="height: 50%;">
+            <svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg>
+        </div>
+
+        
+
+    <script>
+        
+        function setViewportSize() {
+            const svg = document.getElementById('svg');
+            const container = document.getElementById('vertDiv');
+            const rect = container.getBoundingClientRect();
+            const left = rect.left;
+            const top = rect.top;
+            const width = rect.width;
+            const height = rect.height;
+            //console.log(`${left} ${top} ${width} ${height}`);
+            
+            //svg.setAttribute('viewBox', `${left} ${top} ${width} ${height}`);
+            svg.setAttribute('width', `${width}`);
+            svg.setAttribute('height', `${height}`);
+            svg.innerHTML = '';
+
+            const lim = Math.floor(height/11);
+
+            console.log(`${window.innerHeight} ${height} ${lim}`);
+
+
+            for(var i=0; i<lim; i++) {
+                const svgImage = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+                let str = "bar";
+                if(i==0) {
+                    svgImage.setAttributeNS(null, 'opacity', `33%`);
+                }
+                if(i==1) {
+                    svgImage.setAttributeNS(null, 'opacity', `66%`);
+                }
+                if(i==lim-2) {
+                    svgImage.setAttributeNS(null, 'opacity', `66%`);
+                }
+                if(i==lim-1) {
+                    svgImage.setAttributeNS(null, 'opacity', `33%`);
+                }
+                svgImage.setAttributeNS(null, 'id', `${str}${i}`);
+                svgImage.setAttributeNS(null, 'href', 'assets/bar.svg');
+                svgImage.setAttributeNS(null, 'dominant-baseline', 'middle');
+                svgImage.setAttributeNS(null, 'text-anchor', 'middle');
+                svgImage.setAttributeNS(null, 'x', "50%");
+                svgImage.setAttributeNS(null, 'y', i*11);
+                svg.appendChild(svgImage);
+            }
+        }
+
+        window.addEventListener("resize", setViewportSize);
+
+        setViewportSize();
+    </script>
+    </body>
+</html>

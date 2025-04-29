@@ -13,6 +13,8 @@
 body {
     padding: 0;
     margin: 0;
+    width: 100vw;
+    height: 100vh;
     background-color: black;
     font-family: Futura;
     font-weight: 400;
@@ -63,7 +65,7 @@ body {
 }
 
 input[type="email"], input[type="password"] {
-    background: none;
+    background-color: black;
     width: 14em;
     font-family: Futura;
     font-weight: 400;
@@ -93,12 +95,16 @@ label {
 }
 
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 900px) {
     .container {grid-template-columns: 100%;}
     .logo {height: 35vh;}
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 900px) {
     .container {grid-template-columns: 50% 50%;}
     .logo {height: 60vh;}
 }
+
+
+
+

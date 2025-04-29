@@ -10,7 +10,7 @@
     <body>
         <div class="container">
             <div class="cell i1">
-                <svg class="logo" viewBox="0 0 516 976" xmlns="http://www.w3.org/2000/svg">
+                <svg id="logo" class="logo" viewBox="0 0 516 976" xmlns="http://www.w3.org/2000/svg">
                     <image href="assets/logoWhite.svg" />
                 </svg>
             </div>
@@ -24,7 +24,7 @@
                     </label>
                     <label>
                         <input type="submit"/>
-                        <svg class="button" viewBox="0 0 251 44" xmlns="http://www.w3.org/2000/svg">
+                        <svg id="button1" class="button" viewBox="0 0 251 44" xmlns="http://www.w3.org/2000/svg">
                             <image href="assets/button.svg" />
                             <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" class="buttonText">Entrar</text>
                         </svg> 
@@ -35,7 +35,7 @@
                 </label>
                 <label>
                     <a href="index.html">
-                        <svg class="button" viewBox="0 0 251 44" xmlns="http://www.w3.org/2000/svg">
+                        <svg id="button2" class="button" viewBox="0 0 251 44" xmlns="http://www.w3.org/2000/svg">
                             <image href="assets/button.svg" />
                             <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" class="buttonText">Cadastre-se</text>
                         </svg> 
@@ -47,4 +47,10 @@
 
         
     </body>
+
+    <script>
+        document.getElementById('logo').ondragstart = function() { return false; };
+        document.getElementById('button1').ondragstart = function() { return false; };
+        document.getElementById('button2').ondragstart = function() { return false; };
+    </script>
 </html>
