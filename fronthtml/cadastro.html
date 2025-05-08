@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Login</title>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="icon" href="assets/logoBlack.svg">
+    </head>
+    <body>
+        <div class="container">
+            <div class="cell i1">
+                <svg id="logo" class="logo" viewBox="0 0 516 976" xmlns="http://www.w3.org/2000/svg">
+                    <image href="assets/logoWhite.svg" />
+                </svg>
+            </div>
+            <div class="cell i2">
+                <form>
+                    <label>
+                        <input type="text" placeholder="Nome" id="name" name="name" required><br>
+                    </label>
+                    <label>
+                        <input type="email" placeholder="Email" id="user" name="user" required><br>
+                    </label>
+                    <label>
+                        <input type="password" placeholder="Senha" id="pwd" name="pwd" required><br>
+                    </label>
+                    <label>
+                        <input type="text" placeholder="Endereço" id="address" name="address" required><br>
+                    </label>
+                    <label>
+                        <input type="submit"/>
+                        <svg id="button1" class="button" viewBox="0 0 251 44" xmlns="http://www.w3.org/2000/svg">
+                            <image href="assets/button.svg" />
+                            <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" class="buttonText">Cadastrar</text>
+                        </svg> 
+                    </label>
+                </form>
+            </div>
+        </div>
+
+
+        
+    </body>
+
+    <script>
+        document.getElementById('logo').ondragstart = function() { return false; };
+        document.getElementById('button1').ondragstart = function() { return false; };
+    </script>
+</html>
