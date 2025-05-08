@@ -1,11 +1,12 @@
 import React from "react";
-import "./Cadastro.css"; // Certifique-se de que este arquivo exista
+import "./Cadastro.css";
 //import logoWhite from "../assets/logoWhite.svg";
-//import button from "../assets/button.svg";
+import button from "../assets/button.svg";
 
 const Cadastro = () => {
   const preventDrag = (e) => e.preventDefault();
 
+  document.title = "Cadastro";
   return (
     <div className="container">
       <div className="cell i1">
@@ -45,6 +46,7 @@ const Cadastro = () => {
               xmlnsSvg="http://www.w3.org/2000/svg"
               onDragStart={preventDrag}
             >
+              <image href={button}/>
               <text
                 x="50%"
                 y="50%"

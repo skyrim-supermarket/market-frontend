@@ -1,11 +1,11 @@
 import React from "react";
 import "./Login.css"; // Certifique-se de que este arquivo exista
-//import logoWhite from "../assets/logoWhite.svg";
+// import logoWhite from "../assets/logoWhite.svg";
 //import button from "../assets/button.svg";
 
 const Login = () => {
   const preventDrag = (e) => e.preventDefault();
-
+  document.title = "Login";
   return (
     <div className="container">
       <div className="cell i1">
