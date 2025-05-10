@@ -1,31 +1,5 @@
-<svg width="54" height="56" viewBox="0 0 54 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g filter="url(#filter0_ddd_2_323)">
-<path d="M36.9909 25.4834L29.9 26.25L29.264 33.337L33.1274 29.4102L36.9909 25.4834Z" fill="black"/>
-<path d="M29.9 26.25L30.775 18.725L11 7L22.375 27.125L29.9 26.25Z" fill="black"/>
-<path d="M29.9 26.25L30.775 18.725L11 7L22.375 27.125L29.9 26.25ZM29.9 26.25L36.9909 25.4834M29.9 26.25L29.264 33.337M36.9909 25.4834L38.475 23.975L42.85 24.85L36.9909 25.4834ZM36.9909 25.4834L33.1274 29.4102L29.264 33.337M29.264 33.337L28.675 39.9L27.8 34.825L29.264 33.337Z" stroke="#D9D9D9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-<defs>
-<filter id="filter0_ddd_2_323" x="0.0500002" y="0.0500002" width="53.7501" height="55.1" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dy="4"/>
-<feGaussianBlur stdDeviation="5.1"/>
-<feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.4 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_2_323"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset/>
-<feGaussianBlur stdDeviation="2.5"/>
-<feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/>
-<feBlend mode="normal" in2="effect1_dropShadow_2_323" result="effect2_dropShadow_2_323"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dy="7"/>
-<feGaussianBlur stdDeviation="3.75"/>
-<feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-<feBlend mode="normal" in2="effect2_dropShadow_2_323" result="effect3_dropShadow_2_323"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect3_dropShadow_2_323" result="shape"/>
-</filter>
-</defs>
+<svg width="34" height="35" viewBox="0 0 34 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M26.9909 19.4834L19.9 20.25L19.264 27.337L23.1274 23.4102L26.9909 19.4834Z" fill="black"/>
+<path d="M19.9 20.25L20.775 12.725L1 1L12.375 21.125L19.9 20.25Z" fill="black"/>
+<path d="M19.9 20.25L20.775 12.725L1 1L12.375 21.125L19.9 20.25ZM19.9 20.25L26.9909 19.4834M19.9 20.25L19.264 27.337M26.9909 19.4834L28.475 17.975L32.85 18.85L26.9909 19.4834ZM26.9909 19.4834L23.1274 23.4102L19.264 27.337M19.264 27.337L18.675 33.9L17.8 28.825L19.264 27.337Z" stroke="#D9D9D9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

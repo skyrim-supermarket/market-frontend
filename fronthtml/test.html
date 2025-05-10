@@ -10,19 +10,97 @@
         
     </head>
     <body>
-        <div ></div>
-        <div id="vertDiv" style="height: 50%;">
-            <svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg>
-        </div>
+        <div class="container-index">
+                
+            <div class="productClasses">
+                <ul class="sidebar">
+                    <li class="sideBarItem"><a class="weapons" href="www.google.com">     <i class="icon-user"></i>WEAPONS</a></li>
+                    <li class="sideBarItem"><a class="ammuntion" href="#"><i class="icon-envelope-alt"></i>AMMUNITION</a></li>
+                    <li class="sideBarItem"><a class="armor" href="#">  <i class="icon-cog"></i>ARMOR</a></li>
+                </ul>
+            </div>
 
+            <div id="vertDiv">
+                <svg id="svg" xmlns="http://www.w3.org/2000/svg">
+                </svg>
+            </div>
+
+            <div class="container2">
+                <div class="navbar">
+                        <input type="text" />
+                </div>
+
+                <div class="filters">
+                        Donec faucibus dolor mi, id vestibulum arcu ornare et. Ut sit amet ipsum purus. Nulla ut condimentum nisl. 
+                        Nunc dictum diam id ultrices faucibus. Maecenas eget auctor arcu. Pellentesque dapibus enim vel turpis tristique, 
+                        sed aliquam nulla pharetra. Donec faucibus arcu ipsum, ut auctor sem hendrerit id.
+                </div>
+
+                <div class="product-list">
+                    <div class="product-item selected">
+                        <div class="product-item-image">
+                            <img src="assets/bone-arrow.png"/>
+                        </div>
+                        <div class="product-item-name">
+                            <span class="product-item-name-text">Shadowed Tower Netch Leather Shield</span>
+                        </div>
+                        <div class="product-item-price">
+                            <div class="product-item-price-gold"><img src="assets/gold.png"/></div>
+                            <div class="product-item-price-value"><span>300</span></div>
+                        </div>
+                    </div>    
+                    <div class="product-item">
+                        <div class="product-item-image">
+                            <img src="assets/bone-arrow.png"/>
+                        </div>
+                        <div class="product-item-name">
+                            <span class="product-item-name-text">Bone Arrow</span>
+                        </div>
+                        <div class="product-item-price">
+                            <div class="product-item-price-gold"><img src="assets/gold.png"/></div>
+                            <div class="product-item-price-value"><span>300</span></div>
+                        </div>
+                    </div> 
+                    <div class="product-item">
+                        <div class="product-item-image">
+                            <img src="assets/bone-arrow.png"/>
+                        </div>
+                        <div class="product-item-name">
+                            <span class="product-item-name-text">Bone Arrow</span>
+                        </div>
+                        <div class="product-item-price">
+                            <div class="product-item-price-gold"><img src="assets/gold.png"/></div>
+                            <div class="product-item-price-value"><span>300</span></div>
+                        </div>
+                    </div>               
+                </div>
+
+                <div id="vertDiv2">
+                    <svg id="svg2" xmlns="http://www.w3.org/2000/svg"></svg>
+                </div>
+
+                <div class="product-info">
+                        Interdum et malesuada fames ac ante ipsum primis in faucibus. 
+                </div>
+            </div>
+
+            <div class="rodape"></div>
+        </div>
         
 
     <script>
+        const bg = Math.floor(Math.random() * 6);
+
+        console.log(bg);
+
+        document.body.style.backgroundImage = `url('assets/bg/${bg}.png')`;
+
+
         const ySeta = 200;
         
-        function setViewportSize() {
-            const svg = document.getElementById('svg');
-            const container = document.getElementById('vertDiv');
+        function setViewportSize(id, idsvg) {
+            const svg = document.getElementById(idsvg);
+            const container = document.getElementById(id);
             const rect = container.getBoundingClientRect();
             const left = rect.left;
             const top = rect.top;
@@ -44,7 +122,7 @@
 
             for(var i=0; i<lim; i++) {
                 const svgImage = document.createElementNS('http://www.w3.org/2000/svg', 'image');
-                let str = "bar";
+                let str = `${idsvg}bar`;
                 if(i==0) {
                     svgImage.setAttributeNS(null, 'opacity', `33%`);
                 }
@@ -68,9 +146,9 @@
         }
 
 
-        function appendSeta(y) {
-            const svg = document.getElementById('svg');
-            const container = document.getElementById('vertDiv');
+        function appendSeta(y, id, idsvg) {
+            const svg = document.getElementById(idsvg);
+            const container = document.getElementById(id);
             const rect = container.getBoundingClientRect();
             const left = rect.left;
             const top = rect.top;
@@ -89,12 +167,12 @@
 
 
 
-                const elem1 = document.getElementById(`bar${intDiv}`);
-                const elem2 = document.getElementById(`bar${intDiv+1}`);
-                const elem3 = document.getElementById(`bar${intDiv+2}`);
-                const elem4 = document.getElementById(`bar${intDiv+3}`);
-                const elem5 = document.getElementById(`bar${intDiv+4}`);
-                const elem6 = document.getElementById(`bar${intDiv+5}`);
+                const elem1 = document.getElementById(`${idsvg}bar${intDiv}`);
+                const elem2 = document.getElementById(`${idsvg}bar${intDiv+1}`);
+                const elem3 = document.getElementById(`${idsvg}bar${intDiv+2}`);
+                const elem4 = document.getElementById(`${idsvg}bar${intDiv+3}`);
+                const elem5 = document.getElementById(`${idsvg}bar${intDiv+4}`);
+                const elem6 = document.getElementById(`${idsvg}bar${intDiv+5}`);
 
 
                 elem1.remove();
@@ -106,7 +184,7 @@
 
 
                 const svgImage = document.createElementNS('http://www.w3.org/2000/svg', 'image');
-                let str = "seta";
+                let str = `${idsvg}seta`;
 
 
                 svgImage.setAttributeNS(null, 'id', `${str}`);
@@ -119,24 +197,45 @@
             }
         }
 
-        function removeSeta() {
-            const seta = document.getElementById("seta");
+        function removeSeta(idsvg) {
+            const seta = document.getElementById(`${idsvg}seta`);
             seta.remove();
 
-            setViewportSize();
+            setViewportSize('vertDiv');
+            setViewportSize('vertDiv2');
         }
 
-        window.addEventListener("resize", setViewportSize);
+        window.addEventListener("resize", () => {setViewportSize('vertDiv', 'svg');});
+        window.addEventListener("resize", () => {setViewportSize('vertDiv2', 'svg2');});
 
-        window.addEventListener("resize", () => {appendSeta(ySeta);});
+        window.addEventListener("resize", () => {appendSeta(ySeta, 'vertDiv', 'svg');});
+        window.addEventListener("resize", () => {appendSeta(ySeta, 'vertDiv2', 'svg2');});
+
+        document.addEventListener('DOMContentLoaded', function(){
+            var elements = document.getElementsByClassName('product-item-name');
+
+            for(var element of elements) {
+                var pw = element.querySelector('product-item-name-text').offsetWidth;
+                var cw = element.offsetWidth;
+
+                if(pw > cw) {
+                    element.classList.add('text-overflow');
+                }
+            }
+        });
 
         const svg = document.getElementById("svg");
-        svg.addEventListener("click", removeSeta);
+        svg.addEventListener("click", () => {appendSeta(ySeta, 'vertDiv', 'svg');});
+
+        const svg2 = document.getElementById("svg2");
+        svg2.addEventListener("click", () => {appendSeta(ySeta, 'vertDiv2', 'svg2');});
 
 
 
-        setViewportSize();
-        appendSeta(ySeta);
+        setViewportSize('vertDiv', 'svg');
+        setViewportSize('vertDiv2', 'svg2');
+        appendSeta(ySeta, 'vertDiv', 'svg');
+        appendSeta(ySeta, 'vertDiv2', 'svg2');
     </script>
     </body>
 </html>
