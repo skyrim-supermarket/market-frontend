@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Login</title>
+        <link rel="stylesheet" href="css/style2.css">
+        <link rel="icon" href="assets/logoBlack.svg">
+
+        
+    </head>
+    <body>
+        <div class="container-index">
+                
+            <div class="sidebar">
+                <div>
+                    <img class="logo" src="assets/gold.png"/>
+                </div>
+                <div class="productClasses">
+                    <ul id="classes-ul">
+                        <li class="sideBarItem"><a href="www.google.com">     <i class="icon-user"></i>WEAPONS</a></li>
+                        <li class="sideBarItem"><a href="#"><i class="icon-envelope-alt"></i>AMMUNITION</a></li>
+                        <li class="sideBarItem"><a href="#">  <i class="icon-cog"></i>ARMOR</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            
+
+            <div id="vertDiv">
+                <svg id="svg" xmlns="http://www.w3.org/2000/svg">
+                </svg>
+            </div>
+
+            <div class="container2">
+                <div class="navbar">
+                        <input type="text" />
+                </div>
+
+                <div class="filters">
+                        Donec faucibus dolor mi, id vestibulum arcu ornare et. Ut sit amet ipsum purus. Nulla ut condimentum nisl. 
+                        Nunc dictum diam id ultrices faucibus. Maecenas eget auctor arcu. Pellentesque dapibus enim vel turpis tristique, 
+                        sed aliquam nulla pharetra. Donec faucibus arcu ipsum, ut auctor sem hendrerit id.
+                </div>
+
+                <div class="product-list">
+                    <div class="product-item selected">
+                        <div class="product-item-image">
+                            <img src="assets/bone-arrow.png"/>
+                        </div>
+                        <div class="product-item-name">
+                            <span class="product-item-name-text">Shadowed Tower Netch Leather Shield</span>
+                        </div>
+                        <div class="product-item-price">
+                            <div class="product-item-price-gold"><img src="assets/gold.png"/></div>
+                            <div class="product-item-price-value"><span>300</span></div>
+                        </div>
+                    </div>    
+                    <div class="product-item">
+                        <div class="product-item-image">
+                            <img src="assets/bone-arrow.png"/>
+                        </div>
+                        <div class="product-item-name">
+                            <span class="product-item-name-text">Bone Arrow</span>
+                        </div>
+                        <div class="product-item-price">
+                            <div class="product-item-price-gold"><img src="assets/gold.png"/></div>
+                            <div class="product-item-price-value"><span>300</span></div>
+                        </div>
+                    </div> 
+                    <div class="product-item">
+                        <div class="product-item-image">
+                            <img src="assets/bone-arrow.png"/>
+                        </div>
+                        <div class="product-item-name">
+                            <span class="product-item-name-text">Bone Arrow</span>
+                        </div>
+                        <div class="product-item-price">
+                            <div class="product-item-price-gold"><img src="assets/gold.png"/></div>
+                            <div class="product-item-price-value"><span>300</span></div>
+                        </div>
+                    </div>               
+                </div>
+
+                <div id="vertDiv2">
+                    <svg id="svg2" xmlns="http://www.w3.org/2000/svg"></svg>
+                </div>
+
+                <div class="product-info">
+                        Interdum et malesuada fames ac ante ipsum primis in faucibus. 
+                </div>
+            </div>
+
+            <div class="rodape"></div>
+        </div>
+        
+
+    <script>
+        const bg = Math.floor(Math.random() * 6);
+
+        document.body.style.backgroundImage = `url('assets/bg/${bg}.png')`;
+
+
+        const ySeta = 200;
+
+        function straightLine() {
+            const svg = document.getElementById("svg");
+            const container = document.getElementById("vertDiv");
+            const rect = container.getBoundingClientRect();
+            const left = rect.left;
+            const top = rect.top;
+            const width = rect.width;
+            const height = rect.height;
+
+
+            svg.setAttribute('width', `${width}`);
+            svg.setAttribute('height', `${height}`);
+
+
+
+            const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+            const gradient = document.createElementNS("http://www.w3.org/2000/svg", "linearGradient");
+            gradient.setAttribute("id", "grad1");
+            gradient.setAttribute("x1", "100%");
+            gradient.setAttribute("y1", "0%");
+            gradient.setAttribute("x2", "100%");
+            gradient.setAttribute("y2", "100%"); // vertical
+
+            const stop1 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+            stop1.setAttribute("offset", "0%");
+            stop1.setAttribute("stop-color", "white");
+            stop1.setAttribute("stop-opacity", "0");
+
+            const stop2 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+            stop2.setAttribute("offset", "10%");
+            stop2.setAttribute("stop-color", "white");
+            stop2.setAttribute("stop-opacity", "1");
+
+            const stop3 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+            stop3.setAttribute("offset", "100%");
+            stop3.setAttribute("stop-color", "white");
+            stop3.setAttribute("stop-opacity", "1");
+
+            gradient.appendChild(stop1);
+            gradient.appendChild(stop2);
+            gradient.appendChild(stop3);
+            defs.appendChild(gradient);
+            svg.appendChild(defs);
+
+
+
+            const line1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            const line2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            const line3 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            const line4 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+
+            line1.setAttributeNS(null, 'style', 'stroke:url(#grad1);stroke-width:2');
+            line2.setAttributeNS(null, 'style', 'stroke:white;stroke-width:2');
+            line3.setAttributeNS(null, 'style', 'stroke:white;stroke-width:2');
+            line4.setAttributeNS(null, 'style', 'stroke:white;stroke-width:2');
+
+
+            const x0 = 3*width/4;
+            const x1 = 5*width/6;
+            const y0 = 0;
+            const y1 = height*0.585 - 14;
+            const y2 = height*0.585;
+            const y3 = height*0.585 + 14;
+            const y4 = height;
+
+
+            line1.setAttributeNS(null, "x1", `${x0}`);
+            line1.setAttributeNS(null, "x2", `${x0}`);
+            line1.setAttributeNS(null, "y1", `${y0}`);
+            line1.setAttributeNS(null, "y2", `${y1}`);
+
+            line2.setAttributeNS(null, "x1", `${x0}`);
+            line2.setAttributeNS(null, "x2", `${x0}`);
+            line2.setAttributeNS(null, "y1", `${y1}`);
+            line2.setAttributeNS(null, "y2", `${y2}`);
+            
+            line3.setAttributeNS(null, "x1", `${x0}`);
+            line3.setAttributeNS(null, "x2", `${x0}`);
+            line3.setAttributeNS(null, "y1", `${y2}`);
+            line3.setAttributeNS(null, "y2", `${y3}`);
+
+            line4.setAttributeNS(null, "x1", `${x0}`);
+            line4.setAttributeNS(null, "x2", `${x0}`);
+            line4.setAttributeNS(null, "y1", `${y3}`);
+            line4.setAttributeNS(null, "y2", `${y4}`);
+
+
+            svg.appendChild(line1);
+            svg.appendChild(line2);
+            svg.appendChild(line3);
+            svg.appendChild(line4);
+
+        }
+
+        straightLine();
+
+        function fillUL() {
+            const ul = document.getElementById("sidebar");
+
+            //const lim = 
+
+
+            //for(var i=0; i<7; i++){
+
+            //}
+        }
+        
+        function setViewportSize(id, idsvg) {
+            const svg = document.getElementById(idsvg);
+            const container = document.getElementById(id);
+            const rect = container.getBoundingClientRect();
+            const left = rect.left;
+            const top = rect.top;
+            const width = rect.width;
+            const height = rect.height;
+
+
+            //console.log(`${left} ${top} ${width} ${height}`);
+            
+            //svg.setAttribute('viewBox', `${left} ${top} ${width} ${height}`);
+            svg.setAttribute('width', `${width}`);
+            svg.setAttribute('height', `${height}`);
+            svg.innerHTML = '';
+
+            const lim = Math.floor(height/11.1);
+
+            console.log(`${window.innerHeight} ${height} ${lim}`);
+
+
+            for(var i=0; i<lim; i++) {
+                const svgImage = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+                let str = `${idsvg}bar`;
+                if(i==0) {
+                    svgImage.setAttributeNS(null, 'opacity', `33%`);
+                }
+                if(i==1) {
+                    svgImage.setAttributeNS(null, 'opacity', `66%`);
+                }
+                if(i==lim-2) {
+                    svgImage.setAttributeNS(null, 'opacity', `66%`);
+                }
+                if(i==lim-1) {
+                    svgImage.setAttributeNS(null, 'opacity', `33%`);
+                }
+                svgImage.setAttributeNS(null, 'id', `${str}${i}`);
+                svgImage.setAttributeNS(null, 'href', 'assets/bar.svg');
+                svgImage.setAttributeNS(null, 'dominant-baseline', 'middle');
+                svgImage.setAttributeNS(null, 'text-anchor', 'middle');
+                svgImage.setAttributeNS(null, 'x', "50%");
+                svgImage.setAttributeNS(null, 'y', i*11);
+                svg.appendChild(svgImage);
+            }
+        }
+
+
+        function appendSeta(y, id, idsvg) {
+            const svg = document.getElementById(idsvg);
+            const container = document.getElementById(id);
+            const rect = container.getBoundingClientRect();
+            const left = rect.left;
+            const top = rect.top;
+            const width = rect.width;
+            const height = rect.height;
+
+            let intDiv = Math.floor(y/11)-2;
+            const resto = y%11;
+            if(resto>=6) {
+                intDiv++;
+            }
+
+            const lim = Math.floor(height/11.1);
+
+            if(intDiv>=2 && intDiv+7<lim) {
+
+
+
+                const elem1 = document.getElementById(`${idsvg}bar${intDiv}`);
+                const elem2 = document.getElementById(`${idsvg}bar${intDiv+1}`);
+                const elem3 = document.getElementById(`${idsvg}bar${intDiv+2}`);
+                const elem4 = document.getElementById(`${idsvg}bar${intDiv+3}`);
+                const elem5 = document.getElementById(`${idsvg}bar${intDiv+4}`);
+                const elem6 = document.getElementById(`${idsvg}bar${intDiv+5}`);
+
+
+                elem1.remove();
+                elem2.remove();
+                elem3.remove();
+                elem4.remove();
+                elem5.remove();
+                elem6.remove();
+
+
+                const svgImage = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+                let str = `${idsvg}seta`;
+
+
+                svgImage.setAttributeNS(null, 'id', `${str}`);
+                svgImage.setAttributeNS(null, 'href', 'assets/seta.svg');
+                svgImage.setAttributeNS(null, 'dominant-baseline', 'middle');
+                svgImage.setAttributeNS(null, 'text-anchor', 'middle');
+                svgImage.setAttributeNS(null, 'x', "50%");
+                svgImage.setAttributeNS(null, 'y', intDiv*11);
+                svg.appendChild(svgImage);
+            }
+        }
+
+        function removeSeta(idsvg) {
+            const seta = document.getElementById(`${idsvg}seta`);
+            seta.remove();
+
+            //setViewportSize('vertDiv');
+            setViewportSize('vertDiv2');
+        }
+
+        //window.addEventListener("resize", () => {setViewportSize('vertDiv', 'svg');});
+        window.addEventListener("resize", () => {setViewportSize('vertDiv2', 'svg2');});
+
+        //window.addEventListener("resize", () => {appendSeta(ySeta, 'vertDiv', 'svg');});
+        window.addEventListener("resize", () => {appendSeta(ySeta, 'vertDiv2', 'svg2');});
+
+        document.addEventListener('DOMContentLoaded', function(){
+            var elements = document.getElementsByClassName('product-item-name');
+
+            for(var element of elements) {
+                var pw = element.querySelector('product-item-name-text').offsetWidth;
+                var cw = element.offsetWidth;
+
+                if(pw > cw) {
+                    element.classList.add('text-overflow');
+                }
+            }
+        });
+
+        //const svg = document.getElementById("svg");
+        //svg.addEventListener("click", () => {appendSeta(ySeta, 'vertDiv', 'svg');});
+
+        const svg2 = document.getElementById("svg2");
+        svg2.addEventListener("click", () => {appendSeta(ySeta, 'vertDiv2', 'svg2');});
+
+
+
+        //setViewportSize('vertDiv', 'svg');
+        setViewportSize('vertDiv2', 'svg2');
+        //appendSeta(ySeta, 'vertDiv', 'svg');
+        appendSeta(ySeta, 'vertDiv2', 'svg2');
+    </script>
+    </body>
+</html>
