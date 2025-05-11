@@ -100,104 +100,167 @@
 
         document.body.style.backgroundImage = `url('assets/bg/${bg}.png')`;
 
-
         const ySeta = 200;
 
         function straightLine() {
             const svg = document.getElementById("svg");
             const container = document.getElementById("vertDiv");
             const rect = container.getBoundingClientRect();
-            const left = rect.left;
-            const top = rect.top;
             const width = rect.width;
             const height = rect.height;
-
 
             svg.setAttribute('width', `${width}`);
             svg.setAttribute('height', `${height}`);
 
+            while (svg.firstChild) {
+                svg.removeChild(svg.firstChild);
+            }
 
-
+            ////////////// gradiente 1ª linha
             const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
-            const gradient = document.createElementNS("http://www.w3.org/2000/svg", "linearGradient");
-            gradient.setAttribute("id", "grad1");
-            gradient.setAttribute("x1", "100%");
-            gradient.setAttribute("y1", "0%");
-            gradient.setAttribute("x2", "100%");
-            gradient.setAttribute("y2", "100%"); // vertical
+            const gradientTop = document.createElementNS("http://www.w3.org/2000/svg", "linearGradient");
+            gradientTop.setAttribute("id", "gradTop");
+            gradientTop.setAttribute("x1", "0%");
+            gradientTop.setAttribute("y1", "0%");
+            gradientTop.setAttribute("x2", "0%");
+            gradientTop.setAttribute("y2", "100%");
 
-            const stop1 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
-            stop1.setAttribute("offset", "0%");
-            stop1.setAttribute("stop-color", "white");
-            stop1.setAttribute("stop-opacity", "0");
+            const stopA1 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+            stopA1.setAttribute("offset", "0%");
+            stopA1.setAttribute("stop-color", "white");
+            stopA1.setAttribute("stop-opacity", "0");
 
-            const stop2 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
-            stop2.setAttribute("offset", "10%");
-            stop2.setAttribute("stop-color", "white");
-            stop2.setAttribute("stop-opacity", "1");
+            const stopA2 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+            stopA2.setAttribute("offset", "25%");
+            stopA2.setAttribute("stop-color", "white");
+            stopA2.setAttribute("stop-opacity", "1");
 
-            const stop3 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
-            stop3.setAttribute("offset", "100%");
-            stop3.setAttribute("stop-color", "white");
-            stop3.setAttribute("stop-opacity", "1");
+            const stopA3 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+            stopA3.setAttribute("offset", "100%");
+            stopA3.setAttribute("stop-color", "white");
+            stopA3.setAttribute("stop-opacity", "1");
 
-            gradient.appendChild(stop1);
-            gradient.appendChild(stop2);
-            gradient.appendChild(stop3);
-            defs.appendChild(gradient);
+            gradientTop.appendChild(stopA1);
+            gradientTop.appendChild(stopA2);
+            gradientTop.appendChild(stopA3);
+
+            ////////////// gradiente 4ª linha
+            const gradientBottom = document.createElementNS("http://www.w3.org/2000/svg", "linearGradient");
+            gradientBottom.setAttribute("id", "gradBottom");
+            gradientBottom.setAttribute("x1", "0%");
+            gradientBottom.setAttribute("y1", "0%");
+            gradientBottom.setAttribute("x2", "0%");
+            gradientBottom.setAttribute("y2", "100%");
+
+            const stopB1 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+            stopB1.setAttribute("offset", "0%");
+            stopB1.setAttribute("stop-color", "white");
+            stopB1.setAttribute("stop-opacity", "1");
+
+            const stopB2 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+            stopB2.setAttribute("offset", "75%");
+            stopB2.setAttribute("stop-color", "white");
+            stopB2.setAttribute("stop-opacity", "1");
+
+            const stopB3 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+            stopB3.setAttribute("offset", "100%");
+            stopB3.setAttribute("stop-color", "white");
+            stopB3.setAttribute("stop-opacity", "0");
+
+            gradientBottom.appendChild(stopB1);
+            gradientBottom.appendChild(stopB2);
+            gradientBottom.appendChild(stopB3);
+
+            defs.appendChild(gradientTop);
+            defs.appendChild(gradientBottom);
             svg.appendChild(defs);
 
-
-
-            const line1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-            const line2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-            const line3 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-            const line4 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-
-            line1.setAttributeNS(null, 'style', 'stroke:url(#grad1);stroke-width:2');
-            line2.setAttributeNS(null, 'style', 'stroke:white;stroke-width:2');
-            line3.setAttributeNS(null, 'style', 'stroke:white;stroke-width:2');
-            line4.setAttributeNS(null, 'style', 'stroke:white;stroke-width:2');
-
-
-            const x0 = 3*width/4;
-            const x1 = 5*width/6;
+            // Coordenadas
+            const x0 = width/2;
             const y0 = 0;
-            const y1 = height*0.585 - 14;
+            const y1 = height*0.585-14;
             const y2 = height*0.585;
-            const y3 = height*0.585 + 14;
+            const y3 = height*0.585+14;
             const y4 = height;
 
-
-            line1.setAttributeNS(null, "x1", `${x0}`);
-            line1.setAttributeNS(null, "x2", `${x0}`);
-            line1.setAttributeNS(null, "y1", `${y0}`);
-            line1.setAttributeNS(null, "y2", `${y1}`);
-
-            line2.setAttributeNS(null, "x1", `${x0}`);
-            line2.setAttributeNS(null, "x2", `${x0}`);
-            line2.setAttributeNS(null, "y1", `${y1}`);
-            line2.setAttributeNS(null, "y2", `${y2}`);
-            
-            line3.setAttributeNS(null, "x1", `${x0}`);
-            line3.setAttributeNS(null, "x2", `${x0}`);
-            line3.setAttributeNS(null, "y1", `${y2}`);
-            line3.setAttributeNS(null, "y2", `${y3}`);
-
-            line4.setAttributeNS(null, "x1", `${x0}`);
-            line4.setAttributeNS(null, "x2", `${x0}`);
-            line4.setAttributeNS(null, "y1", `${y3}`);
-            line4.setAttributeNS(null, "y2", `${y4}`);
-
-
+            // 1ª linha
+            const line1 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            line1.setAttribute("x", x0-0.55);
+            line1.setAttribute("y", y0);
+            line1.setAttribute("width", 1.1);
+            line1.setAttribute("height", y1);
+            line1.setAttribute("fill", "url(#gradTop)");
+            line1.setAttribute('id', 'line1');
             svg.appendChild(line1);
-            svg.appendChild(line2);
-            svg.appendChild(line3);
-            svg.appendChild(line4);
 
+            // 2ª linha
+            const line2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line2.setAttribute('x1', `${x0}`);
+            line2.setAttribute('x2', `${x0}`);
+            line2.setAttribute('y1', `${y1}`);
+            line2.setAttribute('y2', `${y2}`);
+            line2.setAttribute('stroke', "white");
+            line2.setAttribute('stroke-width', 1.1);
+            line2.setAttribute('id', 'line2');
+            svg.appendChild(line2);
+
+            // 3ª linha
+            const line3 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line3.setAttribute('x1', `${x0}`);
+            line3.setAttribute('x2', `${x0}`);
+            line3.setAttribute('y1', `${y2}`);
+            line3.setAttribute('y2', `${y3}`);
+            line3.setAttribute('stroke', "white");
+            line3.setAttribute('stroke-width', 1.1);
+            line3.setAttribute('id', 'line3');
+            svg.appendChild(line3);
+
+            // 4ª linha
+            const line4 = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            line4.setAttribute("x", x0-0.55);
+            line4.setAttribute("y", y3);
+            line4.setAttribute("width", 1.1);
+            line4.setAttribute("height", y4-y3);
+            line4.setAttribute("fill", "url(#gradBottom)");
+            line4.setAttribute('id', 'line4');
+            svg.appendChild(line4);
         }
 
-        straightLine();
+        function appendComplexSeta() {
+            const svg = document.getElementById("svg");
+            const container = document.getElementById("vertDiv");
+            const rect = container.getBoundingClientRect();
+            const width = rect.width;
+            const height = rect.height;
+
+            const x0 = width/2;
+            const y1 = height*0.585-13;
+            const y3 = height*0.585+13;
+
+            const line2 = document.getElementById('line2');
+            const line3 = document.getElementById('line3');
+
+            line2.setAttribute('x2', `${x0+15}`);
+            line3.setAttribute('x1', `${x0+15}`);
+
+            const img = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+            img.setAttributeNS(null, 'href', 'assets/seta2.svg'); 
+            img.setAttributeNS(null, 'id', 'complex_seta'); 
+            img.setAttributeNS(null, 'x', `${x0-18}`);
+            img.setAttributeNS(null, 'y', `${y1}`);
+            img.setAttributeNS(null, 'width', 33);
+            img.setAttributeNS(null, 'height', `${y3 - y1}`);
+            svg.appendChild(img);
+        }
+
+        function removeComplexSeta() {
+            const seta = document.getElementById('complex_seta');
+            const line2 = document.getElementById('line2');
+            const line3 = document.getElementById('line3');
+            line2.setAttribute('x2', `${parseFloat(line2.getAttribute('x2'))-15}`);
+            line3.setAttribute('x1', `${parseFloat(line3.getAttribute('x1'))-15}`);
+            seta.remove();
+        }
 
         function fillUL() {
             const ul = document.getElementById("sidebar");
@@ -257,7 +320,6 @@
             }
         }
 
-
         function appendSeta(y, id, idsvg) {
             const svg = document.getElementById(idsvg);
             const container = document.getElementById(id);
@@ -276,16 +338,12 @@
             const lim = Math.floor(height/11.1);
 
             if(intDiv>=2 && intDiv+7<lim) {
-
-
-
                 const elem1 = document.getElementById(`${idsvg}bar${intDiv}`);
                 const elem2 = document.getElementById(`${idsvg}bar${intDiv+1}`);
                 const elem3 = document.getElementById(`${idsvg}bar${intDiv+2}`);
                 const elem4 = document.getElementById(`${idsvg}bar${intDiv+3}`);
                 const elem5 = document.getElementById(`${idsvg}bar${intDiv+4}`);
                 const elem6 = document.getElementById(`${idsvg}bar${intDiv+5}`);
-
 
                 elem1.remove();
                 elem2.remove();
@@ -294,10 +352,8 @@
                 elem5.remove();
                 elem6.remove();
 
-
                 const svgImage = document.createElementNS('http://www.w3.org/2000/svg', 'image');
                 let str = `${idsvg}seta`;
-
 
                 svgImage.setAttributeNS(null, 'id', `${str}`);
                 svgImage.setAttributeNS(null, 'href', 'assets/seta.svg');
@@ -312,8 +368,6 @@
         function removeSeta(idsvg) {
             const seta = document.getElementById(`${idsvg}seta`);
             seta.remove();
-
-            //setViewportSize('vertDiv');
             setViewportSize('vertDiv2');
         }
 
@@ -322,6 +376,9 @@
 
         //window.addEventListener("resize", () => {appendSeta(ySeta, 'vertDiv', 'svg');});
         window.addEventListener("resize", () => {appendSeta(ySeta, 'vertDiv2', 'svg2');});
+
+        window.addEventListener("resize", straightLine);
+        window.addEventListener("resize", appendComplexSeta);
 
         document.addEventListener('DOMContentLoaded', function(){
             var elements = document.getElementsByClassName('product-item-name');
@@ -341,13 +398,14 @@
 
         const svg2 = document.getElementById("svg2");
         svg2.addEventListener("click", () => {appendSeta(ySeta, 'vertDiv2', 'svg2');});
-
-
+        
 
         //setViewportSize('vertDiv', 'svg');
         setViewportSize('vertDiv2', 'svg2');
         //appendSeta(ySeta, 'vertDiv', 'svg');
         appendSeta(ySeta, 'vertDiv2', 'svg2');
+        straightLine();
+        appendComplexSeta();
     </script>
     </body>
 </html>
