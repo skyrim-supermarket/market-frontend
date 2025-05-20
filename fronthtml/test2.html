@@ -29,7 +29,7 @@
                 </svg>
             </div>
 
-            <div class="container2">
+            <div class="container2 containerWithSelection">
                 <div class="navbar">
                         <input type="text" />
                 </div>
@@ -40,8 +40,8 @@
                         sed aliquam nulla pharetra. Donec faucibus arcu ipsum, ut auctor sem hendrerit id.
                 </div>
 
-                <div class="product-list">
-                    <div class="product-item selected">
+                <div id="product-list" class="product-list productNotSelected">
+                    <div id="product1" class="product-item">
                         <div class="product-item-image">
                             <img src="assets/bone-arrow.png"/>
                         </div>
@@ -52,39 +52,103 @@
                             <div class="product-item-price-gold"><img src="assets/gold.png"/></div>
                             <div class="product-item-price-value"><span>300</span></div>
                         </div>
-                    </div>    
-                    <div class="product-item">
+                    </div>  
+                    <div id="product2" class="product-item">
                         <div class="product-item-image">
                             <img src="assets/bone-arrow.png"/>
                         </div>
                         <div class="product-item-name">
-                            <span class="product-item-name-text">Bone Arrow</span>
+                            <span class="product-item-name-text">Shadowed Tower Netch Leather Shield</span>
                         </div>
                         <div class="product-item-price">
                             <div class="product-item-price-gold"><img src="assets/gold.png"/></div>
                             <div class="product-item-price-value"><span>300</span></div>
                         </div>
-                    </div> 
-                    <div class="product-item">
+                    </div>  
+                    <div id="product3" class="product-item">
                         <div class="product-item-image">
                             <img src="assets/bone-arrow.png"/>
                         </div>
                         <div class="product-item-name">
-                            <span class="product-item-name-text">Bone Arrow</span>
+                            <span class="product-item-name-text">Shadowed Tower Netch Leather Shield</span>
                         </div>
                         <div class="product-item-price">
                             <div class="product-item-price-gold"><img src="assets/gold.png"/></div>
                             <div class="product-item-price-value"><span>300</span></div>
                         </div>
-                    </div>               
-                </div>
-
-                <div id="vertDiv2">
-                    <svg id="svg2" xmlns="http://www.w3.org/2000/svg"></svg>
-                </div>
-
-                <div class="product-info">
-                        Interdum et malesuada fames ac ante ipsum primis in faucibus. 
+                    </div>  
+                    <div id="product4" class="product-item">
+                        <div class="product-item-image">
+                            <img src="assets/bone-arrow.png"/>
+                        </div>
+                        <div class="product-item-name">
+                            <span class="product-item-name-text">Shadowed Tower Netch Leather Shield</span>
+                        </div>
+                        <div class="product-item-price">
+                            <div class="product-item-price-gold"><img src="assets/gold.png"/></div>
+                            <div class="product-item-price-value"><span>300</span></div>
+                        </div>
+                    </div>  
+                    <div id="product5" class="product-item">
+                        <div class="product-item-image">
+                            <img src="assets/bone-arrow.png"/>
+                        </div>
+                        <div class="product-item-name">
+                            <span class="product-item-name-text">Shadowed Tower Netch Leather Shield</span>
+                        </div>
+                        <div class="product-item-price">
+                            <div class="product-item-price-gold"><img src="assets/gold.png"/></div>
+                            <div class="product-item-price-value"><span>300</span></div>
+                        </div>
+                    </div>  
+                    <div id="product6" class="product-item">
+                        <div class="product-item-image">
+                            <img src="assets/bone-arrow.png"/>
+                        </div>
+                        <div class="product-item-name">
+                            <span class="product-item-name-text">Shadowed Tower Netch Leather Shield</span>
+                        </div>
+                        <div class="product-item-price">
+                            <div class="product-item-price-gold"><img src="assets/gold.png"/></div>
+                            <div class="product-item-price-value"><span>300</span></div>
+                        </div>
+                    </div>  
+                    <div id="product7" class="product-item">
+                        <div class="product-item-image">
+                            <img src="assets/bone-arrow.png"/>
+                        </div>
+                        <div class="product-item-name">
+                            <span class="product-item-name-text">Shadowed Tower Netch Leather Shield</span>
+                        </div>
+                        <div class="product-item-price">
+                            <div class="product-item-price-gold"><img src="assets/gold.png"/></div>
+                            <div class="product-item-price-value"><span>300</span></div>
+                        </div>
+                    </div>  
+                    <div id="product8" class="product-item">
+                        <div class="product-item-image">
+                            <img src="assets/bone-arrow.png"/>
+                        </div>
+                        <div class="product-item-name">
+                            <span class="product-item-name-text">Shadowed Tower Netch Leather Shield</span>
+                        </div>
+                        <div class="product-item-price">
+                            <div class="product-item-price-gold"><img src="assets/gold.png"/></div>
+                            <div class="product-item-price-value"><span>300</span></div>
+                        </div>
+                    </div>  
+                    <div id="product9" class="product-item">
+                        <div class="product-item-image">
+                            <img src="assets/bone-arrow.png"/>
+                        </div>
+                        <div class="product-item-name">
+                            <span class="product-item-name-text">Shadowed Tower Netch Leather Shield</span>
+                        </div>
+                        <div class="product-item-price">
+                            <div class="product-item-price-gold"><img src="assets/gold.png"/></div>
+                            <div class="product-item-price-value"><span>300</span></div>
+                        </div>
+                    </div>         
                 </div>
             </div>
 
@@ -102,6 +166,8 @@
         const types = ["AMMUNITION", "ARMOR", "BOOKS", "CLOTHING", "FOOD", "INGREDIENTS", "MISCELLANEOUS", "ORES", "POTIONS", "SOUL GEMS", "WEAPONS"];
 
         const ySeta = 200;
+
+
 
         function straightLine() {
             const svg = document.getElementById("svg");
@@ -411,10 +477,10 @@
         }
 
         //window.addEventListener("resize", () => {setViewportSize('vertDiv', 'svg');});
-        window.addEventListener("resize", () => {setViewportSize('vertDiv2', 'svg2');});
+        //window.addEventListener("resize", () => {setViewportSize('vertDiv2', 'svg2');});
 
         //window.addEventListener("resize", () => {appendSeta(ySeta, 'vertDiv', 'svg');});
-        window.addEventListener("resize", () => {appendSeta(ySeta, 'vertDiv2', 'svg2');});
+        //window.addEventListener("resize", () => {appendSeta(ySeta, 'vertDiv2', 'svg2');});
 
         window.addEventListener("resize", straightLine);
         window.addEventListener("resize", appendComplexSeta);
@@ -423,11 +489,13 @@
             var elements = document.getElementsByClassName('product-item-name');
 
             for(var element of elements) {
-                var pw = element.querySelector('product-item-name-text').offsetWidth;
+                var elementChild = element.querySelector('.product-item-name-text');
+
+                var pw = elementChild.offsetWidth;
                 var cw = element.offsetWidth;
 
                 if(pw > cw) {
-                    element.classList.add('text-overflow');
+                    elementChild.classList.add('text-overflow');
                 }
             }
         });
@@ -438,18 +506,35 @@
         //const svg = document.getElementById("svg");
         //svg.addEventListener("click", () => {appendSeta(ySeta, 'vertDiv', 'svg');});
 
-        const svg2 = document.getElementById("svg2");
-        svg2.addEventListener("click", () => {appendSeta(ySeta, 'vertDiv2', 'svg2');});
+        //const svg2 = document.getElementById("svg2");
+        //svg2.addEventListener("click", () => {appendSeta(ySeta, 'vertDiv2', 'svg2');});
 
         const ul = document.getElementById("classes-ul");
+        const productList = document.getElementById("product-list");
 
-        let hover = false;
+        const rect = productList.getBoundingClientRect();
+
+        console.log(rect.height);
+
+        let hoverClasses = false;
+        let hoverProductList = false;
+
+        let testeScrollDown = false;
+        let testeScrollUp = false;
+
         let scrollDown = false;
         let scrollUp = false;
 
         ul.addEventListener("mouseenter", () => {
             console.log("entrou");
-            hover = true;
+            hoverClasses = true;
+            tryToScrollDown();
+            tryToScrollUp();
+        });
+
+        productList.addEventListener("mouseenter", () => {
+            console.log("entrou");
+            hoverProductList = true;
             tryToScrollDown();
             tryToScrollUp();
         });
@@ -457,7 +542,13 @@
 
         ul.addEventListener("mouseleave", () => {
             console.log("saiu");
-            hover = false;
+            hoverClasses = false;
+        });
+
+
+        productList.addEventListener("mouseleave", () => {
+            console.log("saiu");
+            hoverProductList = false;
         });
 
         window.addEventListener("wheel", function(event) {
@@ -475,7 +566,7 @@
         });
 
         function tryToScrollDown() {
-            if(scrollDown && hover) {
+            if(scrollDown && hoverClasses) {
                 i++;
 
                 fillUL(types, i);
@@ -485,7 +576,7 @@
         }
 
         function tryToScrollUp() {
-            if(scrollUp && hover) {
+            if(scrollUp && hoverClasses) {
                 i--;
 
                 fillUL(types, i);
@@ -495,10 +586,77 @@
         }
         
 
+        var selected = 0;
+        const products = document.querySelectorAll('.product-item');
+        products.forEach(product => {
+            product.addEventListener('click', () => {
+                selectedProduct(product);
+            });
+        });
+
+        function selectedProduct(product) {
+            if(selected==0) {
+                console.log('fdçnfd');
+                product.classList.add('selected');
+                const container = document.querySelector('.container2');
+                container.classList.remove('containerWithoutSelection');
+                container.classList.add('containerWithSelection');
+
+                const productList = document.getElementById('product-list');
+                productList.classList.remove("productNotSelected");
+                productList.classList.add("productSelected");
+
+                const newDivVert = document.createElement('div');
+                newDivVert.id = "vertDiv2";
+
+                const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                svg.id = "svg2";
+                
+                newDivVert.appendChild(svg);
+                
+                const newDivProduct = document.createElement('div');
+                newDivProduct.id = "product-info";
+                newDivProduct.classList.add("product-info");
+                newDivProduct.innerHTML = `${product.id} selecionado`;
+                
+                container.appendChild(newDivVert);
+                container.appendChild(newDivProduct);
+                setViewportSize("vertDiv2", "svg2");
+                appendSeta(ySeta, "vertDiv2", "svg2");
+                selected = 1;
+            } else {
+                if(product.classList.contains('selected')) {
+                    const vertDiv = document.getElementById("vertDiv2");
+                    const productInfo = document.getElementById("product-info");
+
+                    vertDiv.remove();
+                    productInfo.remove();
+
+                    const container = document.querySelector('.container2');
+                    container.classList.remove('containerWithSelection');
+                    container.classList.add('containerWithoutSelection');
+
+                    const productList = document.getElementById('product-list');
+                    productList.classList.remove("productNotSelected");
+                    productList.classList.add("productSelected");
+                    selected = 0;
+                } else {
+                    const currentlySelected = document.querySelector('.selected');
+
+                    currentlySelected.classList.remove('selected');
+                    product.classList.add('selected');
+
+                    const productInfo = document.getElementById("product-info");
+
+                    productInfo.innerHTML = `${product.id} selecionado`;
+                }
+            }
+        }
+
         //setViewportSize('vertDiv', 'svg');
-        setViewportSize('vertDiv2', 'svg2');
+        //setViewportSize('vertDiv2', 'svg2');
         //appendSeta(ySeta, 'vertDiv', 'svg');
-        appendSeta(ySeta, 'vertDiv2', 'svg2');
+        //appendSeta(ySeta, 'vertDiv2', 'svg2');
         straightLine();
         appendComplexSeta();
 
