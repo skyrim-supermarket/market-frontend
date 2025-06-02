@@ -1,0 +1,126 @@
+/* src/styles/style.css */
+
+@font-face {
+    font-family: Futura;
+    src: url('/public/assets/fonts/futura.woff') format("WOFF"); /* O "/" no início indica a raiz do diretório public */
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Futura;
+    src: url('/public//assets/fonts/futuraHeavy.woff') format("WOFF");
+    font-weight: bold;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    font-size: 1.8em;
+    font-family: Futura;
+    font-weight: 400;
+    color: white;
+    background-color: black;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.container-index {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 12% 4% 84%;
+    grid-template-rows: 98% 2%;
+    overflow: hidden;
+}
+
+.container2 {
+    display: grid;
+    height: 100%;
+    grid-template-rows: 10% 7% 83%;
+    overflow: hidden;
+}
+
+.containerWithoutSelection {
+    grid-template-columns: 48% 4% 48%;
+}
+
+.containerWithSelection {
+    grid-template-columns: 100%;
+}
+
+.navbar {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.filters {
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+.rodape {
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+input[type="email"], input[type="password"], input[type="text"] {
+    background-color: black;
+    width: 14em;
+    font-family: Futura;
+    font-weight: 400;
+    color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid white;
+    font-size: 1.8em;
+}
+
+input[type="submit"] {
+    display: none;
+}
+
+::placeholder {
+    font-family: Futura;
+    font-weight: 400;
+    color: white;
+}
+
+.buttonText {
+    fill: white;
+    font-weight: 400;
+    font-size: 1.6em;
+}
+
+.button {
+    width: 14em;
+    height: auto;
+    transition: 0.3s;
+}
+
+.button:hover {
+    cursor: pointer;
+    opacity: 75%;
+}
+
+.registerTitle { 
+    font-weight: 400;
+    font-size: 1.7em;
+}
+
+.cell { 
+    color: white;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+}
+
+label { 
+    display: block;
+    margin-bottom: 1em;
+}

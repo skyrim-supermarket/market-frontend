@@ -1,0 +1,70 @@
+/* src/styles/Sidebar.css */
+
+ul {
+    list-style-type: none;
+    text-align: end;
+    padding: 0;
+    margin: 0;
+}
+
+li.sideBarItem:not(:last-child) {
+    margin-bottom: 20%;
+}
+
+.sideBarItem > a {
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.sideBarItem > a:hover {
+    font-size: 110%;
+    text-shadow: 0 0 10px white;
+}
+
+.centerSelected {
+    font-size: 1.9vw;
+    text-shadow: 0 0 3px white;
+}
+
+.center {
+    font-size: 1.7vw;
+}
+
+.edge1 {
+    font-size: 1.5vw;
+    opacity: 75%;
+}
+
+.edge2 {
+    font-size: 1.3vw;
+    opacity: 50%;
+}
+
+.edge3 {
+    font-size: 1.1vw;
+    opacity: 25%;
+}
+
+.sidebar {
+    display: grid;
+    grid-template-rows: 17% 83%;
+}
+
+.logo {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.productClasses {
+    margin-top: auto;
+    margin-bottom: auto;
+    overflow: hidden;
+}
+
+#vertDiv { /* manter aqui já que pertence à coluna da sidebar visualmente */
+    width: 100%;
+    height: 100%;
+    /*border: 1px solid white;*/
+}

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Login</title>
+        <link rel="stylesheet" href="css/style2.css">
+        <link rel="icon" href="assets/logoBlack.svg">
+
+        
+    </head>
+    <body>
+        <div class="container-index">
+            
+            <ul class="sidebar">
+                <li><a class="profile" href="www.google.com">     <i class="icon-user"></i>Home</a></li>
+                <li><a class="messages" href="#"><i class="icon-envelope-alt"></i>Adventure<em>5</em></a></li>
+                <li><a class="settings" href="#">  <i class="icon-cog"></i>Horror</a></li>
+                <li><a class="logout" href="#">    <i class="icon-signout"></i>SciFi</a></li>
+                <li><a class="western" href="#">    <i class="icon-signout"></i>Western</a></li>
+                <li><a class="fantasy" href="#">    <i class="icon-signout"></i>Fantasy</a></li>
+            </ul>
+
+            <div id="vertDiv" style="height: 50%;">
+                <svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg>
+            </div>
+
+            <nav class="navbar">
+                 <!-- content -->
+                 Donec faucibus dolor mi, id vestibulum arcu ornare et. Ut sit amet ipsum purus. Nulla ut condimentum nisl. 
+                 Nunc dictum diam id ultrices faucibus. Maecenas eget auctor arcu. Pellentesque dapibus enim vel turpis tristique, 
+                 sed aliquam nulla pharetra. Donec faucibus arcu ipsum, ut auctor sem hendrerit id.
+            </nav>
+
+            <main class="content">
+                <section class="product-list">
+                     <!-- content -->
+                     Donec viverra tellus ut enim ornare, eu molestie erat sagittis. Phasellus gravida sapien mauris, vitae egestas 
+                     lacus ultricies non. Vestibulum malesuada, dui at gravida placerat, sem dolor tristique felis, in aliquam augue ante id urna. 
+                     
+                </section>
+
+                <div id="vertDiv" style="height: 50%;">
+                    <svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg>
+                </div>
+
+                <section class="product-info">
+                     <!-- content -->
+                     Interdum et malesuada fames ac ante ipsum primis in faucibus. 
+                </section>
+            </main>
+        </div>
+
+
+
+
+
+
+
+
+
+
+        
+    <script>
+        const ySeta = 200;
+        
+        function setViewportSize() {
+            const svg = document.getElementById('svg');
+            const container = document.getElementById('vertDiv');
+            const rect = container.getBoundingClientRect();
+            const left = rect.left;
+            const top = rect.top;
+            const width = rect.width;
+            const height = rect.height;
+
+
+            //console.log(`${left} ${top} ${width} ${height}`);
+            
+            //svg.setAttribute('viewBox', `${left} ${top} ${width} ${height}`);
+            svg.setAttribute('width', `${width}`);
+            svg.setAttribute('height', `${height}`);
+            svg.innerHTML = '';
+
+            const lim = Math.floor(height/11.1);
+
+            console.log(`${window.innerHeight} ${height} ${lim}`);
+
+
+            for(var i=0; i<lim; i++) {
+                const svgImage = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+                let str = "bar";
+                if(i==0) {
+                    svgImage.setAttributeNS(null, 'opacity', `33%`);
+                }
+                if(i==1) {
+                    svgImage.setAttributeNS(null, 'opacity', `66%`);
+                }
+                if(i==lim-2) {
+                    svgImage.setAttributeNS(null, 'opacity', `66%`);
+                }
+                if(i==lim-1) {
+                    svgImage.setAttributeNS(null, 'opacity', `33%`);
+                }
+                svgImage.setAttributeNS(null, 'id', `${str}${i}`);
+                svgImage.setAttributeNS(null, 'href', 'assets/bar.svg');
+                svgImage.setAttributeNS(null, 'dominant-baseline', 'middle');
+                svgImage.setAttributeNS(null, 'text-anchor', 'middle');
+                svgImage.setAttributeNS(null, 'x', "50%");
+                svgImage.setAttributeNS(null, 'y', i*11);
+                svg.appendChild(svgImage);
+            }
+        }
+
+
+        function appendSeta(y) {
+            const svg = document.getElementById('svg');
+            const container = document.getElementById('vertDiv');
+            const rect = container.getBoundingClientRect();
+            const left = rect.left;
+            const top = rect.top;
+            const width = rect.width;
+            const height = rect.height;
+
+            let intDiv = Math.floor(y/11)-2;
+            const resto = y%11;
+            if(resto>=6) {
+                intDiv++;
+            }
+
+            const lim = Math.floor(height/11.1);
+
+            if(intDiv>=2 && intDiv+7<lim) {
+
+
+
+                const elem1 = document.getElementById(`bar${intDiv}`);
+                const elem2 = document.getElementById(`bar${intDiv+1}`);
+                const elem3 = document.getElementById(`bar${intDiv+2}`);
+                const elem4 = document.getElementById(`bar${intDiv+3}`);
+                const elem5 = document.getElementById(`bar${intDiv+4}`);
+                const elem6 = document.getElementById(`bar${intDiv+5}`);
+
+
+                elem1.remove();
+                elem2.remove();
+                elem3.remove();
+                elem4.remove();
+                elem5.remove();
+                elem6.remove();
+
+
+                const svgImage = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+                let str = "seta";
+
+
+                svgImage.setAttributeNS(null, 'id', `${str}`);
+                svgImage.setAttributeNS(null, 'href', 'assets/seta.svg');
+                svgImage.setAttributeNS(null, 'dominant-baseline', 'middle');
+                svgImage.setAttributeNS(null, 'text-anchor', 'middle');
+                svgImage.setAttributeNS(null, 'x', "50%");
+                svgImage.setAttributeNS(null, 'y', intDiv*11);
+                svg.appendChild(svgImage);
+            }
+        }
+
+        function removeSeta() {
+            const seta = document.getElementById("seta");
+            seta.remove();
+
+            setViewportSize();
+        }
+
+        window.addEventListener("resize", setViewportSize);
+
+        window.addEventListener("resize", () => {appendSeta(ySeta);});
+
+        const svg = document.getElementById("svg");
+        svg.addEventListener("click", removeSeta);
+
+
+
+        setViewportSize();
+        appendSeta(ySeta);
+    </script>
+    </body>
+</html>

@@ -1,0 +1,10 @@
+/* src/styles/ProductInfo.css */
+
+#product-info {
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border-radius: 5px;
+    margin-left: 1%;
+    overflow-y: auto;
+}

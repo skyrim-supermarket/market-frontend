@@ -1,0 +1,68 @@
+<div id="page-wrapper" class="flex col">
+
+  <header class="box flex">
+    <div>[HEADER]</div>
+  </header>
+
+  <main class="flex scroller">
+    <nav class="box flex col">
+      <span class="caption">Menu</span>
+      <div class="scroller">
+        <ul>
+          <li><a href="#topic-1">Topic 1</a></li>
+          <li><a href="#topic-2">Topic 2</a></li>
+          <li><a href="#topic-3">Topic 3</a></li>
+          <li><a href="#topic-4">Topic 4</a></li>
+          <li><a href="#topic-5">Topic 5</a></li>
+          <li><a href="#topic-6">Topic 6</a></li>
+          <li><a href="#topic-7">Topic 7</a></li>
+          <li><a href="#topic-8">Topic 8</a></li>
+          <li><a href="#topic-9">Topic 9</a></li>
+          <li><a href="#topic-10">Topic 10</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <section class="box flex scroller ">
+      <article class="flex col">
+        <span class="caption">Title</span>
+        <div class="scroller">
+          <div class="content">
+            <p>Some things to notice:<br />
+              <br />
+            <ul>
+              <li>The vertical scrollbars have got space on both sides (realized by using an invisible think border)!</li>
+              <li>The menu has got a vertical spacebar, when it contains to many menu items to fit.</li>
+              <li>No page swifting takes place.</li>
+            </ul><br />
+            </p>
+            <h2 id="topic-1">Topic 1</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum sed elit quis pulvinar. Suspendisse augue velit, lacinia quis ante vitae, mattis pretium diam. Nam blandit nec elit sed imperdiet. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque ac pharetra enim. Nullam porta ac nisl vitae volutpat. In varius lacus non nulla mollis, ut sagittis augue aliquam. Nulla iaculis tortor non tellus commodo, sed euismod lacus posuere. Proin vitae tortor in sapien consectetur porta. Aenean semper ante est, nec sagittis risus mattis ut. Morbi posuere tellus fermentum felis volutpat, et accumsan dui venenatis. Cras mollis pulvinar erat. Quisque pulvinar ornare dui, vitae euismod lacus dictum eu.</p>
+            <h2 id="topic-2">Topic 2</h2>
+            <p>Mauris placerat purus eget turpis imperdiet consequat. Donec consequat quam semper nulla vestibulum pulvinar. Vestibulum nec blandit leo. Etiam hendrerit commodo bibendum. Sed consectetur, elit eu bibendum imperdiet, massa purus venenatis lectus, ut volutpat massa elit sed est. Vivamus et laoreet turpis. Nam a tempor est. In aliquam ligula nisi, ut imperdiet sem pellentesque ac. Nullam ac luctus orci. Maecenas et massa eget velit bibendum feugiat non rutrum sem. Ut placerat eros a leo varius, a porta justo bibendum. Etiam lacinia mattis diam, pharetra porttitor dui efficitur ut. Donec finibus quam vestibulum enim porta tempor. Fusce finibus lorem quis metus dapibus accumsan. Sed euismod sed ex ut finibus.</p>
+            <h2 id="topic-3">Topic 3</h2>
+            <p>Aliquam facilisis mattis neque vel venenatis. Morbi imperdiet lectus vitae ipsum bibendum malesuada. Vestibulum sed euismod sem, id iaculis urna. Pellentesque pellentesque, massa accumsan mollis molestie, nibh lacus luctus metus, sed hendrerit lacus mauris id erat. Nullam ut velit risus. Nulla sed consectetur tortor, sit amet mollis orci. Maecenas bibendum, velit posuere cursus rutrum, orci lorem auctor quam, id dignissim tellus purus vel nisi. Phasellus ornare vitae massa vitae gravida. Mauris dignissim aliquam sollicitudin. Nam porta et odio sed aliquam. Mauris in malesuada eros. Suspendisse eu diam erat. Integer ut enim pharetra, maximus justo ut, sagittis quam.</p>
+            <h2 id="topic-4">Topic 4</h2>
+            <p>Donec magna mauris, molestie ac vulputate id, sagittis at leo. Duis id tortor non elit aliquet tincidunt nec id urna. Etiam euismod diam massa, eu auctor sem vestibulum id. Maecenas accumsan, ligula et cursus rutrum, dolor nisi placerat lectus, eget dictum odio felis ac leo. Nunc vestibulum quis arcu nec volutpat. Quisque augue nulla, sodales vel sagittis vel, ultricies ac nulla. Sed ligula velit, molestie in nunc at, venenatis sagittis dolor. In risus sapien, sagittis eu lacus vitae, sodales cursus enim. Nunc sem velit, viverra eu imperdiet quis, semper vitae justo.</p>
+            <h2 id="topic-5">Topic 5</h2>
+            <p>Ut vitae dapibus sapien, in molestie mauris. Aliquam vel fermentum diam. Etiam et mauris at urna ultrices egestas eget eget dolor. Sed ullamcorper accumsan sem nec fringilla. Suspendisse sit amet ante a libero tincidunt placerat. Ut porttitor eget nulla sit amet lobortis. Maecenas diam quam, imperdiet quis ullamcorper eu, vehicula sit amet turpis. Praesent lacus massa, viverra et sodales nec, iaculis ac massa. Proin vulputate nunc non malesuada commodo. Praesent et volutpat velit. Quisque sed dui sed neque pellentesque porta. Ut aliquam, tellus at venenatis tempus, orci enim pretium ipsum, id volutpat sapien risus vitae nulla. Nunc ac placerat metus, et tempor purus. Etiam a nisl ultrices, porttitor nulla consectetur, bibendum eros. Ut at accumsan tellus.</p>
+            <h2 id="topic-6">Topic 6</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum sed elit quis pulvinar. Suspendisse augue velit, lacinia quis ante vitae, mattis pretium diam. Nam blandit nec elit sed imperdiet. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque ac pharetra enim. Nullam porta ac nisl vitae volutpat. In varius lacus non nulla mollis, ut sagittis augue aliquam. Nulla iaculis tortor non tellus commodo, sed euismod lacus posuere. Proin vitae tortor in sapien consectetur porta. Aenean semper ante est, nec sagittis risus mattis ut. Morbi posuere tellus fermentum felis volutpat, et accumsan dui venenatis. Cras mollis pulvinar erat. Quisque pulvinar ornare dui, vitae euismod lacus dictum eu.</p>
+            <h2 id="topic-7">Topic 7</h2>
+            <p>Mauris placerat purus eget turpis imperdiet consequat. Donec consequat quam semper nulla vestibulum pulvinar. Vestibulum nec blandit leo. Etiam hendrerit commodo bibendum. Sed consectetur, elit eu bibendum imperdiet, massa purus venenatis lectus, ut volutpat massa elit sed est. Vivamus et laoreet turpis. Nam a tempor est. In aliquam ligula nisi, ut imperdiet sem pellentesque ac. Nullam ac luctus orci. Maecenas et massa eget velit bibendum feugiat non rutrum sem. Ut placerat eros a leo varius, a porta justo bibendum. Etiam lacinia mattis diam, pharetra porttitor dui efficitur ut. Donec finibus quam vestibulum enim porta tempor. Fusce finibus lorem quis metus dapibus accumsan. Sed euismod sed ex ut finibus.</p>
+            <h2 id="topic-8">Topic 8</h2>
+            <p>Aliquam facilisis mattis neque vel venenatis. Morbi imperdiet lectus vitae ipsum bibendum malesuada. Vestibulum sed euismod sem, id iaculis urna. Pellentesque pellentesque, massa accumsan mollis molestie, nibh lacus luctus metus, sed hendrerit lacus mauris id erat. Nullam ut velit risus. Nulla sed consectetur tortor, sit amet mollis orci. Maecenas bibendum, velit posuere cursus rutrum, orci lorem auctor quam, id dignissim tellus purus vel nisi. Phasellus ornare vitae massa vitae gravida. Mauris dignissim aliquam sollicitudin. Nam porta et odio sed aliquam. Mauris in malesuada eros. Suspendisse eu diam erat. Integer ut enim pharetra, maximus justo ut, sagittis quam.</p>
+            <h2 id="topic-9">Topic 9</h2>
+            <p>Donec magna mauris, molestie ac vulputate id, sagittis at leo. Duis id tortor non elit aliquet tincidunt nec id urna. Etiam euismod diam massa, eu auctor sem vestibulum id. Maecenas accumsan, ligula et cursus rutrum, dolor nisi placerat lectus, eget dictum odio felis ac leo. Nunc vestibulum quis arcu nec volutpat. Quisque augue nulla, sodales vel sagittis vel, ultricies ac nulla. Sed ligula velit, molestie in nunc at, venenatis sagittis dolor. In risus sapien, sagittis eu lacus vitae, sodales cursus enim. Nunc sem velit, viverra eu imperdiet quis, semper vitae justo.</p>
+            <h2 id="topic-10">Topic 10</h2>
+            <p>Ut vitae dapibus sapien, in molestie mauris. Aliquam vel fermentum diam. Etiam et mauris at urna ultrices egestas eget eget dolor. Sed ullamcorper accumsan sem nec fringilla. Suspendisse sit amet ante a libero tincidunt placerat. Ut porttitor eget nulla sit amet lobortis. Maecenas diam quam, imperdiet quis ullamcorper eu, vehicula sit amet turpis. Praesent lacus massa, viverra et sodales nec, iaculis ac massa. Proin vulputate nunc non malesuada commodo. Praesent et volutpat velit. Quisque sed dui sed neque pellentesque porta. Ut aliquam, tellus at venenatis tempus, orci enim pretium ipsum, id volutpat sapien risus vitae nulla. Nunc ac placerat metus, et tempor purus. Etiam a nisl ultrices, porttitor nulla consectetur, bibendum eros. Ut at accumsan tellus.</p>
+          </div>
+      </article>
+    </section>
+
+  </main>
+
+  <footer class="box flex">
+    <div>[FOOTER]</div>
+  </footer>
+</div>

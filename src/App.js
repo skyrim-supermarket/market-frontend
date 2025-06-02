@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Cadastro from './pages/Cadastro/Cadastro';
 import Login from './pages/Login/Login';
+import MainPage from './pages/MainPage/App';
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Routes>
         <Route path="/cadastro" element={<Cadastro/>}/>
         <Route path="/login" element={<Login/>}/>
+        <Route path="/index" element={<MainPage/>}/>
       </Routes>
     </BrowserRouter>
   );
