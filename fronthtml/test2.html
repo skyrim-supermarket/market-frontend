@@ -29,7 +29,7 @@
                 </svg>
             </div>
 
-            <div class="container2 containerWithSelection">
+            <div class="container2 containerWithoutSelection">
                 <div class="navbar">
                         <input type="text" />
                 </div>
@@ -585,7 +585,6 @@
             }
         }
         
-
         var selected = 0;
         const products = document.querySelectorAll('.product-item');
         products.forEach(product => {
@@ -595,61 +594,75 @@
         });
 
         function selectedProduct(product) {
-            if(selected==0) {
-                console.log('fdçnfd');
+            ///*
+            const container = document.querySelector('.container2');
+            const productList = document.getElementById('product-list');
+            const currentlySelected = document.querySelector('.product-item.selected');
+
+            // clicar num que já tá selecionado
+            if (product == currentlySelected) {
+                product.classList.remove('selected');
+
+                const vertDiv = document.getElementById("vertDiv2");
+				const productInfo = document.getElementById("product-info");
+
+				vertDiv.remove();
+				productInfo.remove();
+
+                container.classList.remove('containerWithSelection');
+                container.classList.add('containerWithoutSelection');
+                productList.classList.remove("productSelected");
+                productList.classList.add("productNotSelected");
+
+                selected = 0;
+                console.log(selected);
+
+            } 
+            // clicar num que não está selecionado
+            else {
+
+                // remove qualquer outro que já está selecionado
+                if (currentlySelected) 
+                    currentlySelected.classList.remove('selected');
+                
                 product.classList.add('selected');
-                const container = document.querySelector('.container2');
+                console.log("New product now selected:", product.id);
+
                 container.classList.remove('containerWithoutSelection');
                 container.classList.add('containerWithSelection');
-
-                const productList = document.getElementById('product-list');
                 productList.classList.remove("productNotSelected");
                 productList.classList.add("productSelected");
 
+                // tira os atuais se existirem
+                document.getElementById("vertDiv2")?.remove();
+                document.getElementById("product-info")?.remove();
+            
+                // abre a info do produto agr
                 const newDivVert = document.createElement('div');
                 newDivVert.id = "vertDiv2";
 
                 const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-                svg.id = "svg2";
-                
+		        svg.id = "svg2";
                 newDivVert.appendChild(svg);
-                
+
                 const newDivProduct = document.createElement('div');
-                newDivProduct.id = "product-info";
+		        newDivProduct.id = "product-info";
                 newDivProduct.classList.add("product-info");
-                newDivProduct.innerHTML = `${product.id} selecionado`;
-                
+		        newDivProduct.innerText = `${product.id} selecionado`;
+                console.log("productInfo content updated to:", newDivProduct.innerText);
+
                 container.appendChild(newDivVert);
-                container.appendChild(newDivProduct);
+                
+		        container.appendChild(newDivProduct);
+
+                console.log("A");
+                
                 setViewportSize("vertDiv2", "svg2");
-                appendSeta(ySeta, "vertDiv2", "svg2");
+		        appendSeta(ySeta, "vertDiv2", "svg2");
                 selected = 1;
-            } else {
-                if(product.classList.contains('selected')) {
-                    const vertDiv = document.getElementById("vertDiv2");
-                    const productInfo = document.getElementById("product-info");
 
-                    vertDiv.remove();
-                    productInfo.remove();
-
-                    const container = document.querySelector('.container2');
-                    container.classList.remove('containerWithSelection');
-                    container.classList.add('containerWithoutSelection');
-
-                    const productList = document.getElementById('product-list');
-                    productList.classList.remove("productNotSelected");
-                    productList.classList.add("productSelected");
-                    selected = 0;
-                } else {
-                    const currentlySelected = document.querySelector('.selected');
-
-                    currentlySelected.classList.remove('selected');
-                    product.classList.add('selected');
-
-                    const productInfo = document.getElementById("product-info");
-
-                    productInfo.innerHTML = `${product.id} selecionado`;
-                }
+                console.log("productInfo content updated.");
+                console.log(selected);
             }
         }
 
