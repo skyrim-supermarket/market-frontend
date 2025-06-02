@@ -22,10 +22,10 @@ body {
     font-family: Futura;
     font-weight: 400;
     color: white;
-    background-color: black;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+}
+
+#root {
+    height: 100%;
 }
 
 .container-index {

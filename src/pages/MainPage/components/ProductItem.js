@@ -1,6 +1,7 @@
 // src/components/ProductItem.js
 import React from 'react';
 import '../styles/ProductList.css'; // Reutiliza o CSS da lista
+import gold from '../../assets/gold.png';
 
 function ProductItem({ product, onSelect, isSelected }) {
   const handleClick = () => {
@@ -21,7 +22,7 @@ function ProductItem({ product, onSelect, isSelected }) {
       </div>
       <div className="product-item-price">
         <div className="product-item-price-gold">
-          <img src="assets/gold.png" alt="Gold" />
+          <img src={`${gold}`} alt="Gold" />
         </div>
         <div className="product-item-price-value">
           <span>{product.price}</span>

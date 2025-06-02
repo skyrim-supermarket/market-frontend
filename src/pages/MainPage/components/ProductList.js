@@ -2,17 +2,18 @@
 import React, { useEffect, useRef } from 'react';
 import ProductItem from './ProductItem';
 import '../styles/ProductList.css';
+import boneArrow from '../../assets/bone-arrow.png';
 
 const productsData = [
-  { id: 'product1', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: 'assets/bone-arrow.png' },
-  { id: 'product2', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: 'assets/bone-arrow.png' },
-  { id: 'product3', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: 'assets/bone-arrow.png' },
-  { id: 'product4', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: 'assets/bone-arrow.png' },
-  { id: 'product5', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: 'assets/bone-arrow.png' },
-  { id: 'product6', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: 'assets/bone-arrow.png' },
-  { id: 'product7', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: 'assets/bone-arrow.png' },
-  { id: 'product8', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: 'assets/bone-arrow.png' },
-  { id: 'product9', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: 'assets/bone-arrow.png' },
+  { id: 'product1', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+  { id: 'product2', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+  { id: 'product3', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+  { id: 'product4', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+  { id: 'product5', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+  { id: 'product6', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+  { id: 'product7', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+  { id: 'product8', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+  { id: 'product9', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
 ];
 
 function ProductList({ onProductSelect, selectedProduct }) {

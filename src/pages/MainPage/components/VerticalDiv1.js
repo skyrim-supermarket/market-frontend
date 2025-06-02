@@ -2,6 +2,8 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import useWindowSize from '../hooks/useWindowSize';
 
+import seta from '../../assets/seta2.svg'
+
 function VerticalDiv1({ id, showArrow }) {
   const svgRef = useRef(null);
   const containerRef = useRef(null);
@@ -132,7 +134,7 @@ function VerticalDiv1({ id, showArrow }) {
     }
 
     const img = document.createElementNS('http://www.w3.org/2000/svg', 'image');
-    img.setAttributeNS(null, 'href', '../../assets/seta2.svg');
+    img.setAttributeNS(null, 'href', `${seta}`);
     img.setAttributeNS(null, 'id', 'complex_seta');
     img.setAttributeNS(null, 'x', `${x0 - 18}`);
     img.setAttributeNS(null, 'y', `${y1}`);

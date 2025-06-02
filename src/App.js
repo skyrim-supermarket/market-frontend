@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path="/cadastro" element={<Cadastro/>}/>
         <Route path="/login" element={<Login/>}/>
-        <Route path="/index" element={<MainPage/>}/>
+        <Route path="/" element={<MainPage/>}/>
       </Routes>
     </BrowserRouter>
   );

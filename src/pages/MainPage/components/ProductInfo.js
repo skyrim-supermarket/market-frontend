@@ -8,6 +8,7 @@ function ProductInfo({ product }) {
   return (
     <div id="product-info" className="product-info">
       <h3>{product.name}</h3>
+      <img src={product.image} alt={product.name} />
       <p>Preço: {product.price}</p>
       <p>ID: {product.id} selecionado</p>
       {/* mais info aqui se precisar kk*/}

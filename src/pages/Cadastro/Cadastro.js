@@ -48,7 +48,7 @@ const Cadastro = () => {
         throw new Error(`Erro: ${resposta.status}`);
       }
 
-      const dados = await resposta.json();
+      const dados = await resposta;
       console.log('Resposta da API:', dados);
       setMensagem('Formulário enviado com sucesso!');
     } catch (erro) {
@@ -77,7 +77,7 @@ const Cadastro = () => {
           </label>
           <br />
           <label>
-            <input type="email" placeholder="Email" id="user" name="user" value={FormData.email} onChange={handleChange} required />
+            <input type="email" placeholder="Email" id="email" name="email" value={FormData.email} onChange={handleChange} required />
           </label>
           <br />
           <label>
