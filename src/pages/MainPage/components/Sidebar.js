@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../styles/Sidebar.css';
 import useWindowSize from '../hooks/useWindowSize'; // Caminho ajustado
+import gold from '../../assets/gold.png';
 
 function Sidebar({ types, selectedClassIndex, onScroll }) {
   const sidebarRef = useRef(null);
@@ -49,6 +50,7 @@ function Sidebar({ types, selectedClassIndex, onScroll }) {
         } else if (event.deltaY < 0) {
           onScroll('up');
         }
+
       }
     };
 
@@ -60,12 +62,12 @@ function Sidebar({ types, selectedClassIndex, onScroll }) {
     <div className="sidebar" ref={sidebarRef}>
       <div>
         {/* a */}
-        <img className="logo" src="/assets/gold.png" alt="Logo" />
+        <img className="logo" src={gold} alt="Logo" />
       </div>
       <div className="productClasses">
         <ul id="classes-ul">
           {displayTypes.map((type) => (
-            <li key={type.index} className={getClassName(type.index)}>
+            <li id={type.index} key={type.index} className={getClassName(type.index)}>
               <a href="#!">{type.name}</a>
             </li>
           ))}

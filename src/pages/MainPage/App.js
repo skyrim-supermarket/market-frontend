@@ -13,13 +13,14 @@ import bg3 from '../assets/bg/3.png'
 import bg4 from '../assets/bg/4.png'
 import bg5 from '../assets/bg/5.png'
 
-
+let selectedClass = 0;
 const types = ["ALL PRODUCTS", "AMMUNITION", "ARMOR", "BOOKS", "CLOTHING", "FOOD", "INGREDIENTS", "MISCELLANEOUS", "ORES", "POTIONS", "SOUL GEMS", "WEAPONS"];
 
 function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedClassIndex, setSelectedClassIndex] = useState(0);
   const [isSidebarScrolled, setIsSidebarScrolled] = useState(false); 
+  const [isCurrentClassSelected, setCurrentClassSelected] = useState(true); 
 
   useEffect(() => {
     switch(Math.floor(Math.random() * 6)) {
@@ -71,8 +72,10 @@ function App() {
         newIndex = prevIndex + 1;
       }
 
-      if (newIndex !== prevIndex) {
-          setIsSidebarScrolled(true); 
+      if (newIndex%types.length !== selectedClass) {
+        setCurrentClassSelected(false); 
+      } else {
+        setCurrentClassSelected(true);
       }
       return newIndex;
     });
@@ -87,7 +90,7 @@ function App() {
       />
 
       {/* A seta complexa (dourada) agora aparece baseada em isSidebarScrolled */}
-      <VertDiv1 id="vertDiv1" showArrow={isSidebarScrolled} /> 
+      <VertDiv1 id="vertDiv1" showArrow={isCurrentClassSelected} /> 
 
       <div className={`container2 ${selectedProduct ? 'containerWithoutSelection' : 'containerWithSelection'}`}>
         <div className="navbar">

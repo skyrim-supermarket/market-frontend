@@ -1,7 +1,7 @@
 import React from "react";
 import "./Login.css"; // Certifique-se de que este arquivo exista
 // import logoWhite from "../assets/logoWhite.svg";
-//import button from "../assets/button.svg";
+import button from "../assets/button.svg";
 
 const Login = () => {
   const preventDrag = (e) => e.preventDefault();
@@ -37,6 +37,7 @@ const Login = () => {
               xmlnsSvg="http://www.w3.org/2000/svg"
               onDragStart={preventDrag}
             >
+              <image href={button}/>
               <text
                 x="50%"
                 y="50%"

@@ -18,7 +18,6 @@ body {
     width: 100vw;
     height: 100vh;
     position: fixed;
-    font-size: 1.8em;
     font-family: Futura;
     font-weight: 400;
     color: white;
@@ -40,6 +39,7 @@ body {
     display: grid;
     height: 100%;
     grid-template-rows: 10% 7% 83%;
+    font-size: 1.8em;
     overflow: hidden;
 }
 
@@ -108,10 +108,6 @@ input[type="submit"] {
     opacity: 75%;
 }
 
-.registerTitle { 
-    font-weight: 400;
-    font-size: 1.7em;
-}
 
 .cell { 
     color: white;
