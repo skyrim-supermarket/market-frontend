@@ -3,7 +3,7 @@
 .product-list {
     overflow-y: scroll;
     display: grid;
-    gap: 1%;
+    gap: 3px;
     align-content: start;
 }
 
