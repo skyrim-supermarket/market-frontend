@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import "./Login.css"; // Certifique-se de que este arquivo exista
 // import logoWhite from "../assets/logoWhite.svg";
@@ -61,11 +61,11 @@ const Login = () => {
       flag = decodedToken.type;
   }
 
-  if(flag!='none') {
-    //if(flag=='admin') return (<Navigate to={{ pathname: '/admin' }} />);
-    //if(flag=='carrocaboy') return (<Navigate to={{ pathname: '/carrocaBoy' }} />);
-    //if(flag=='cashier') return (<Navigate to={{ pathname: '/cashier' }} />);
-    if(flag=='client') return (<Navigate to={{ pathname: '/' }} />);
+  if(flag!=='none') {
+    //if(flag==='admin') return (<Navigate to={{ pathname: '/admin' }} />);
+    //if(flag==='carrocaboy') return (<Navigate to={{ pathname: '/carrocaBoy' }} />);
+    //if(flag==='cashier') return (<Navigate to={{ pathname: '/cashier' }} />);
+    if(flag==='client') return (<Navigate to={{ pathname: '/' }} />);
   } else {
     return (
       <div className="container">
@@ -87,7 +87,7 @@ const Login = () => {
             </label>
             <br />
             <label>
-              <input type="password" placeholder="Senha" id="password" name="password" value={FormData.password} onChange={handleChange} required />
+              <input type="password" placeholder="Password" id="password" name="password" value={FormData.password} onChange={handleChange} required />
             </label>
             <br />
             <label>
@@ -107,11 +107,31 @@ const Login = () => {
                   textAnchor="middle"
                   className="buttonText"
                 >
-                  Entrar
+                  Log In
                 </text>
               </svg>
             </label>
           </form>
+          <Link to="/cadastro">
+            <svg
+                id="button1"
+                className="button"
+                viewBox="0 0 251 44"
+                xmlnssvg="http://www.w3.org/2000/svg"
+                onDragStart={preventDrag}
+              >
+                <image href={button}/>
+                <text
+                  x="50%"
+                  y="50%"
+                  dominantBaseline="middle"
+                  textAnchor="middle"
+                  className="buttonText"
+                >
+                  Create new account
+                </text>
+              </svg>
+          </Link>
         </div>
       </div>
     );

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 
 import Sidebar from './components/Sidebar';
+import SessionButton from './components/SessionButton';
 import ProductList from './components/ProductList';
 import ProductInfo from './components/ProductInfo';
 import VertDiv1 from './components/VerticalDiv1';
@@ -95,6 +96,8 @@ function App() {
       <div className={`container2 ${selectedProduct ? 'containerWithoutSelection' : 'containerWithSelection'}`}>
         <div className="navbar">
           <input type="text" placeholder="Search..." />
+
+          <SessionButton/>
         </div>
 
         <div className="filters">

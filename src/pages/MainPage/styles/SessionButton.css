@@ -1,0 +1,15 @@
+.sessionButton {
+    width: 9em;
+    height: auto;
+    transition: 0.3s;
+}
+
+.sessionButton:hover {
+    cursor: pointer;
+    opacity: 75%;
+}
+
+.sessionText {
+    fill: white;
+    font-family: futura;
+}

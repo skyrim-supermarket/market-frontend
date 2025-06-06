@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react"; 
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import "./Cadastro.css";
 //import logoWhite from "../assets/logoWhite.svg";
@@ -84,7 +84,7 @@ const Cadastro = () => {
           {mensagem && <span style={{ color: "red" }}>{mensagem}</span>}
           <form onSubmit={handleSubmit}>
             <label>
-              <input type="text" placeholder="Nome" id="username" name="username" value={FormData.username} onChange={handleChange} required />
+              <input type="text" placeholder="Username" id="username" name="username" value={FormData.username} onChange={handleChange} required />
             </label>
             <br />
             <label>
@@ -92,11 +92,11 @@ const Cadastro = () => {
             </label>
             <br />
             <label>
-              <input type="password" placeholder="Senha" id="password" name="password" value={FormData.password} onChange={handleChange} required />
+              <input type="password" placeholder="Password" id="password" name="password" value={FormData.password} onChange={handleChange} required />
             </label>
             <br />
             <label>
-              <input type="text" placeholder="Endereço" id="address" name="address" value={FormData.address} onChange={handleChange} />
+              <input type="text" placeholder="Address" id="address" name="address" value={FormData.address} onChange={handleChange} />
             </label>
             <br />
             <label>
@@ -116,11 +116,31 @@ const Cadastro = () => {
                   textAnchor="middle"
                   className="buttonText"
                 >
-                  Cadastrar
+                  Create new account
                 </text>
               </svg>
             </label>
           </form>
+          <Link to="/login">
+            <svg
+                id="button1"
+                className="button"
+                viewBox="0 0 251 44"
+                xmlnssvg="http://www.w3.org/2000/svg"
+                onDragStart={preventDrag}
+              >
+                <image href={button}/>
+                <text
+                  x="50%"
+                  y="50%"
+                  dominantBaseline="middle"
+                  textAnchor="middle"
+                  className="buttonText"
+                >
+                  Go back
+                </text>
+              </svg>
+          </Link>
         </div>
       </div>
     );
