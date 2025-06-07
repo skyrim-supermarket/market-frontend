@@ -6,6 +6,7 @@ import SessionButton from './components/SessionButton';
 import ProductList from './components/ProductList';
 import ProductInfo from './components/ProductInfo';
 import VertDiv1 from './components/VerticalDiv1';
+import VertDiv2 from './components/VerticalDiv2';
 import './styles/style.css';
 import bg0 from '../assets/bg/0.png'
 import bg1 from '../assets/bg/1.png'
@@ -22,6 +23,7 @@ function App() {
   const [selectedClassIndex, setSelectedClassIndex] = useState(0);
   const [isSidebarScrolled, setIsSidebarScrolled] = useState(false); 
   const [isCurrentClassSelected, setCurrentClassSelected] = useState(true); 
+  const [arrowY, setArrowY] = useState(null);
 
   useEffect(() => {
     switch(Math.floor(Math.random() * 6)) {
@@ -107,14 +109,15 @@ function App() {
         </div>
 
         <ProductList
-          onProductSelect={handleProductSelect}
           selectedProduct={selectedProduct}
+          onProductSelect={handleProductSelect}
+          onSelectedItemPositionChange={setArrowY}
         />
 
         {selectedProduct && (
           <>
             {/* A seta simples (branca) ainda aparece quando um produto é selecionado */}
-            <VertDiv1 id="vertDiv2" showArrow={true} />
+            <VertDiv2 id="vertDiv2" showArrow={arrowY!==null} arrowY={arrowY} />
             <ProductInfo product={selectedProduct} />
           </>
         )}
