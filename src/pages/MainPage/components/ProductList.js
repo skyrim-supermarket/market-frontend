@@ -80,9 +80,8 @@ useEffect(() => {
     }
   };
 
-  updatePosition(); // run on mount/update
-
-  // Listen to scroll and resize changes to keep arrow accurate
+  updatePosition(); 
+  // muda toda vez que tem scroll
   container.addEventListener('scroll', updatePosition);
   window.addEventListener('resize', updatePosition);
 
