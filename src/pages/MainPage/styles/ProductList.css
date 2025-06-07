@@ -66,7 +66,7 @@
 }
 
 .text-overflow {
-    animation: move 9s linear infinite;
+    animation: move 9s linear infinite alternate;
 }
 
 @keyframes move {
