@@ -6,6 +6,7 @@ import gold from '../../assets/gold.png';
 
 function Sidebar({ types, selectedClassIndex, onScroll }) {
   const sidebarRef = useRef(null);
+  const isIgnoringInputRef = useRef(false);
   const { height: windowHeight } = useWindowSize();
 
   const [visibleItemsCount, setVisibleItemsCount] = useState(0);
@@ -44,6 +45,11 @@ function Sidebar({ types, selectedClassIndex, onScroll }) {
 
   useEffect(() => {
     const handleWheel = (event) => {
+      if (isIgnoringInputRef.current) {
+        event.preventDefault(); 
+        return;
+      }
+
       if (sidebarRef.current && sidebarRef.current.contains(event.target)) {
         if (event.deltaY > 0) {
           onScroll('down');
@@ -51,6 +57,10 @@ function Sidebar({ types, selectedClassIndex, onScroll }) {
           onScroll('up');
         }
 
+        isIgnoringInputRef.current = true;
+        setTimeout(() => {
+          isIgnoringInputRef.current = false;
+        }, 200); // ignora o scroll por 200ms --> evita que com mouse pad fique girando que nem pião da casa própria
       }
     };
 
