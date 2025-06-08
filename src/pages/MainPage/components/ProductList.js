@@ -5,7 +5,7 @@ import '../styles/ProductList.css';
 import boneArrow from '../../assets/bone-arrow.png';
 
 const productsData = [
-  { id: 'product1', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+  { id: 'product1', name: 'Shadowed Tower', price: 300, image: `${boneArrow}` },
   { id: 'product2', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
   { id: 'product3', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
   { id: 'product4', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },

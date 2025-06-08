@@ -123,7 +123,9 @@ function App() {
         )}
       </div>
 
-      <div className="rodape"></div>
+      <div className="rodape"> A série de jogos <i>The Elder Scrolls</i> e <i>The Elder Scrolls V: Skyrim</i> 
+      são propriedade da Bethesda Softworks LLC: Todos os direitos reservados. Este website tem fins educacionais 
+      e experimentais, e o tema foi escolhido apenas como plano de fundo.</div>
     </div>
   );
 }
