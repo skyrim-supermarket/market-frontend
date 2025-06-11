@@ -29,3 +29,6 @@
     display: none;  /* chrome e safari */
 }
 
+#product-info > img {
+    max-width: 100%;
+}

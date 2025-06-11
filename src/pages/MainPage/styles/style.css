@@ -65,11 +65,35 @@ body {
 .filters {
     grid-column-start: 1;
     grid-column-end: 4;
+    text-overflow: scroll;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    padding-left: 3px;
+
+    /*pra remover scrollbar*/
+    scrollbar-width: none;  /* firefox */
+    -ms-overflow-style: none; /* internet explorer */
+}
+
+.filters::-webkit-scrollbar {
+    display: none;  /* chrome e safari */
+}
+
+.filters-flex {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    white-space: nowrap;
+    align-items: center;
 }
 
 .rodape {
     grid-column-start: 1;
     grid-column-end: 4;
+    margin-left: 1em;
+}
+
+.pages {
     margin-left: 1em;
 }
 
@@ -124,4 +148,8 @@ input[type="submit"] {
 label { 
     display: block;
     margin-bottom: 1em;
+}
+
+#search-title {
+    text-shadow: 0 0 5px white;
 }

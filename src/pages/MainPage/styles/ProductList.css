@@ -1,7 +1,7 @@
 /* src/styles/ProductList.css */
 
 .product-list {
-    margin-top: 0.5em;
+    margin-top: 0.1em;
     margin-bottom: 0.5em;
     overflow-y: scroll;
     display: grid;

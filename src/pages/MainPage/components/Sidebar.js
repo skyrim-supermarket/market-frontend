@@ -60,7 +60,7 @@ function Sidebar({ types, selectedClassIndex, onScroll }) {
         isIgnoringInputRef.current = true;
         setTimeout(() => {
           isIgnoringInputRef.current = false;
-        }, 200); // ignora o scroll por 200ms --> evita que com mouse pad fique girando que nem pião da casa própria
+        }, 300); // ignora o scroll por 200ms --> evita que com mouse pad fique girando que nem pião da casa própria
       }
     };
 

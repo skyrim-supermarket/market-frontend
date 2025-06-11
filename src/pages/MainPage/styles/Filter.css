@@ -1,0 +1,19 @@
+.filter-item {
+    min-width: 5em;
+    padding: 0em 0.4em;
+    background: rgb(0,0,0, 0.4);
+    border: 0;
+    border-color: (255, 255, 255, 0.4);
+    border-radius: 0.4em;
+    color: inherit;
+    font: inherit;
+    margin-left: 1em;
+}
+
+select.filter-item:hover {
+    size: 1000px;
+}
+
+option {
+  background: indigo;
+}

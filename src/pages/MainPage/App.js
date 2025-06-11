@@ -7,6 +7,7 @@ import ProductList from './components/ProductList';
 import ProductInfo from './components/ProductInfo';
 import VertDiv1 from './components/VerticalDiv1';
 import VertDiv2 from './components/VerticalDiv2';
+import Filter from './components/Filter.js';
 import './styles/style.css';
 import bg0 from '../assets/bg/0.png'
 import bg1 from '../assets/bg/1.png'
@@ -101,11 +102,54 @@ function App() {
 
           <SessionButton/>
         </div>
-
+	  
         <div className="filters">
-          Donec faucibus dolor mi, id vestibulum arcu ornare et. Ut sit amet ipsum purus. Nulla ut condimentum nisl.
+          <div className="filters-flex">
+          <span id="search-title"> Search Filters </span>
+          <Filter 
+            name={"daiki"}
+            listOfOptions={["a", "b", "c"]}
+            isSelected={true}
+          />
+          <Filter 
+            name={"kim"}
+            listOfOptions={["a", "b", "c"]}
+            isSelected={true}
+          />
+          <Filter 
+            name={"daiki"}
+            listOfOptions={["a", "b", "c"]}
+            isSelected={true}
+          />
+          <Filter 
+            name={"daiki"}
+            listOfOptions={["a", "b", "c"]}
+            isSelected={true}
+          />
+          <Filter 
+            name={"daiki"}
+            listOfOptions={["a", "b", "c"]}
+            isSelected={true}
+          />
+          <Filter 
+            name={"daiki"}
+            listOfOptions={["a", "b", "c"]}
+            isSelected={true}
+          />
+          <Filter 
+            name={"daiki"}
+            listOfOptions={["a", "b", "c"]}
+            isSelected={true}
+          />
+          <Filter 
+            name={"daiki"}
+            listOfOptions={["a", "b", "c"]}
+            isSelected={true}
+          />
+          {/*Donec faucibus dolor mi, id vestibulum arcu ornare et. Ut sit amet ipsum purus. Nulla ut condimentum nisl.
           Nunc dictum diam id ultrices faucibus. Maecenas eget auctor arcu. Pellentesque dapibus enim vel turpis tristique,
-          sed aliquam nulla pharetra. Donec faucibus arcu ipsum, ut auctor sem hendrerit id.
+          sed aliquam nulla pharetra. Donec faucibus arcu ipsum, ut auctor sem hendrerit id.*/}
+          </div>
         </div>
 
         <ProductList
@@ -121,6 +165,7 @@ function App() {
             <ProductInfo product={selectedProduct} />
           </>
         )}
+        
       </div>
 
       <div className="rodape"> A série de jogos <i>The Elder Scrolls</i> e <i>The Elder Scrolls V: Skyrim</i> 
