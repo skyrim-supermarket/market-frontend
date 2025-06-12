@@ -62,7 +62,7 @@ const Login = () => {
   }
 
   if(flag!=='none') {
-    //if(flag==='admin') return (<Navigate to={{ pathname: '/admin' }} />);
+    if(flag==='admin') return (<Navigate to={{ pathname: '/admin' }} />);
     //if(flag==='carrocaboy') return (<Navigate to={{ pathname: '/carrocaBoy' }} />);
     //if(flag==='cashier') return (<Navigate to={{ pathname: '/cashier' }} />);
     if(flag==='client') return (<Navigate to={{ pathname: '/' }} />);

@@ -1,14 +1,14 @@
 // src/App.js
 import React, { useState, useEffect } from 'react';
 
-import Sidebar from './components/Sidebar';
-import SessionButton from './components/SessionButton';
-import ProductList from './components/ProductList';
-import ProductInfo from './components/ProductInfo';
-import VertDiv1 from './components/VerticalDiv1';
-import VertDiv2 from './components/VerticalDiv2';
-import Filter from './components/Filter.js';
-import './styles/style.css';
+import Sidebar from '../components/Sidebar';
+import SessionButton from '../components/SessionButton';
+import ProductList from '../components/ProductList';
+import ProductInfo from '../components/ProductInfo';
+import VertDiv1 from '../components/VerticalDiv1';
+import VertDiv2 from '../components/VerticalDiv2';
+import Filter from '../components/Filter';
+import './Home.css';
 import bg0 from '../assets/bg/0.png'
 import bg1 from '../assets/bg/1.png'
 import bg2 from '../assets/bg/2.png'
@@ -22,9 +22,11 @@ const types = ["ALL PRODUCTS", "AMMUNITION", "ARMOR", "BOOKS", "CLOTHING", "FOOD
 function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [sideBarCenter, setSideBarCenter] = useState(0);  /// centro da lista circular
-  const [isSidebarScrolled, setIsSidebarScrolled] = useState(false); 
   const [currentQueryIndex, setQueryIndex] = useState(0); // classe da qual os produtos estão aparecendo
   const [arrowY, setArrowY] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [queriedPage, setQueriedPage] = useState(1);
+  const [qtdProducts, setQtdProducts] = useState(500);
 
   useEffect(() => {
     switch(Math.floor(Math.random() * 6)) {
@@ -75,12 +77,6 @@ function App() {
       } else if (direction === 'down') {
         newIndex = (prevIndex + 1)%types.length;
       }
-
-      /*if (newIndex%types.length !== selectedClassIndex) {
-        setCurrentClassSelected(selectedClassIndex); 
-      } else {
-        setCurrentClassSelected(selectedClassIndex);
-      }*/
       return newIndex;      
     });
   };
@@ -89,6 +85,13 @@ function App() {
     setSideBarCenter(clickedOnIndex);
     setQueryIndex(clickedOnIndex);
   };
+
+  const getNumOfProducts = () => {
+    setQtdProducts(
+      // aqui faz a query
+      Math.floor(Math.random()*100)
+    );
+  }
 
   return (
     <div className="container-index" >
@@ -153,6 +156,26 @@ function App() {
             listOfOptions={["a", "b", "c"]}
             isSelected={true}
           />
+          <Filter 
+            name={"daiki"}
+            listOfOptions={["a", "b", "c"]}
+            isSelected={true}
+          />
+          <Filter 
+            name={"daiki"}
+            listOfOptions={["a", "b", "c"]}
+            isSelected={true}
+          />
+          <Filter 
+            name={"daiki"}
+            listOfOptions={["a", "b", "c"]}
+            isSelected={true}
+          />
+          <Filter 
+            name={"daiki"}
+            listOfOptions={["a", "b", "c"]}
+            isSelected={true}
+          />
           {/*Donec faucibus dolor mi, id vestibulum arcu ornare et. Ut sit amet ipsum purus. Nulla ut condimentum nisl.
           Nunc dictum diam id ultrices faucibus. Maecenas eget auctor arcu. Pellentesque dapibus enim vel turpis tristique,
           sed aliquam nulla pharetra. Donec faucibus arcu ipsum, ut auctor sem hendrerit id.*/}
@@ -163,6 +186,8 @@ function App() {
           selectedProduct={selectedProduct}
           onProductSelect={handleProductSelect}
           onSelectedItemPositionChange={setArrowY}
+          n={qtdProducts}
+          onNewQuery={getNumOfProducts}
         />
 
         {selectedProduct && (
@@ -175,7 +200,7 @@ function App() {
         
       </div>
 
-      <div className="rodape"> A série de jogos <i>The Elder Scrolls</i> e <i>The Elder Scrolls V: Skyrim</i> 
+      <div className="rodape"> A série de jogos <i>The Elder Scrolls </i>e <i>The Elder Scrolls V: Skyrim </i> 
       são propriedade da Bethesda Softworks LLC: Todos os direitos reservados. Este website tem fins educacionais 
       e experimentais, e o tema foi escolhido apenas como plano de fundo.</div>
     </div>

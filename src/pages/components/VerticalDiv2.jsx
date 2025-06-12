@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import seta from '../../assets/seta.svg';
-import bar from '../../assets/bar.svg';
+import seta from '../assets/seta.svg';
+import bar from '../assets/bar.svg';
 
 const VertDiv2 = ({ id, showArrow, arrowY = 0 }) => {
     const svgRef = useRef(null);

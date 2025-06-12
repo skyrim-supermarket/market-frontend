@@ -1,7 +1,7 @@
 // src/components/ProductItem.js
 import React from 'react';
-import '../styles/ProductList.css'; // Reutiliza o CSS da lista
-import gold from '../../assets/gold.png';
+import './styles/ProductList.css'; // Reutiliza o CSS da lista
+import gold from '../assets/gold.png';
 
 function ProductItem({ product, onSelect, isSelected }) {
   const handleClick = () => {

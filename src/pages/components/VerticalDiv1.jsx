@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import useWindowSize from '../hooks/useWindowSize';
 
-import seta from '../../assets/seta2.svg'
+import seta from '../assets/seta2.svg'
 
 function VerticalDiv1({ id, showArrow }) {
   const svgRef = useRef(null);

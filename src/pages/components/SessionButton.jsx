@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
-import button from "../../assets/button.svg";
-import '../styles/SessionButton.css';
+import button from "../assets/button.svg";
+import './styles/SessionButton.css';
 
 const SessionButton = () => {
     const token = localStorage.getItem("token");

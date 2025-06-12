@@ -1,0 +1,176 @@
+/* src/styles/style.css */
+
+@font-face {
+    font-family: Futura;
+    src: url('/public/assets/fonts/futura.woff') format("WOFF"); /* O "/" no início indica a raiz do diretório public */
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Futura;
+    src: url('/public//assets/fonts/futuraHeavy.woff') format("WOFF");
+    font-weight: bold;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    font-family: Futura;
+    font-weight: 400;
+    color: white;
+}
+
+#root {
+    height: 100%;
+}
+
+.container-index {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 12% 4% 84%;
+    grid-template-rows: 98% 2%;
+    overflow: hidden;
+}
+
+.container2 {
+    display: grid;
+    height: 100%;
+    grid-template-rows: 10% 7% 83%;
+    font-size: 1.8em;
+    overflow: hidden;
+}
+
+.containerWithoutSelection {
+    grid-template-columns: 48% 4% 48%;
+}
+
+.containerWithSelection {
+    grid-template-columns: 100%;
+}
+
+.navbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 1em;
+}
+
+.filters {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    text-overflow: scroll;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    padding-left: 3px;
+
+    -webkit-mask-image: linear-gradient(to left, transparent 0%, black 1%, black 99%, transparent 100%);
+    mask-image: linear-gradient(to left, transparent 0%, black 1%, black 99%, transparent 100%);
+
+    /*pra remover scrollbar*/
+    scrollbar-width: none;  /* firefox */
+    -ms-overflow-style: none; /* internet explorer */
+}
+
+.filters::-webkit-scrollbar {
+    display: none;  /* chrome e safari */
+}
+
+.filters-flex {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    white-space: nowrap;
+    align-items: center;
+}
+
+.rodape {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    margin-left: 1em;
+    text-align: center;
+    opacity: 0.75;
+}
+
+.pages {
+    margin-left: 1em;
+}
+
+input[type="email"], input[type="password"], input[type="text"] {
+    background-color: black;
+    width: 14em;
+    font-family: Futura;
+    font-weight: 400;
+    color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid white;
+    font-size: 1.8em;
+}
+
+input[type="submit"] {
+    display: none;
+}
+
+::placeholder {
+    font-family: Futura;
+    font-weight: 400;
+    color: white;
+}
+
+.buttonText {
+    fill: white;
+    font-weight: 400;
+    font-size: 1.6em;
+}
+
+.button {
+    width: 14em;
+    height: auto;
+    transition: 0.3s;
+}
+
+.button:hover {
+    cursor: pointer;
+    opacity: 75%;
+}
+
+
+.cell { 
+    color: white;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+}
+
+label { 
+    display: block;
+    margin-bottom: 1em;
+}
+
+#search-title {
+    text-shadow: 0 0 5px white;
+}
+
+.searchbar-div {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+}
+
+#searchbar {
+    background: rgb(0,0,0, 0.4);
+    height: 100%;
+    width: 65%;
+    border-radius: 1px;
+    font-size: 1em;
+    border-bottom: 1px solid white;
+}

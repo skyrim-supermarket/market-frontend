@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
-import '../styles/Filter.css';
+import './styles/Filter.css';
 
 function Filter({ name, listOfOptions, isSelected }) {
   const handleFilterClick = () => {

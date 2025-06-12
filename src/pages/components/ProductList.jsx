@@ -1,8 +1,9 @@
 // src/components/ProductList.js
 import React, { useEffect, useRef } from 'react';
 import ProductItem from './ProductItem';
-import '../styles/ProductList.css';
-import boneArrow from '../../assets/bone-arrow.png';
+import './styles/ProductList.css';
+import boneArrow from '../assets/bone-arrow.png';
+import PageSelector from './PageSelector';
 
 const productsData = [
   { id: 'product1', name: 'Shadowed Tower', price: 300, image: `${boneArrow}` },
@@ -26,8 +27,9 @@ const productsData = [
   { id: 'product19', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
 ];
 
-function ProductList({ onProductSelect, selectedProduct, onSelectedItemPositionChange }) {
+function ProductList({ onProductSelect, selectedProduct, onSelectedItemPositionChange, n, onNewQuery }) {
   const productListRef = useRef(null);
+  const [pageSelected, setPageSelected] = useState(1); 
 
   useEffect(() => {
     // pra fazer marquee
@@ -72,40 +74,51 @@ useEffect(() => {
     const isCenterVisible = (centerYInViewport >= containerRect.top) && (centerYInViewport <= containerRect.bottom);
 
     if (onSelectedItemPositionChange) {
-      if (isCenterVisible) {
-        onSelectedItemPositionChange(relativeY);
-      } else {
-        onSelectedItemPositionChange(null);
+        if (isCenterVisible) {
+    const [pageSelected, setPageSelected] = useState(1); 
+          onSelectedItemPositionChange(relativeY);
+        } else {
+          onSelectedItemPositionChange(null);
+        }
       }
-    }
-  };
+    };
 
-  updatePosition(); 
-  // muda toda vez que tem scroll
-  container.addEventListener('scroll', updatePosition);
-  window.addEventListener('resize', updatePosition);
+    updatePosition(); 
+    // muda toda vez que tem scroll
+    container.addEventListener('scroll', updatePosition);
+    window.addEventListener('resize', updatePosition);
 
-  return () => {
-    container.removeEventListener('scroll', updatePosition);
-    window.removeEventListener('resize', updatePosition);
-  };
-}, [selectedProduct, onSelectedItemPositionChange]);
+    return () => {
+      container.removeEventListener('scroll', updatePosition);
+      window.removeEventListener('resize', updatePosition);
+    };
+  }, [selectedProduct, onSelectedItemPositionChange]);
 
+  const handleClickPage = (clickedOnPage) => {
+    // toda a logica de mudar a pagina
+    setPageSelected(clickedOnPage);
+  }
 
   return (
-    <div
-      id="product-list"
-      className={`product-list ${selectedProduct ? 'productSelected' : 'productNotSelected'}`}
-      ref={productListRef}
-    >
-      {productsData.map(product => (
-        <ProductItem
-          key={product.id}
-          product={product}
-          isSelected={selectedProduct && selectedProduct.id === product.id}
-          onSelect={onProductSelect}
-        />
-      ))}
+    <div className={`listAndSelector`}>
+      <div
+        id="product-list"
+        className={`product-list ${selectedProduct ? 'productSelected' : 'productNotSelected'}`}
+        ref={productListRef}
+      >
+        {productsData.map(product => (
+          <ProductItem
+            key={product.id}
+            product={product}
+            isSelected={selectedProduct && selectedProduct.id === product.id}
+            onSelect={onProductSelect}
+          />
+        ))}
+      </div>
+      <PageSelector 
+        n={productsData.length}
+        onPageClick={handleClickPage}
+      /> 
     </div>
   );
 }

@@ -1,8 +1,8 @@
 // src/pages/MainPage/components/Sidebar.js
 import React, { useState, useEffect, useRef } from 'react';
-import '../styles/Sidebar.css';
+import './styles/Sidebar.css';
 import useWindowSize from '../hooks/useWindowSize'; // Caminho ajustado
-import gold from '../../assets/gold.png';
+import gold from '../assets/gold.png';
 import { getCLS } from 'web-vitals';
 
 function Sidebar({ types, selectedClassIndex, onScroll, onClassClick }) {

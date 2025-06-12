@@ -1,5 +1,9 @@
 /* src/styles/ProductList.css */
 
+.listAndSelector {
+    display: grid;
+}
+
 .product-list {
     margin-top: 0.1em;
     margin-bottom: 0.5em;

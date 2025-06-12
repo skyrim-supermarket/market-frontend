@@ -1,6 +1,6 @@
 // src/components/ProductInfo.js
 import React from 'react';
-import '../styles/ProductInfo.css';
+import './styles/ProductInfo.css';
 
 function ProductInfo({ product }) {
   if (!product) return null;
