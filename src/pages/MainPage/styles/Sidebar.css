@@ -60,6 +60,9 @@ li.sideBarItem:not(:last-child) {
 .productClasses {
     margin-top: auto;
     margin-bottom: auto;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
     overflow: hidden;
 }
 

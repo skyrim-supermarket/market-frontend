@@ -21,9 +21,9 @@ const types = ["ALL PRODUCTS", "AMMUNITION", "ARMOR", "BOOKS", "CLOTHING", "FOOD
 
 function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [selectedClassIndex, setSelectedClassIndex] = useState(0);
+  const [sideBarCenter, setSideBarCenter] = useState(0);  /// centro da lista circular
   const [isSidebarScrolled, setIsSidebarScrolled] = useState(false); 
-  const [isCurrentClassSelected, setCurrentClassSelected] = useState(true); 
+  const [currentQueryIndex, setQueryIndex] = useState(0); // classe da qual os produtos estão aparecendo
   const [arrowY, setArrowY] = useState(null);
 
   useEffect(() => {
@@ -68,33 +68,39 @@ function App() {
   };
 
   const handleScrollClasses = (direction) => {
-    setSelectedClassIndex(prevIndex => {
+    setSideBarCenter(prevIndex => {
       let newIndex = prevIndex;
       if (direction === 'up') {
-        newIndex = prevIndex - 1;
+        newIndex = ((prevIndex - 1)+types.length)%types.length;
       } else if (direction === 'down') {
-        newIndex = prevIndex + 1;
+        newIndex = (prevIndex + 1)%types.length;
       }
 
-      if (newIndex%types.length !== selectedClass) {
-        setCurrentClassSelected(false); 
+      /*if (newIndex%types.length !== selectedClassIndex) {
+        setCurrentClassSelected(selectedClassIndex); 
       } else {
-        setCurrentClassSelected(true);
-      }
-      return newIndex;
+        setCurrentClassSelected(selectedClassIndex);
+      }*/
+      return newIndex;      
     });
+  };
+
+  const handleClickClasses = (clickedOnIndex) => {
+    setSideBarCenter(clickedOnIndex);
+    setQueryIndex(clickedOnIndex);
   };
 
   return (
     <div className="container-index" >
       <Sidebar
         types={types}
-        selectedClassIndex={selectedClassIndex}
+        selectedClassIndex={sideBarCenter}
         onScroll={handleScrollClasses}
+        onClassClick={handleClickClasses}
       />
 
       {/* A seta complexa (dourada) agora aparece baseada em isSidebarScrolled */}
-      <VertDiv1 id="vertDiv1" showArrow={isCurrentClassSelected} /> 
+      <VertDiv1 id="vertDiv1" showArrow={(currentQueryIndex == sideBarCenter)} /> 
 
       <div className={`container2 ${selectedProduct ? 'containerWithoutSelection' : 'containerWithSelection'}`}>
         <div className="navbar">

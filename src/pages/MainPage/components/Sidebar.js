@@ -3,8 +3,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import '../styles/Sidebar.css';
 import useWindowSize from '../hooks/useWindowSize'; // Caminho ajustado
 import gold from '../../assets/gold.png';
+import { getCLS } from 'web-vitals';
 
-function Sidebar({ types, selectedClassIndex, onScroll }) {
+function Sidebar({ types, selectedClassIndex, onScroll, onClassClick }) {
   const sidebarRef = useRef(null);
   const isIgnoringInputRef = useRef(false);
   const { height: windowHeight } = useWindowSize();
@@ -60,13 +61,18 @@ function Sidebar({ types, selectedClassIndex, onScroll }) {
         isIgnoringInputRef.current = true;
         setTimeout(() => {
           isIgnoringInputRef.current = false;
-        }, 300); // ignora o scroll por 200ms --> evita que com mouse pad fique girando que nem pião da casa própria
+        }, 150); // ignora o scroll por 200ms --> evita que com mouse pad fique girando que nem pião da casa própria
       }
     };
 
     window.addEventListener('wheel', handleWheel, { passive: false });
     return () => window.removeEventListener('wheel', handleWheel);
   }, [onScroll]);
+
+    const handleClick = (classIndex) => { 
+      return (event) => {
+        onClassClick(classIndex);
+    }};
 
   return (
     <div className="sidebar" ref={sidebarRef}>
@@ -77,8 +83,8 @@ function Sidebar({ types, selectedClassIndex, onScroll }) {
       <div className="productClasses">
         <ul id="classes-ul">
           {displayTypes.map((type) => (
-            <li id={type.index} key={type.index} className={getClassName(type.index)}>
-              <a href="#!">{type.name}</a>
+            <li id={type.index} key={type.index} className={getClassName(type.index)} onClick={handleClick(type.index)}>
+              <a> {type.name}</a>
             </li>
           ))}
         </ul>
