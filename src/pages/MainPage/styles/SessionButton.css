@@ -13,3 +13,8 @@
     fill: white;
     font-family: futura;
 }
+
+#login-button {
+    display: flex;
+    align-items: flex-end;
+}

@@ -70,6 +70,9 @@ body {
     overflow-x: scroll;
     padding-left: 3px;
 
+    -webkit-mask-image: linear-gradient(to left, transparent 0%, black 1%, black 99%, transparent 100%);
+    mask-image: linear-gradient(to left, transparent 0%, black 1%, black 99%, transparent 100%);
+
     /*pra remover scrollbar*/
     scrollbar-width: none;  /* firefox */
     -ms-overflow-style: none; /* internet explorer */
@@ -152,4 +155,20 @@ label {
 
 #search-title {
     text-shadow: 0 0 5px white;
+}
+
+.searchbar-div {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+}
+
+#searchbar {
+    background: rgb(0,0,0, 0.4);
+    height: 100%;
+    width: 65%;
+    border-radius: 1px;
+    font-size: 1em;
+    border-bottom: 1px solid white;
 }

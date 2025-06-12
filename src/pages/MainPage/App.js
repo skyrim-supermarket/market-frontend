@@ -104,8 +104,9 @@ function App() {
 
       <div className={`container2 ${selectedProduct ? 'containerWithoutSelection' : 'containerWithSelection'}`}>
         <div className="navbar">
-          <input type="text" placeholder="Search..." />
-
+          <div className="searchbar-div">
+            <input type="text" id="searchbar" placeholder="Search..." />
+          </div>
           <SessionButton/>
         </div>
 	  
@@ -113,12 +114,12 @@ function App() {
           <div className="filters-flex">
           <span id="search-title"> Search Filters </span>
           <Filter 
-            name={"daiki"}
+            name={"Craft"}
             listOfOptions={["a", "b", "c"]}
             isSelected={true}
           />
           <Filter 
-            name={"kim"}
+            name={"Gravity"}
             listOfOptions={["a", "b", "c"]}
             isSelected={true}
           />

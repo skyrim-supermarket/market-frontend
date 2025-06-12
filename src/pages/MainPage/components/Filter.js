@@ -5,6 +5,9 @@ import '../styles/Filter.css';
 function Filter({ name, listOfOptions, isSelected }) {
   const handleFilterClick = () => {
     //onSelect(name);
+      if (isSelected) {
+        
+      } 
     return true;
     };
 
@@ -14,6 +17,7 @@ function Filter({ name, listOfOptions, isSelected }) {
       className={`filter-item ${isSelected ? 'filter-selected' : ''}`}
       onClick={handleFilterClick}
     >
+        <option value="" disabled /*disabled*/ selected>{name}</option>
         {listOfOptions.map(filterOption => (
         <option>
           {filterOption}

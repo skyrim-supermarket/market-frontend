@@ -15,7 +15,7 @@ const SessionButton = () => {
 
 
     return (
-        <span>
+        <span id="login-button">
         {token && 
               <svg
                     id="button1"
