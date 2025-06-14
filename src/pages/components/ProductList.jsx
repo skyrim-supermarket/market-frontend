@@ -1,5 +1,5 @@
 // src/components/ProductList.js
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ProductItem from './ProductItem';
 import './styles/ProductList.css';
 import boneArrow from '../assets/bone-arrow.png';
@@ -75,7 +75,6 @@ useEffect(() => {
 
     if (onSelectedItemPositionChange) {
         if (isCenterVisible) {
-    const [pageSelected, setPageSelected] = useState(1); 
           onSelectedItemPositionChange(relativeY);
         } else {
           onSelectedItemPositionChange(null);

@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import './styles/Selector.css';
-import PageLeft from '../assets/pageLeft.svg';
-import PageRight from '../assets/pageRight.svg';
+/*import PageLeft from '../assets/pageLeft.svg';
+import PageRight from '../assets/pageRight.svg'; */
 
 function PageSelector({ n, onPageClick }) {
   const handleSelectorClick = () => {
@@ -18,7 +18,7 @@ function PageSelector({ n, onPageClick }) {
   return (
     <select
 
-      id={`${i}`}
+      id={`${maximum}`}
       className={`page-index`}
       onClick={handleSelectorClick}
     >
