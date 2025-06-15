@@ -1,0 +1,58 @@
+.page-selector {
+  display: flex;
+  gap: 0.4em;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  padding: 0.4em 0;
+}
+
+.arrow-placeholder {
+  width: 1.25em;
+  height: 1.25em;
+  flex-shrink: 0;
+}
+
+.page-number {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.2em 0.4em;
+  font: inherit;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: 1.75em;
+  height: 1.25em;
+  text-align: center;
+  line-height: 1;
+  transition: border 0.2s;
+  flex-shrink: 0;
+}
+
+.page-number:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+}
+
+.page-number.pageSelected {
+  border: 0.1em solid white;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.arrow-icon {
+  width: 1.25em;
+  height: 1.25em;
+  flex-shrink: 0;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.clickable:hover {
+  opacity: 0.7;
+}
