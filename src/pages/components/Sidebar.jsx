@@ -14,11 +14,11 @@ function Sidebar({ types, selectedClassIndex, onScroll, onClassClick }) {
 
   useEffect(() => {
     let qtd;
-    if (windowHeight >= 980)
+    if (windowHeight >= 980 && types.length >= 9)
       qtd = 9;
-    else if (windowHeight >= 760)
+    else if (windowHeight >= 760 && types.length >= 7)
       qtd = 7;
-    else if (windowHeight >= 640)
+    else if (windowHeight >= 640 && types.length >= 5)
       qtd = 5;
     else
       qtd = 3;

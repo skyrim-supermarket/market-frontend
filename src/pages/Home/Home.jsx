@@ -16,7 +16,6 @@ import bg3 from '../assets/bg/3.png'
 import bg4 from '../assets/bg/4.png'
 import bg5 from '../assets/bg/5.png'
 
-let selectedClass = 0;
 const types = ["ALL PRODUCTS", "AMMUNITION", "ARMOR", "BOOKS", "CLOTHING", "FOOD", "INGREDIENTS", "MISCELLANEOUS", "ORES", "POTIONS", "SOUL GEMS", "WEAPONS"];
 
 function App() {
@@ -24,9 +23,7 @@ function App() {
   const [sideBarCenter, setSideBarCenter] = useState(0);  /// centro da lista circular
   const [currentQueryIndex, setQueryIndex] = useState(0); // classe da qual os produtos estão aparecendo
   const [arrowY, setArrowY] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
   const [queriedPage, setQueriedPage] = useState(1);
-  const [qtdProducts, setQtdProducts] = useState(500);
 
   useEffect(() => {
     switch(Math.floor(Math.random() * 6)) {
@@ -84,13 +81,14 @@ function App() {
   const handleClickClasses = (clickedOnIndex) => {
     setSideBarCenter(clickedOnIndex);
     setQueryIndex(clickedOnIndex);
+    setQueriedPage(1);
+    // coloca aqui toda a logica pra mudar a classe da query
   };
 
-  const getNumOfProducts = () => {
-    setQtdProducts(
-      // aqui faz a query
-      Math.floor(Math.random()*100)
-    );
+  const handleNewPageQuery = (newPage) => {
+    setQueriedPage(newPage);
+    // alert("fui pra pagina " + newPage);
+    // colooca aqui a logica pra mudar de página na mesma query
   }
 
   return (
@@ -102,7 +100,6 @@ function App() {
         onClassClick={handleClickClasses}
       />
 
-      {/* A seta complexa (dourada) agora aparece baseada em isSidebarScrolled */}
       <VertDiv1 id="vertDiv1" showArrow={(currentQueryIndex == sideBarCenter)} /> 
 
       <div className={`container2 ${selectedProduct ? 'containerWithoutSelection' : 'containerWithSelection'}`}>
@@ -186,13 +183,12 @@ function App() {
           selectedProduct={selectedProduct}
           onProductSelect={handleProductSelect}
           onSelectedItemPositionChange={setArrowY}
-          n={qtdProducts}
-          onNewQuery={getNumOfProducts}
+          onNewQuery={handleNewPageQuery}
+          currentQueryIndex={currentQueryIndex}  // passa isso só pra poder resetar a page selector quando uma nova classe é escolhida
         />
 
         {selectedProduct && (
           <>
-            {/* A seta simples (branca) ainda aparece quando um produto é selecionado */}
             <VertDiv2 id="vertDiv2" showArrow={arrowY!==null} arrowY={arrowY} />
             <ProductInfo product={selectedProduct} />
           </>

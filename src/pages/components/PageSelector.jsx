@@ -3,16 +3,11 @@ import './styles/Selector.css';
 import { ReactComponent as PageLeft } from '../assets/pageLeft.svg';  // gambiarra
 import { ReactComponent as PageRight } from '../assets/pageRight.svg';
 
-function PageSelector({ n, onPageClick }) {
-  const maximum = 2;  // isso aqui é pra testes, mas depois tem q trocar pra isso ser igual a 42
+function PageSelector({ n, maximum, onPageClick, selectedPage, startPage, setStartPage }) {
   const numberPages = Math.ceil(n/maximum);
   const pagesPerGroup = 5;
 
-  const [startPage, setStartPage] = useState(1);        // 1º cara da esquerda do grupo de paginas
-  const [selectedPage, setSelectedPage] = useState(1);  // pagina selecionada
-
   const handlePageClick = (pageNumber) => {
-    setSelectedPage(pageNumber);
     onPageClick(pageNumber);      // tem q arrumar no product list
   };
 
