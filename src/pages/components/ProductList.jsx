@@ -2,32 +2,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ProductItem from './ProductItem';
 import './styles/ProductList.css';
-import boneArrow from '../assets/bone-arrow.png';
 import PageSelector from './PageSelector';
 
-const productsData = [
-  { id: 'product1', name: 'Shadowed Tower', price: 300, image: `${boneArrow}` },
-  { id: 'product2', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  { id: 'product3', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  { id: 'product4', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  { id: 'product5', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  { id: 'product6', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  { id: 'product7', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  { id: 'product8', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  { id: 'product9', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  { id: 'product10', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  { id: 'product11', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  { id: 'product12', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  { id: 'product13', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  { id: 'product14', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  { id: 'product15', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  { id: 'product16', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  { id: 'product17', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  { id: 'product19', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-];
-
-function ProductList({ onProductSelect, selectedProduct, onSelectedItemPositionChange, onNewQuery, currentQueryIndex }) {
+function ProductList({ n, productsData, onProductSelect, selectedProduct, onSelectedItemPositionChange, onNewQuery, currentQueryIndex }) {
   const productListRef = useRef(null);
   const [startPage, setStartPage] = useState(1);        // 1º cara da esquerda do grupo de paginas
   const [selectedPage, setSelectedPage] = useState(1);  // pagina selecionada
@@ -94,7 +71,6 @@ function ProductList({ onProductSelect, selectedProduct, onSelectedItemPositionC
     };
   }, [selectedProduct, onSelectedItemPositionChange]);
 
-
   useEffect(() => {
     setStartPage(1);
     setSelectedPage(1);
@@ -105,7 +81,6 @@ function ProductList({ onProductSelect, selectedProduct, onSelectedItemPositionC
     setSelectedPage(clickedOnPage);
     onNewQuery(clickedOnPage);
   };
-
 
   return (
     <div className={`listAndSelector`}>
@@ -124,7 +99,7 @@ function ProductList({ onProductSelect, selectedProduct, onSelectedItemPositionC
         ))}
       </div>
       <PageSelector 
-        n={productsData.length}
+        n={n}
         maximum={3}  // isso aqui é pra testes, mas depois tem q trocar pra isso ser igual a 42
         onPageClick={handleClickPage}
         selectedPage={selectedPage}

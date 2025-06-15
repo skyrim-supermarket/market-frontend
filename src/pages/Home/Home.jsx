@@ -16,6 +16,9 @@ import bg3 from '../assets/bg/3.png'
 import bg4 from '../assets/bg/4.png'
 import bg5 from '../assets/bg/5.png'
 
+// temporario
+import boneArrow from '../assets/bone-arrow.png';
+
 const types = ["ALL PRODUCTS", "AMMUNITION", "ARMOR", "BOOKS", "CLOTHING", "FOOD", "INGREDIENTS", "MISCELLANEOUS", "ORES", "POTIONS", "SOUL GEMS", "WEAPONS"];
 
 function App() {
@@ -24,6 +27,28 @@ function App() {
   const [currentQueryIndex, setQueryIndex] = useState(0); // classe da qual os produtos estão aparecendo
   const [arrowY, setArrowY] = useState(null);
   const [queriedPage, setQueriedPage] = useState(1);
+
+  const [productsData, setProductsData] = useState([
+    { id: 'product1', name: 'Shadowed Tower', price: 300, image: `${boneArrow}` },
+    { id: 'product2', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+    { id: 'product3', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+    { id: 'product4', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+    { id: 'product5', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+    { id: 'product6', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+    { id: 'product7', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+    { id: 'product8', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+    { id: 'product9', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+    { id: 'product10', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+    { id: 'product11', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+    { id: 'product12', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+    { id: 'product13', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+    { id: 'product14', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+    { id: 'product15', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+    { id: 'product16', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+    { id: 'product17', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+    { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+  ]);
+  const [qtdProducts, setQtdProducts] = useState(18); // quantidade total de items a serem mostrados, nao apenas no productsData
 
   useEffect(() => {
     switch(Math.floor(Math.random() * 6)) {
@@ -81,14 +106,30 @@ function App() {
   const handleClickClasses = (clickedOnIndex) => {
     setSideBarCenter(clickedOnIndex);
     setQueryIndex(clickedOnIndex);
-    setQueriedPage(1);
+    setQueriedPage(1);        // reseta pra voltar pra pagina 1
     // coloca aqui toda a logica pra mudar a classe da query
+    // aqui a gente mudaria productsData
+
+    // a gente teria que descobrir qual o novo N (quantidade de produtos da classe) aqui
+    /*
+      var n = 500;
+      setQtdProducts(n);
+
+      var newProducts = [];
+      setProductsData(newProducts);  // 1ª pagina dos novos produtos
+    */
   };
 
   const handleNewPageQuery = (newPage) => {
-    setQueriedPage(newPage);
+    setQueriedPage(newPage)
     // alert("fui pra pagina " + newPage);
     // colooca aqui a logica pra mudar de página na mesma query
+
+    // faz a query da nova pagina, e coloca aqui
+    /*
+      var newProducts = [];
+      setProductsData(newProducts); // queriedPageª pagina da mesma query
+    */
   }
 
   return (
@@ -180,6 +221,8 @@ function App() {
         </div>
 
         <ProductList
+          n={qtdProducts}
+          productsData={productsData}
           selectedProduct={selectedProduct}
           onProductSelect={handleProductSelect}
           onSelectedItemPositionChange={setArrowY}

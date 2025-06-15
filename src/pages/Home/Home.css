@@ -88,6 +88,15 @@ body {
     width: 100%;
     white-space: nowrap;
     align-items: center;
+    overflow-y: scroll;
+
+    /*pra remover scrollbar*/
+    scrollbar-width: none;  /* firefox */
+    -ms-overflow-style: none; /* internet explorer */
+}
+
+.filters-flex::-webkit-scrollbar {
+    display: none;  /* chrome e safari */
 }
 
 .rodape {
