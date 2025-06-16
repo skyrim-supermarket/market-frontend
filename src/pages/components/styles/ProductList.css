@@ -38,7 +38,8 @@
 
 .product-item {
     padding: 3px;
-    height: 300px; /* aqui tem q por responsivo mas vai com deus */
+    min-height: 300px; /* aqui tem q por responsivo mas vai com deus */
+    height: 33%;
     border: 2px solid rgba(0,0,0,0);
     transition: 0.3s;
     font-weight: bold;

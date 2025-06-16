@@ -28,6 +28,8 @@ function App() {
   const [arrowY, setArrowY] = useState(null);
   const [queriedPage, setQueriedPage] = useState(1);
 
+  const qtdProductsPerPage = 36;  // isso aqui é pra testes, mas depois tem q trocar pra isso ser igual a 36
+
   const [productsData, setProductsData] = useState([
     { id: 'product1', name: 'Shadowed Tower', price: 300, image: `${boneArrow}` },
     { id: 'product2', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
@@ -107,6 +109,8 @@ function App() {
     setSideBarCenter(clickedOnIndex);
     setQueryIndex(clickedOnIndex);
     setQueriedPage(1);        // reseta pra voltar pra pagina 1
+    setSelectedProduct(null);
+
     // coloca aqui toda a logica pra mudar a classe da query
     // aqui a gente mudaria productsData
 
@@ -121,7 +125,8 @@ function App() {
   };
 
   const handleNewPageQuery = (newPage) => {
-    setQueriedPage(newPage)
+    setQueriedPage(newPage);
+    setSelectedProduct(null);
     // alert("fui pra pagina " + newPage);
     // colooca aqui a logica pra mudar de página na mesma query
 
@@ -222,6 +227,7 @@ function App() {
 
         <ProductList
           n={qtdProducts}
+          qtdProductsPerPage={qtdProductsPerPage} 
           productsData={productsData}
           selectedProduct={selectedProduct}
           onProductSelect={handleProductSelect}

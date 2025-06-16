@@ -1,6 +1,7 @@
 .sessionButton {
     width: 9em;
-    height: auto;
+    height: 100% !important;
+    max-height: 10em;
     transition: 0.3s;
 }
 

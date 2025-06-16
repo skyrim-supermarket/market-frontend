@@ -4,7 +4,7 @@ import ProductItem from './ProductItem';
 import './styles/ProductList.css';
 import PageSelector from './PageSelector';
 
-function ProductList({ n, productsData, onProductSelect, selectedProduct, onSelectedItemPositionChange, onNewQuery, currentQueryIndex }) {
+function ProductList({ n, qtdProductsPerPage, productsData, onProductSelect, selectedProduct, onSelectedItemPositionChange, onNewQuery, currentQueryIndex }) {
   const productListRef = useRef(null);
   const [startPage, setStartPage] = useState(1);        // 1º cara da esquerda do grupo de paginas
   const [selectedPage, setSelectedPage] = useState(1);  // pagina selecionada
@@ -100,7 +100,7 @@ function ProductList({ n, productsData, onProductSelect, selectedProduct, onSele
       </div>
       <PageSelector 
         n={n}
-        maximum={3}  // isso aqui é pra testes, mas depois tem q trocar pra isso ser igual a 42
+        maximum={qtdProductsPerPage}
         onPageClick={handleClickPage}
         selectedPage={selectedPage}
         startPage={startPage}
