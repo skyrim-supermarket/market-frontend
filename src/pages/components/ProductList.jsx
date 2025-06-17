@@ -4,12 +4,9 @@ import ProductItem from './ProductItem';
 import './styles/ProductList.css';
 import PageSelector from './PageSelector';
 
-function ProductList({ n, qtdProductsPerPage, productsData, onProductSelect, selectedProduct, onSelectedItemPositionChange, onNewQuery, currentQueryIndex }) {
-  const productListRef = useRef(null);
-  const [startPage, setStartPage] = useState(1);        // 1º cara da esquerda do grupo de paginas
-  const [selectedPage, setSelectedPage] = useState(1);  // pagina selecionada
-
-  // logica pra fazer marquee
+function MarqueeOfItems({productsData}) { // selectedProducts?
+  // função com responsabilidade de cuidar do marquee dos items
+  // depende apenas da lista de produtos 
   useEffect(() => {
     const elements = document.querySelectorAll('.product-item-name');
     elements.forEach(element => {
@@ -24,13 +21,14 @@ function ProductList({ n, qtdProductsPerPage, productsData, onProductSelect, sel
         }
       }
     });
-  }, [productsData, selectedProduct]); 
+  }, [productsData]); // selectedProducts?
+}
 
-
-  // essa gambiarra é toda a lógica da seta acompanhar o scroll
+function useArrowFollowsScroll({ productListRef, selectedProduct, onSelectedItemPositionChange }) {
+  // função com responsabilidade de fazer a seta da div2 seguir o scroll do mouse
   useEffect(() => {
     const container = productListRef.current;
-    if (!container || !selectedProduct) { // nao tem produto selecionado
+    if (!container || !selectedProduct) {
       if (onSelectedItemPositionChange) onSelectedItemPositionChange(null);
       return;
     }
@@ -42,26 +40,24 @@ function ProductList({ n, qtdProductsPerPage, productsData, onProductSelect, sel
         return;
       }
 
-      // alturas relativas do container e do coiso selecionado
       const containerRect = container.getBoundingClientRect();
       const selectedRect = selectedElement.getBoundingClientRect();
 
-      const centerYInViewport = selectedRect.top + selectedRect.height/2;
+      const centerYInViewport = selectedRect.top + selectedRect.height / 2;
       const relativeY = centerYInViewport - containerRect.top;
 
-      const isCenterVisible = (centerYInViewport >= containerRect.top) && (centerYInViewport <= containerRect.bottom);
+      const isCenterVisible = centerYInViewport >= containerRect.top && centerYInViewport <= containerRect.bottom;
 
       if (onSelectedItemPositionChange) {
-          if (isCenterVisible) {
-            onSelectedItemPositionChange(relativeY);
-          } else {
-            onSelectedItemPositionChange(null);
-          }
+        if (isCenterVisible) {
+          onSelectedItemPositionChange(relativeY);
+        } else {
+          onSelectedItemPositionChange(null);
         }
-      };
+      }
+    };
 
-    updatePosition(); 
-    // muda toda vez que tem scroll
+    updatePosition();
     container.addEventListener('scroll', updatePosition);
     window.addEventListener('resize', updatePosition);
 
@@ -69,12 +65,24 @@ function ProductList({ n, qtdProductsPerPage, productsData, onProductSelect, sel
       container.removeEventListener('scroll', updatePosition);
       window.removeEventListener('resize', updatePosition);
     };
-  }, [selectedProduct, onSelectedItemPositionChange]);
+  }, [productListRef, selectedProduct, onSelectedItemPositionChange]);
+}
 
+function ResetEntireListOnIndexChange({setStartPage, setSelectedPage, currentQueryIndex}) {
   useEffect(() => {
     setStartPage(1);
     setSelectedPage(1);
   }, [currentQueryIndex]);
+}
+
+function ProductList({ n, qtdProductsPerPage, productsData, onProductSelect, selectedProduct, onSelectedItemPositionChange, onNewQuery, currentQueryIndex }) {
+  const productListRef = useRef(null);
+  const [startPage, setStartPage] = useState(1);        // 1º cara da esquerda do grupo de paginas
+  const [selectedPage, setSelectedPage] = useState(1);  // pagina selecionada
+
+  MarqueeOfItems(productsData);
+  useArrowFollowsScroll({productListRef, selectedProduct, onSelectedItemPositionChange});
+  ResetEntireListOnIndexChange({setStartPage, setSelectedPage, currentQueryIndex});
 
   // logica pra mudar a página carregada da query
   const handleClickPage = (clickedOnPage) => {

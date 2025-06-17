@@ -28,7 +28,7 @@ function App() {
   const [arrowY, setArrowY] = useState(null);
   const [queriedPage, setQueriedPage] = useState(1);
 
-  const qtdProductsPerPage = 36;  // isso aqui é pra testes, mas depois tem q trocar pra isso ser igual a 36
+  const qtdProductsPerPage = 2;  // isso aqui é pra testes, mas depois tem q trocar pra isso ser igual a 36
 
   const [productsData, setProductsData] = useState([
     { id: 'product1', name: 'Shadowed Tower', price: 300, image: `${boneArrow}` },
