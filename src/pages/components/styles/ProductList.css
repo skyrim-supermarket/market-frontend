@@ -2,6 +2,7 @@
 
 .listAndSelector {
     display: grid;
+    grid-template-rows: 90% 10%;
 }
 
 .product-list {

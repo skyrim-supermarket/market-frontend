@@ -16,23 +16,30 @@ import bg3 from '../assets/bg/3.png'
 import bg4 from '../assets/bg/4.png'
 import bg5 from '../assets/bg/5.png'
 
+// scripts da query
+import NewCategory from '../query-scripts/NewCategory'
+
 // temporario
 import boneArrow from '../assets/bone-arrow.png';
 
 const types = ["ALL PRODUCTS", "AMMUNITION", "ARMOR", "BOOKS", "CLOTHING", "FOOD", "INGREDIENTS", "MISCELLANEOUS", "ORES", "POTIONS", "SOUL GEMS", "WEAPONS"];
 
 function App() {
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [sideBarCenter, setSideBarCenter] = useState(0);  /// centro da lista circular
-  const [currentQueryIndex, setQueryIndex] = useState(0); // classe da qual os produtos estão aparecendo
-  const [arrowY, setArrowY] = useState(null);
-  const [queriedPage, setQueriedPage] = useState(1);
-
   const qtdProductsPerPage = 2;  // isso aqui é pra testes, mas depois tem q trocar pra isso ser igual a 36
 
+  // SOBRE ESTILO
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [sideBarCenter, setSideBarCenter] = useState(0);  /// centro da lista circular
+  const [arrowY, setArrowY] = useState(null);
+
+  // Sobre QUERIES
+  const [queriedPage, setQueriedPage] = useState(1);
+  const [currentQueryIndex, setQueryIndex] = useState(0); // classe da qual os produtos estão aparecendo
+  const [newCategoryRequest, setNewCategoryRequest] = useState({type: types[currentQueryIndex], page: queriedPage, pageSize: qtdProductsPerPage, });  // solicitação de nova query
+  const [qtdProducts, setQtdProducts] = useState(18); // quantidade total de items a serem mostrados, nao apenas no productsData
   const [productsData, setProductsData] = useState([
     { id: 'product1', name: 'Shadowed Tower', price: 300, image: `${boneArrow}` },
-    { id: 'product2', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+    { id: 'product2', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: './assets/bone-arrow.png' },
     { id: 'product3', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
     { id: 'product4', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
     { id: 'product5', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
@@ -50,7 +57,7 @@ function App() {
     { id: 'product17', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
     { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
   ]);
-  const [qtdProducts, setQtdProducts] = useState(18); // quantidade total de items a serem mostrados, nao apenas no productsData
+  
 
   useEffect(() => {
     switch(Math.floor(Math.random() * 6)) {
@@ -106,8 +113,9 @@ function App() {
   };
 
   const handleClickClasses = (clickedOnIndex) => {
-    setSideBarCenter(clickedOnIndex);
-    setQueryIndex(clickedOnIndex);
+    setSideBarCenter((clickedOnIndex+types.length)%types.length);
+
+    setQueryIndex((clickedOnIndex+types.length)%types.length);
     setQueriedPage(1);        // reseta pra voltar pra pagina 1
     setSelectedProduct(null);
 
@@ -122,6 +130,9 @@ function App() {
       var newProducts = [];
       setProductsData(newProducts);  // 1ª pagina dos novos produtos
     */
+
+    setNewCategoryRequest({type: types[currentQueryIndex], page: queriedPage, pageSize: qtdProductsPerPage, });
+    setQtdProducts(NewCategory(newCategoryRequest, setProductsData));
   };
 
   const handleNewPageQuery = (newPage) => {
@@ -135,6 +146,8 @@ function App() {
       var newProducts = [];
       setProductsData(newProducts); // queriedPageª pagina da mesma query
     */
+    setNewCategoryRequest({type: types[currentQueryIndex], page: queriedPage, pageSize: qtdProductsPerPage, });
+    NewCategory(newCategoryRequest, setProductsData);
   }
 
   return (
