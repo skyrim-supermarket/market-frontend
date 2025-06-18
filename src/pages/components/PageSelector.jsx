@@ -3,8 +3,8 @@ import './styles/Selector.css';
 import { ReactComponent as PageLeft } from '../assets/pageLeft.svg';  // gambiarra
 import { ReactComponent as PageRight } from '../assets/pageRight.svg';
 
-function PageSelector({ n, maximum, onPageClick, selectedPage, startPage, setStartPage }) {
-  const numberPages = Math.ceil(n/maximum);
+function PageSelector({ n, maximum, onPageClick, selectedPage, startPage, setStartPage }) { 
+  const numberPages = ((n == 0)? 1 : Math.ceil(n/maximum));
   const pagesPerGroup = 5;
 
   const handlePageClick = (pageNumber) => {

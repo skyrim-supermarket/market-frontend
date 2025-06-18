@@ -1,12 +1,12 @@
 import React, { Link } from 'react';
 
-function NewCategory({ newCategoryRequest, setProductsData }) {
+function NewCategory( newCategoryRequest, setProductsData ) {
 
     const handleSubmit = async () => {
         
         try {
             const response = await fetch('http://localhost:8080/products', {
-                method: 'GET',
+                method: 'POST',
                 headers: { 'Content-Type': 'application/json', },
                 body: JSON.stringify(newCategoryRequest),
             });
@@ -14,6 +14,7 @@ function NewCategory({ newCategoryRequest, setProductsData }) {
             if (!response.ok) {
                 const errorText = await response.text();
                 console.error(errorText);
+                setProductsData([]);
                 return -1;
             }
             
