@@ -22,7 +22,7 @@ const types = ["ALL PRODUCTS", "AMMUNITION", "ARMOR", "BOOKS", "CLOTHING", "FOOD
 
 function App() {
   document.title = "Home";
-  const qtdProductsPerPage = 2;  // isso aqui é pra testes, mas depois tem q trocar pra isso ser igual a 36
+  const qtdProductsPerPage = 36;  // isso aqui é pra testes, mas depois tem q trocar pra isso ser igual a 36
 
   // SOBRE ESTILO
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -85,13 +85,14 @@ function App() {
       setProductsData(newProducts);  // 1ª pagina dos novos produtos
     */
 
-    const newRequest = {type: types[newIndex], page: queriedPage, pageSize: qtdProductsPerPage, };
+    const newRequest = {type: types[newIndex], page: 1, pageSize: qtdProductsPerPage, };
 
     setNewCategoryRequest(newRequest);
     NewCategory(newRequest, setProductsData, setQtdProducts);
   };
 
-  const handleNewPageQuery = (newPage) => {
+  const handleNewPageQuery = (indexPage) => {
+    const newPage = indexPage;
     setQueriedPage(newPage);
     setSelectedProduct(null);
     // alert("fui pra pagina " + newPage);
@@ -102,8 +103,9 @@ function App() {
       var newProducts = [];
       setProductsData(newProducts); // queriedPageª pagina da mesma query
     */
-    setNewCategoryRequest({type: types[currentQueryIndex], page: queriedPage, pageSize: qtdProductsPerPage, });
-    NewCategory(newCategoryRequest, setProductsData, setQtdProducts);
+    const newRequest = {type: types[currentQueryIndex], page: newPage, pageSize: qtdProductsPerPage, };
+    setNewCategoryRequest(newRequest);
+    NewCategory(newRequest, setProductsData, setQtdProducts);
   }  
 
   return (

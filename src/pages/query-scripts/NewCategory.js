@@ -24,12 +24,18 @@ function NewCategory( newCategoryRequest, setProductsData, setQtdProducts ) {
                 const data = res.results;
 
                 const n = data.totalCount;
+                const totalQueried = data.query.length;
 
                 const listProducts = [];
 
-                for (let i = 0; i < n; i += 1) {
+                for (let i = 0; i < totalQueried; i += 1) {
                     let thisProduct = data.query[i];
-                    listProducts.push({ id: thisProduct.id, name: thisProduct.productName, price: thisProduct.priceGold });
+                    console.log(thisProduct);
+                    listProducts.push({ 
+                        id: thisProduct.id, 
+                        name: thisProduct.productName, 
+                        price: thisProduct.priceGold, 
+                        image: thisProduct.image, });
                 }
 
                 setQtdProducts(n);
