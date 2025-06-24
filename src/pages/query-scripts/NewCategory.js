@@ -25,8 +25,6 @@ function NewCategory( newCategoryRequest, setProductsData, setQtdProducts ) {
 
                 const n = data.totalCount;
 
-                console.log(n);
-
                 const listProducts = [];
 
                 for (let i = 0; i < n; i += 1) {

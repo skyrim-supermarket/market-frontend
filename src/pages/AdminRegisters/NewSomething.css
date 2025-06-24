@@ -1,0 +1,23 @@
+.adminInsertionContainer {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-rows: 18% 80% 2%;
+    grid-template-columns: 100%;
+    text-align: center;
+}
+
+.adminInsertionHeader, .adminInsertionForm, .adminInsertionFooter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.adminInsertionHeader > img {
+    height: 100%;
+    width: auto;
+}
+
+.adminInsertionForm {
+    overflow-y: scroll;
+}

@@ -9,15 +9,11 @@ import VertDiv1 from '../components/VerticalDiv1';
 import VertDiv2 from '../components/VerticalDiv2';
 import Filter from '../components/Filter';
 import './Home.css';
-import bg0 from '../assets/bg/0.png'
-import bg1 from '../assets/bg/1.png'
-import bg2 from '../assets/bg/2.png'
-import bg3 from '../assets/bg/3.png'
-import bg4 from '../assets/bg/4.png'
-import bg5 from '../assets/bg/5.png'
 
 // scripts da query
 import NewCategory from '../query-scripts/NewCategory'
+
+import setBackgroundImage from '../style-scripts/setBackgroundImage';
 
 // temporario
 import boneArrow from '../assets/bone-arrow.png';
@@ -42,33 +38,7 @@ function App() {
   
   // Começa com a solicitação inicial da primeira classe.
   useEffect(() => {
-    switch(Math.floor(Math.random() * 6)) {
-      case 0:
-        document.body.style.backgroundImage = `url(${bg0})`;
-        break;
-      case 1:
-        document.body.style.backgroundImage = `url(${bg1})`;
-        break;
-      case 2:
-        document.body.style.backgroundImage = `url(${bg2})`;
-        break;
-      case 3:
-        document.body.style.backgroundImage = `url(${bg3})`;
-        break;
-      case 4:
-        document.body.style.backgroundImage = `url(${bg4})`;
-        break;
-      case 5:
-        document.body.style.backgroundImage = `url(${bg5})`;
-        break;
-
-      default:
-        break;
-    }
-
-    document.body.style.backgroundSize = 'cover';
-    document.body.style.backgroundPosition = 'center';
-    document.body.style.backgroundAttachment = 'fixed';
+    setBackgroundImage();
 
     NewCategory(newCategoryRequest, setProductsData, setQtdProducts);
 
@@ -97,9 +67,9 @@ function App() {
   };
 
   const handleClickClasses = (clickedOnIndex) => {
-    setSideBarCenter((clickedOnIndex+types.length)%types.length);
-
-    setQueryIndex((clickedOnIndex+types.length)%types.length);
+    const newIndex = (clickedOnIndex+types.length)%types.length;
+    setSideBarCenter(newIndex);
+    setQueryIndex(newIndex);
     setQueriedPage(1);        // reseta pra voltar pra pagina 1
     setSelectedProduct(null);
 
@@ -115,9 +85,10 @@ function App() {
       setProductsData(newProducts);  // 1ª pagina dos novos produtos
     */
 
-   setNewCategoryRequest({type: types[currentQueryIndex], page: queriedPage, pageSize: qtdProductsPerPage, });
-   console.log(newCategoryRequest);
-    NewCategory(newCategoryRequest, setProductsData, setQtdProducts);
+    const newRequest = {type: types[newIndex], page: queriedPage, pageSize: qtdProductsPerPage, };
+
+    setNewCategoryRequest(newRequest);
+    NewCategory(newRequest, setProductsData, setQtdProducts);
   };
 
   const handleNewPageQuery = (newPage) => {
