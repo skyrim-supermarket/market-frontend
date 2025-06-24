@@ -25,6 +25,7 @@ import boneArrow from '../assets/bone-arrow.png';
 const types = ["ALL PRODUCTS", "AMMUNITION", "ARMOR", "BOOKS", "CLOTHING", "FOOD", "INGREDIENTS", "MISCELLANEOUS", "ORES", "POTIONS", "SOUL GEMS", "WEAPONS"];
 
 function App() {
+  document.title = "Home";
   const qtdProductsPerPage = 2;  // isso aqui é pra testes, mas depois tem q trocar pra isso ser igual a 36
 
   // SOBRE ESTILO
@@ -69,7 +70,7 @@ function App() {
     document.body.style.backgroundPosition = 'center';
     document.body.style.backgroundAttachment = 'fixed';
 
-    setQtdProducts(NewCategory(newCategoryRequest, setProductsData));
+    NewCategory(newCategoryRequest, setProductsData, setQtdProducts);
 
     return () => {
       document.body.style.backgroundImage = '';
@@ -114,8 +115,9 @@ function App() {
       setProductsData(newProducts);  // 1ª pagina dos novos produtos
     */
 
-    setNewCategoryRequest({type: types[currentQueryIndex], page: queriedPage, pageSize: qtdProductsPerPage, });
-    setQtdProducts(NewCategory(newCategoryRequest, setProductsData));
+   setNewCategoryRequest({type: types[currentQueryIndex], page: queriedPage, pageSize: qtdProductsPerPage, });
+   console.log(newCategoryRequest);
+    NewCategory(newCategoryRequest, setProductsData, setQtdProducts);
   };
 
   const handleNewPageQuery = (newPage) => {
@@ -130,7 +132,7 @@ function App() {
       setProductsData(newProducts); // queriedPageª pagina da mesma query
     */
     setNewCategoryRequest({type: types[currentQueryIndex], page: queriedPage, pageSize: qtdProductsPerPage, });
-    NewCategory(newCategoryRequest, setProductsData);
+    NewCategory(newCategoryRequest, setProductsData, setQtdProducts);
   }  
 
   return (

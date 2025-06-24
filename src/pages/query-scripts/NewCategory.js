@@ -1,6 +1,6 @@
 import React, { Link } from 'react';
 
-function NewCategory( newCategoryRequest, setProductsData ) {
+function NewCategory( newCategoryRequest, setProductsData, setQtdProducts ) {
 
     const handleSubmit = async () => {
         
@@ -15,31 +15,36 @@ function NewCategory( newCategoryRequest, setProductsData ) {
                 const errorText = await response.text();
                 console.error(errorText);
                 setProductsData([]);
-                return -1;
+                throw new Error;
             }
             
             else {
-                const data = await response.json();
+                const res = await response.json();
+
+                const data = res.results;
 
                 const n = data.totalCount;
+
+                console.log(n);
+
                 const listProducts = [];
 
-                for (let i = 0; i <= newCategoryRequest.pageSize; i += 1) {
+                for (let i = 0; i < n; i += 1) {
                     let thisProduct = data.query[i];
-                    listProducts.push({ id: thisProduct.id, name: thisProduct.name, price: thisProduct.price });
+                    listProducts.push({ id: thisProduct.id, name: thisProduct.productName, price: thisProduct.priceGold });
                 }
 
+                setQtdProducts(n);
                 setProductsData(
                     /*{ id: 'product1', name: 'Shadowed Tower', price: 300, image: `${boneArrow}` },*/
                 listProducts);
 
-                return n;
             }  
         }
         
         catch (erro) {
             console.error(erro);
-            return -1;
+            throw new Error;
         }
     };
 
