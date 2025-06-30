@@ -35,10 +35,26 @@ body {
     overflow: hidden;
 }
 
+.container-admin {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 12% 4% 7% 4% 71%;
+    grid-template-rows: 98% 2%;
+    overflow: hidden;
+}
+
 .container2 {
     display: grid;
     height: 100%;
     grid-template-rows: 10% 7% 83%;
+    font-size: 1.8em;
+    overflow: hidden;
+}
+
+.conteiner2-admin {
+    display: grid;
+    height: 100%;
+    grid-template-rows: 10% 90%;
     font-size: 1.8em;
     overflow: hidden;
 }

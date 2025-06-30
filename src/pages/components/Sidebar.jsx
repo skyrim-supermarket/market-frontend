@@ -5,7 +5,7 @@ import useWindowSize from '../hooks/useWindowSize'; // Caminho ajustado
 import gold from '../assets/gold.png';
 import { getCLS } from 'web-vitals';
 
-function Sidebar({ types, selectedClassIndex, onScroll, onClassClick }) {
+function Sidebar({ types, selectedClassIndex, onScroll, onClassClick, showLogo }) {
   const sidebarRef = useRef(null);
   const isIgnoringInputRef = useRef(false);
   const { height: windowHeight } = useWindowSize();
@@ -23,7 +23,7 @@ function Sidebar({ types, selectedClassIndex, onScroll, onClassClick }) {
     else
       qtd = 3;
     setVisibleItemsCount(qtd);
-  }, [windowHeight]);
+  }, [windowHeight, types]);
 
   const lim = Math.floor(visibleItemsCount / 2);
   const displayTypes = [];
@@ -78,7 +78,9 @@ function Sidebar({ types, selectedClassIndex, onScroll, onClassClick }) {
     <div className="sidebar" ref={sidebarRef}>
       <div>
         {/* a */}
-        <img className="logo" src={gold} alt="Logo" />
+        {showLogo && (<>
+          <img className="logo" src={gold} alt="Logo" />
+        </>)}
       </div>
       <div className="productClasses">
         <ul id="classes-ul">

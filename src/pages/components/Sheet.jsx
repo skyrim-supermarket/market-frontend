@@ -1,16 +1,16 @@
 // src/components/ProductList.js
 import React, { useEffect, useRef, useState } from 'react';
-import ProductItem from './ProductItem';
-import './styles/ProductList.css';
+import SheetItem from './SheetItem';
+import './styles/Sheet.css';
 import PageSelector from './PageSelector';
 
-function MarqueeOfItems({productsData}) { // selectedProducts?
+function MarqueeOfItems({data}) {
   // função com responsabilidade de cuidar do marquee dos items
   // depende apenas da lista de produtos 
   useEffect(() => {
-    const elements = document.querySelectorAll('.product-item-name');
+    const elements = document.querySelectorAll('.sheet-item-name');
     elements.forEach(element => {
-      const elementChild = element.querySelector('.product-item-name-text');
+      const elementChild = element.querySelector('.sheet-item-name-text');
       if (elementChild) {
         const pw = elementChild.offsetWidth;
         const cw = element.offsetWidth;
@@ -21,20 +21,20 @@ function MarqueeOfItems({productsData}) { // selectedProducts?
         }
       }
     });
-  }, [productsData]); // selectedProducts?
+  }, [data]); // selectedProducts?
 }
 
-function useArrowFollowsScroll({ productListRef, selectedProduct, onSelectedItemPositionChange }) {
+function useArrowFollowsScroll({ sheetRef, selectedItem, onSelectedItemPositionChange }) {
   // função com responsabilidade de fazer a seta da div2 seguir o scroll do mouse
   useEffect(() => {
-    const container = productListRef.current;
-    if (!container || !selectedProduct) {
+    const container = sheetRef.current;
+    if (!container || !selectedItem) {
       if (onSelectedItemPositionChange) onSelectedItemPositionChange(null);
       return;
     }
 
     const updatePosition = () => {
-      const selectedElement = document.getElementById(selectedProduct.id);
+      const selectedElement = document.getElementById(selectedItem.id);
       if (!selectedElement) {
         if (onSelectedItemPositionChange) onSelectedItemPositionChange(null);
         return;
@@ -65,7 +65,7 @@ function useArrowFollowsScroll({ productListRef, selectedProduct, onSelectedItem
       container.removeEventListener('scroll', updatePosition);
       window.removeEventListener('resize', updatePosition);
     };
-  }, [productListRef, selectedProduct, onSelectedItemPositionChange]);
+  }, [sheetRef, selectedItem, onSelectedItemPositionChange]);
 }
 
 function ResetEntireListOnIndexChange({setStartPage, setSelectedPage, currentQueryIndex}) {
@@ -75,28 +75,28 @@ function ResetEntireListOnIndexChange({setStartPage, setSelectedPage, currentQue
   }, [currentQueryIndex]);
 }
 
-function ProductList({ n, qtdProductsPerPage, productsData, onProductSelect, selectedProduct, onSelectedItemPositionChange, onNewQuery, currentQueryIndex }) {
-  const productListRef = useRef(null);
+function Sheet({ n, qtdProductsPerPage, data, onItemSelect, selectedItem, onSelectedItemPositionChange, onNewQuery, currentQueryIndex }) {
+  const sheetRef = useRef(null);
   const [startPage, setStartPage] = useState(1);        // 1º cara da esquerda do grupo de paginas
   const [selectedPage, setSelectedPage] = useState(1);  // pagina selecionada
 
-  MarqueeOfItems(productsData);
-  useArrowFollowsScroll({productListRef, selectedProduct, onSelectedItemPositionChange});
+  MarqueeOfItems(data);
+  useArrowFollowsScroll({sheetRef, selectedItem, onSelectedItemPositionChange});
   ResetEntireListOnIndexChange({setStartPage, setSelectedPage, currentQueryIndex});
 
   return (
     <div className={`listAndSelector`}>
       <div
-        id="product-list"
-        className={`product-list ${selectedProduct ? 'productSelected' : 'productNotSelected'}`}
-        ref={productListRef}
+        id="sheet"
+        className={`sheet ${selectedItem ? 'itemSelected' : 'itemNotSelected'}`}
+        ref={sheetRef}
       >
-        {productsData.map(product => (
-          <ProductItem
-            key={product.id}
-            product={product}
-            isSelected={selectedProduct && selectedProduct.id === product.id}
-            onSelect={onProductSelect}
+        {data.map(item => (
+          <SheetItem
+            key={item.id}
+            item={item}
+            isSelected={selectedItem && selectedItem.id === item.id}
+            onSelect={onItemSelect}
           />
         ))}
       </div>
@@ -115,4 +115,4 @@ function ProductList({ n, qtdProductsPerPage, productsData, onProductSelect, sel
   );
 }
 
-export default ProductList;
+export default Sheet;

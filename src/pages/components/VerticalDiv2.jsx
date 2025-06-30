@@ -98,7 +98,7 @@ const VertDiv2 = ({ id, showArrow, arrowY = 0 }) => {
         }
 
         // calcula posição da seta
-        let intDiv = Math.floor(arrowY/11) - 2;
+        let intDiv = Math.floor(arrowY/11) - 3;
         const resto = arrowY % 11;
         if (resto >= 6) intDiv++;
 
