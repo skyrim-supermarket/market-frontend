@@ -109,6 +109,8 @@ const Form = ({whatDoIWant, sendLabelsUp}) => {
       const whatDoIWantFormatted = whatDoIWant.slice(0,1).toUpperCase() + whatDoIWant.slice(1, whatDoIWant.length).toLowerCase();
       NewForm(whatDoIWantFormatted, setFormLabels); // pega os labels, e atualiza o estado
       sendLabelsUp(formLabels);
+    } else {
+      setFormLabels([]);
     }
   }, [whatDoIWant]); 
 
@@ -151,7 +153,6 @@ const Form = ({whatDoIWant, sendLabelsUp}) => {
           )}
 
           <form onSubmit={handleSubmit}>
-            {console.log(formLabels)}
             {formLabels.map((label) => {
               const name = label.name;
               const type = label.type.toUpperCase();
@@ -168,24 +169,41 @@ const Form = ({whatDoIWant, sendLabelsUp}) => {
                   maximum = 1;
                 }
 
+                const newName = name.replace(/([A-Z])/g, ' $1').toLowerCase().replace(/^./, c => c.toUpperCase());
+
                 return (
-                <label> {name.replace(/([A-Z])/g, ' $1').toLowerCase().replace(/^./, c => c.toUpperCase())}: 
-                  <input type={labelType} placeholder={name} id={name} name={name} value={formData[name]} onChange={handleChange} required/>
+                <label> {newName}: 
+                  <input 
+                    type={labelType} 
+                    placeholder={`Insert ${newName.toLowerCase()}`} 
+                    id={name} 
+                    name={name} 
+                    value={labelType === "checkbox" ? undefined : formData[name]}
+                    className={`form-${labelType}`} 
+                    onChange={handleChange} 
+                    required={labelType !== 'checkbox'}
+                    min={labelType === "number" ? minimum : undefined}
+                    max={labelType === "number" ? maximum : undefined}
+                  />
                 </label>)
               }
             })}
             
 
             {((whatDoIWant !== "PRODUCTS") || (formLabels.length != 0)) && (<>
-              <label>
+
+              {(whatDoIWant === "PRODUCTS") && (<>
+                <label>
                 Choose an image:
                 <input type="file" id="image" name="image" onChange={(e) => setImageData(e.target.files[0])}/>
               </label>
-
+              </>
+              )}
+              
               <label>
               <input type="submit" style={{ display: "none" }} />
               <svg
-                id="button1"
+                id="buttonForm"
                 className="button"
                 viewBox="0 0 251 44"
                 xmlnssvg="http://www.w3.org/2000/svg"
@@ -197,7 +215,7 @@ const Form = ({whatDoIWant, sendLabelsUp}) => {
                   y="50%"
                   dominantBaseline="middle"
                   textAnchor="middle"
-                  className="buttonText"
+                  className="buttonFormText"
                 >
                   Insert
                 </text>

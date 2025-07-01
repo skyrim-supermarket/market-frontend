@@ -135,13 +135,13 @@ function App() {
     setAdminEditSideBarCenter(0);
     setAdminEditIndex(0);
     setSelectedProduct(null);
-    setAdminForms(1);
 
     if (types[newIndex] == 'CLIENTS' || types[newIndex] == 'SALES') {
-      alert("aa")
       setAdminEdit(["LIST",]);
+      setAdminForms(0);
     } else {
       setAdminEdit(["ADD NEW", "LIST", "\0", ]);
+      setAdminForms(1);
     }
 
     //const newRequest = {type: 'ALL PRODUCTS', page: 1, pageSize: qtdProductsPerPage, };

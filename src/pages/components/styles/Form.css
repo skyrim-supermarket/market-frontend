@@ -1,19 +1,79 @@
 .adminInsertionContainer {
+    display: flex;
+    flex-direction: column;       
+    align-items: flex-start;
+
+    margin-top: 1%;
     width: 100%;
     height: 100%;
-    text-align: center;
+    align-items: right;
     overflow-y: scroll;
+    justify-content: right;
+
+    scrollbar-width: none; /* firefox */
+    -ms-overflow-style: none;  /* internet explorer e edge */
 }
 
-.adminInsertionHeader, .adminInsertionForm, .adminInsertionFooter {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    justify-content: center;
+/* ocultar a scrollbar krl!! */
+.adminInsertionContainer::-webkit-scrollbar {
+    display: none;
 }
 
-.adminInsertionForm {
-    overflow-y: scroll;
-    height: 100%;
-    width: auto;
+form {
+    width: 100%;
+}
+
+
+#product-selector-form {
+    min-width: 25%;
+    padding: 0.0em 0.4em;
+    background: rgb(0,0,0, 0.4);
+    /*border: thin;
+    border-color: (255, 255, 255, 0.4);*/
+    border: thin solid white;
+    border-radius: 10px;
+    line-height: 1.5em;
+    color: inherit;
+    font: inherit;
+    margin-left: 1em;
+    height: 4vh;
+    min-height: 1.5em;
+    margin-bottom: 1%;
+}
+
+.form-text, .form-number, .form-checkbox {
+    background-color: rgb(0, 0, 0, 0.4) !important;
+    width: 25%;
+    font-family: Futura;
+    font-weight: 400;
+    color: white;
+
+    margin-left: 0.4em;
+
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid white;
+    border-radius: 10px;
+
+    font-size: inherit !important;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+.buttonFormText {
+    fill: white;
+    font-weight: 400;
+    font-size: 100%;
+}
+
+#buttonForm {
+    width: 10em;
+    height: auto;
+    transition: 0.3s;
+}
+
+#buttonForm:hover {
+    cursor: pointer;
+    opacity: 75%;
 }
