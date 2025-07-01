@@ -81,6 +81,7 @@ const Form = ({whatDoIWant, sendLabelsUp}) => {
   const getLabels = async (e) => {
     // função pra quando trocamos os labels do produto
     
+    setProductCategory(e.target.value);
     NewForm(e.target.value, setFormLabels);
     setFormData(
       formLabels.map((label) => {

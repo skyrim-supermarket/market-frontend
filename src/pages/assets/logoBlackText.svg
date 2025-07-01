@@ -1,11 +1,21 @@
 <svg
-   width="136.58954mm"
-   height="215.491mm"
-   viewBox="0 0 483.97868 763.55078"
+   width="356.42264mm"
+   height="215.49101mm"
+   viewBox="0 0 1262.9149 763.55083"
    id="svg2"
    version="1.1"
-   xmlns="http://www.w3.org/2000/svg">
-   <g
+   xmlns="http://www.w3.org/2000/svg"><defs
+     id="defs4"><rect
+       x="588.26489"
+       y="168.89478"
+       width="928.49805"
+       height="650.5683"
+       id="rect1351" /><rect
+       x="549.43372"
+       y="169.4165"
+       width="503.92664"
+       height="489.39822"
+       id="rect1207" /></defs><g
      id="layer1"
      transform="translate(-142.61822,-65.721763)"><path
        style="fill:#000000"
@@ -13,4 +23,23 @@
        id="path4201" /><path
        d="m 442.69347,363.24593 -84.46907,21.92378 -3.6865,-6.84796 95.72487,-24.84522 c 0,0 -6.00168,-16.78845 -6.61715,-39.55957 -0.74717,-27.64345 4.58963,-32.0088 4.58963,-32.0088 l -130.40254,17.66368 c -12.86409,-18.81318 -30.54642,-18.37026 -40.59776,-11.92256 13.50553,-1.43975 34.60971,21.57144 48.00215,48.56397 6.20951,12.51529 19.26655,37.75372 19.97613,52.63349 -16.92793,7.49419 -15.23316,32.04365 2.55871,37.14545 17.79187,5.10178 32.23845,-14.81915 21.85418,-30.14509 l 58.36076,-15.14744 c -1.61317,19.18264 22.37006,29.09122 34.77021,14.37478 12.40018,-14.71644 -1.43249,-36.67169 -20.06362,-31.82851 z M 323.4924,312.12332 435.45441,296.95766 c 0,0 -1.89864,-2.6206 -2.19418,17.35018 -0.3657,24.71027 3.50835,29.03451 3.50835,29.03451 l -85.74981,21.61396 c 0,0 -6.70261,-18.81653 -18.37215,-42.4847 -17.14402,-34.77153 -9.15422,-10.34829 -9.15422,-10.34829 z"
        id="path720"
-       style="fill:#000000;stroke-width:0.601472" /></g></svg>
+       style="fill:#000000;stroke-width:0.601472" /><text
+       transform="matrix(0.93750003,0,0,0.93750003,142.61822,65.721763)"
+       id="text1205"
+       style="white-space:pre;shape-inside:url(#rect1207);opacity:0.3;fill:#000000" /><text
+       transform="matrix(0.93750005,0,0,0.93750005,106.60832,99.026582)"
+       id="text1349"
+       style="white-space:pre;shape-inside:url(#rect1351);opacity:1;fill:#000000"><tspan
+         x="588.26562"
+         y="337.39086"
+         id="tspan1339"><tspan
+           style="font-size:186.667px;font-family:'Seagram tfb';-inkscape-font-specification:'Seagram tfb, Normal'"
+           id="tspan1335">Oddments</tspan><tspan
+           style="font-size:173.333px;font-family:'Seagram tfb';-inkscape-font-specification:'Seagram tfb, Normal'"
+           id="tspan1337">
+</tspan></tspan><tspan
+         x="588.26562"
+         y="558.68856"
+         id="tspan1343"><tspan
+           style="font-size:173.333px;font-family:'Seagram tfb';-inkscape-font-specification:'Seagram tfb, Normal'"
+           id="tspan1341">and Pieces</tspan></tspan></text></g></svg>
