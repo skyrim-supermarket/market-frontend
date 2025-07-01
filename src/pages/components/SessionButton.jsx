@@ -3,14 +3,13 @@ import { useNavigate, Link } from "react-router-dom";
 import button from "../assets/button.svg";
 import './styles/SessionButton.css';
 
-const SessionButton = ({setWhoAmI}) => {
+const SessionButton = () => {
     const token = localStorage.getItem("token");
 
     const navigate = useNavigate();
 
     function handleLogout() {
         localStorage.removeItem("token");
-        setWhoAmI("none");
         navigate("/");
     }
 

@@ -30,7 +30,6 @@ function NewCategory( newCategoryRequest, setProductsData, setQtdProducts ) {
 
                 for (let i = 0; i < totalQueried; i += 1) {
                     let thisProduct = data.query[i];
-                    console.log(thisProduct);
                     listProducts.push({ 
                         id: thisProduct.id, 
                         name: thisProduct.productName, 
