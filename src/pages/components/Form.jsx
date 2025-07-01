@@ -70,6 +70,8 @@ const Form = ({whatDoIWant, sendLabelsUp}) => {
 
       setFormData(cleanData);
       setImageData(null);
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       
     } catch(error) {
       const errorText = error.message || "Unknown error occurred";
@@ -138,7 +140,7 @@ const Form = ({whatDoIWant, sendLabelsUp}) => {
           {successMessage && <span style={{ color: "green" }}>{successMessage}</span>}
           
           {(whatDoIWant === "PRODUCTS") && (<>
-            <select onChange={getLabels}>
+            <select id="product-selector-form" onChange={getLabels}>
               {types.map((type) => (
                 <option value={setProductCategory}> {type.slice(0,1).toUpperCase() + type.slice(1, type.length).toLowerCase()}
                 </option>
@@ -167,7 +169,7 @@ const Form = ({whatDoIWant, sendLabelsUp}) => {
                 }
 
                 return (
-                <label> {name}: 
+                <label> {name.replace(/([A-Z])/g, ' $1').toLowerCase().replace(/^./, c => c.toUpperCase())}: 
                   <input type={labelType} placeholder={name} id={name} name={name} value={formData[name]} onChange={handleChange} required/>
                 </label>)
               }
