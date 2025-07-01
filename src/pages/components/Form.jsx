@@ -7,7 +7,7 @@ import NewForm from '../query-scripts/NewForm';
 
 /* copiado do anterior -- tem q coisar as mudanças */
 
-const Form = ({whatDoIWant}) => {
+const Form = ({whatDoIWant, sendLabelsUp}) => {
   const types = ["AMMUNITION", "ARMOR", "BOOKS", "CLOTHING", "FOOD", "INGREDIENTS", "MISCELLANEOUS", "ORES", "POTIONS", "SOUL GEMS", "WEAPONS"];
 
   const [formLabels, setFormLabels] = useState([]);
@@ -90,9 +90,10 @@ const Form = ({whatDoIWant}) => {
         let defaultValue = "";
         if (type.includes("INT") || type.includes("DOUBLE") || type.includes("FLOAT")) {
           defaultValue = 0;
-        } else if (type.includes("BOOLEAN")) {
+        } else if (type.includes("BOOL")) {
           defaultValue = false;
         }
+        sendLabelsUp(formLabels);
 
         return [name, defaultValue];
       })
@@ -104,6 +105,7 @@ const Form = ({whatDoIWant}) => {
     if (whatDoIWant !== "PRODUCTS") {
       const whatDoIWantFormatted = whatDoIWant.slice(0,1).toUpperCase() + whatDoIWant.slice(1, whatDoIWant.length).toLowerCase();
       NewForm(whatDoIWantFormatted, setFormLabels); // pega os labels, e atualiza o estado
+      sendLabelsUp(formLabels);
     }
   }, [whatDoIWant]); 
 
@@ -117,7 +119,7 @@ const Form = ({whatDoIWant}) => {
 
         if (type.includes("INT") || type.includes("DOUBLE") || type.includes("FLOAT")) {
           initialData[name] = 0;
-        } else if (type.includes("BOOLEAN")) {
+        } else if (type.includes("BOOL")) {
           initialData[name] = false;
         } else {
           initialData[name] = "";
@@ -158,13 +160,13 @@ const Form = ({whatDoIWant}) => {
                 } else if (type.includes("DOUBLE")) {
                   labelType = "number";
                   step = 0.01;
-                } else if (type.includes("BOOLEAN")) {
-                  labelType = "number";
+                } else if (type.includes("BOOL")) {
+                  labelType = "checkbox";
                   maximum = 1;
                 }
 
                 return (
-                <label>
+                <label> {name}: 
                   <input type={labelType} placeholder={name} id={name} name={name} value={formData[name]} onChange={handleChange} required/>
                 </label>)
               }

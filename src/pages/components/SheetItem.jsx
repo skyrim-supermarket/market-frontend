@@ -3,7 +3,7 @@ import React from 'react';
 import './styles/Sheet.css';
 import gold from '../assets/gold.png';
 
-function SheetItem({ item, onSelect, isSelected }) {
+function SheetItem({ item, onSelect, isSelected, showStock }) {
   const handleClick = () => {
     onSelect(item);
   };
@@ -25,9 +25,11 @@ function SheetItem({ item, onSelect, isSelected }) {
             <span>{item.price}</span>
             </div>
         </div>
-        <div className="sheet-item-stock">
+        {showStock && (<>
+          <div className="sheet-item-stock">
             <span> Stock: {item.stock} </span>
         </div>
+        </>)} 
      </div>
   );
 }

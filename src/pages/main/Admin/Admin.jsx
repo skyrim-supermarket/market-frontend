@@ -36,6 +36,7 @@ function App() {
   const [adminEditSideBarCenter, setAdminEditSideBarCenter] = useState(0);  // centro da lista circular 2
   const [arrowY, setArrowY] = useState(null);
   const [types, setTypes] = useState(["ADMINS", "CARROCABOYS", "CASHIERS", "CLIENTS", "PRODUCTS", "SALES"]);
+  const [adminEdit, setAdminEdit] = useState(["ADD NEW", "LIST", "\0", ]);
 
   // Sobre QUERIES
   const [queriedPage, setQueriedPage] = useState(1);
@@ -64,6 +65,7 @@ function App() {
     { id: 'product17', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
     { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
   ]);
+  const [currentLabels, setCurrentLabels] = useState({});
 
   // inicialização
   useEffect(() => {
@@ -108,6 +110,10 @@ function App() {
   // quando scrollamos nas classes da sidebar 2
   const handleScrollAdminEdit = (direction) => {
     setAdminEditSideBarCenter(prevIndex => {
+      if (types[sideBarCenter] == 'CLIENTS' || types[sideBarCenter] == 'SALES') {
+        return prevIndex;
+      }
+
       let newIndex = prevIndex;
       if (direction === 'up') {
         newIndex = ((prevIndex - 1)+2)%2;
@@ -130,6 +136,13 @@ function App() {
     setAdminEditIndex(0);
     setSelectedProduct(null);
     setAdminForms(1);
+
+    if (types[newIndex] == 'CLIENTS' || types[newIndex] == 'SALES') {
+      alert("aa")
+      setAdminEdit(["LIST",]);
+    } else {
+      setAdminEdit(["ADD NEW", "LIST", "\0", ]);
+    }
 
     //const newRequest = {type: 'ALL PRODUCTS', page: 1, pageSize: qtdProductsPerPage, };
     //setNewCategoryRequest(newRequest);
@@ -178,7 +191,7 @@ function App() {
       <VertDiv1 id="vertDiv1" showArrow={(currentQueryIndex == sideBarCenter)} /> 
 
       <Sidebar
-        types={["ADD NEW", "LIST", "\0", ]}
+        types={adminEdit}
         selectedClassIndex={adminEditSideBarCenter}
         onScroll={handleScrollAdminEdit}
         onClassClick={handleClickAdminEdit}
@@ -206,12 +219,13 @@ function App() {
               onSelectedItemPositionChange={setArrowY}
               onNewQuery={handleNewPageQuery}
               currentQueryIndex={currentQueryIndex}
+              showStock={true}
             />
 
             {selectedProduct && (
               <>
                 <VertDiv2 id="vertDiv2" showArrow={arrowY !== null} arrowY={arrowY} />
-                <ProductInfo product={selectedProduct} />
+                <ProductInfo product={selectedProduct} editable={true} labels={currentLabels}/>
               </>
             )}
           </>
@@ -221,6 +235,7 @@ function App() {
           <>
             <Form
               whatDoIWant={types[currentQueryIndex]}
+              sendLabelsUp={setCurrentLabels}
             />
           </>
         )}

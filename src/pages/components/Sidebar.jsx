@@ -20,8 +20,10 @@ function Sidebar({ types, selectedClassIndex, onScroll, onClassClick, showLogo }
       qtd = 7;
     else if (windowHeight >= 640 && types.length >= 5)
       qtd = 5;
-    else
+    else if (types.length >= 2)
       qtd = 3;
+    else 
+      qtd = 1;
     setVisibleItemsCount(qtd);
   }, [windowHeight, types]);
 
