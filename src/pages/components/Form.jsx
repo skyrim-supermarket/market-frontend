@@ -38,8 +38,9 @@ const Form = ({whatDoIWant, sendLabelsUp}) => {
       data.append("image", imageData);
     }
 
-    const target = ((whatDoIWant === "PRODUCTS") ? productCategory : whatDoIWant).charAt(0).toUpperCase() +
-                   ((whatDoIWant === "PRODUCTS") ? productCategory : whatDoIWant).slice(1).toLowerCase();
+    const target = (whatDoIWant === "PRODUCTS") ? `Product/${productCategory.charAt(0).toUpperCase() + productCategory.slice(1).toLowerCase()}`
+                                                : whatDoIWant.charAt(0).toUpperCase() + whatDoIWant.slice(1).toLowerCase();
+
     const endpoint = `http://localhost:8080/new${target}`;
 
     try {
@@ -158,7 +159,7 @@ const Form = ({whatDoIWant, sendLabelsUp}) => {
               const type = label.type.toUpperCase();
 
               if (name !== "image") {
-                let labelType = "text", step = 1, minimum = 0, maximum = 100;
+                let labelType = "text", step = 1, minimum = 0, maximum = 10000;
                 if (type.includes("INT")) {
                   labelType = "number"; 
                 } else if (type.includes("DOUBLE")) {

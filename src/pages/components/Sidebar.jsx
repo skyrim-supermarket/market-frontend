@@ -14,13 +14,13 @@ function Sidebar({ types, selectedClassIndex, onScroll, onClassClick, showLogo }
 
   useEffect(() => {
     let qtd;
-    if (windowHeight >= 980 && types.length >= 9)
+    if (windowHeight >= 980 && types.length >= 8)
       qtd = 9;
-    else if (windowHeight >= 760 && types.length >= 7)
+    else if (windowHeight >= 760 && types.length >= 6)
       qtd = 7;
-    else if (windowHeight >= 640 && types.length >= 5)
+    else if (windowHeight >= 640 && types.length >= 4)
       qtd = 5;
-    else if (types.length >= 2)
+    else if (types.length >= 3)
       qtd = 3;
     else 
       qtd = 1;
@@ -30,11 +30,22 @@ function Sidebar({ types, selectedClassIndex, onScroll, onClassClick, showLogo }
   const lim = Math.floor(visibleItemsCount / 2);
   const displayTypes = [];
 
-  for (let j = selectedClassIndex - lim; j <= selectedClassIndex + lim; j += 1) {
-    let id = j % types.length;
-    if (id < 0) id += types.length;
-    displayTypes.push({ name: types[id], index: j });
+  if (types.length%2 == 0 && types.length < visibleItemsCount) {
+    displayTypes.push({ name: "\0", index: selectedClassIndex - lim });
+    for (let j = selectedClassIndex - lim + 1; j <= selectedClassIndex + lim; j += 1) {
+      let id = j % types.length;
+      if (id < 0) id += types.length;
+      displayTypes.push({ name: types[id], index: j });
+    }
+  } else {
+    for (let j = selectedClassIndex - lim; j <= selectedClassIndex + lim; j += 1) {
+      let id = j % types.length;
+      if (id < 0) id += types.length;
+      displayTypes.push({ name: types[id], index: j });
+    }
   }
+
+  
 
   const getClassName = (itemIndex) => {
     if (itemIndex === selectedClassIndex) return `sideBarItem centerSelected`;

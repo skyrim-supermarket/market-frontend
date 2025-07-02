@@ -5,6 +5,7 @@ import Cadastro from './pages/Cadastro/Cadastro';
 import Login from './pages/Login/Login';
 import Home from './pages/main/Home/Home';
 import Admin from './pages/main/Admin/Admin';
+import User from './pages/main/User/User'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/cadastro" element={<Cadastro/>}/>
         <Route path="/admin" element={<Admin/>}/>
         <Route path="*" element={<Navigate to="/" />} />
+        <Route path="/user" element={<User/>}/>
       </Routes>
     </BrowserRouter>
   );
