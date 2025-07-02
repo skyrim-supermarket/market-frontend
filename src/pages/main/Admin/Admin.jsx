@@ -201,12 +201,15 @@ function App() {
               currentQueryIndex={currentQueryIndex}
               showStock={true}
               isItAProduct={types[currentQueryIndex] == "PRODUCTS"}
+              alertAdminEdit={() => {setSelectedProduct(null)}}
             />
 
             {selectedProduct && (
               <>
                 <VertDiv2 id="vertDiv2" showArrow={arrowY !== null} arrowY={arrowY} />
-                <ProductInfo product={selectedProduct} editable={true} category={types[currentQueryIndex]}/>
+                <ProductInfo product={selectedProduct} editable={
+                  ((types[currentQueryIndex] == "CLIENTS" || types[currentQueryIndex] == "SALES")? false : true) 
+                 } category={types[currentQueryIndex]}/>
               </>
             )}
           </>

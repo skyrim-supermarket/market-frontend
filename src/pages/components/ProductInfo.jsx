@@ -17,6 +17,10 @@ function ProductInfo({ product, editable, category = "PRODUCTS" }) {
   const [imageData, setImageData] = useState(null);
   const [labels, setLabels] = useState({});
 
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [iAm, setWhoIAm] = useState('none');
+
   // pega informações do produto
   useEffect(() => {
     async function fetchInfo() {
@@ -32,7 +36,8 @@ function ProductInfo({ product, editable, category = "PRODUCTS" }) {
     async function fetchLabels() {
       await NewForm(((category === "PRODUCTS")? info.type : category), setLabels)
     }
-    if (info.type != null || (category !== "PRODUCTS")) fetchLabels();
+    if ((info.type != null || (category !== "PRODUCTS")) && (category !== "SALES" && category !== "CLIENTS")) 
+        fetchLabels();
     setNewInfo(info);
   }, [info]);
 
@@ -50,27 +55,82 @@ function ProductInfo({ product, editable, category = "PRODUCTS" }) {
   const handleChange = (e) => {setNewInfo({...newInfo, [e.target.name]: e.target.value});};
 
   const getForms = () => {
+    setNewInfo(info)
     setShowForms(!showForms)
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    async function fetchUser() {
+      const user = await setWhoIAm();
+      setWhoIAm(user);
+    } fetchUser();
+
+    e.preventDefault();
+    setErrorMessage('');
+    setSuccessMessage('');
+
+    let data = new FormData();
+    let endpoint = ''
+
+    // CASO 1: EDITAR PRODUTO
     if (showForms) {
       // coloca aqui pra inserir mudanças
       // novas coisas estão em newInfo
-      return 0;
+
+      labels.forEach(({ name }) => {
+        data.append(name, newInfo[name]);
+      });
+
+      if (imageData) {
+        data.append("image", imageData);
+      }
+
+      const target = (category === "PRODUCTS") ? `Product/${product.id}` 
+      : ((category === "ADMINS")? `Admins/${product.id}/${iAm.email}` : 
+      `${category.charAt(0).toUpperCase() + category.slice(1).toLowerCase()}/${product.id}`);
+      endpoint = `http://localhost:8080/edit${target}`;
+
+    // CASO 2: COLOCAR PRODUTO NO CARRINHO
     } else {
       // coloca aqui pra inserir no carrinho
+      data = {}
+      endpoint = `http://localhost:8080/addToCart/${product.id}/${iAm.email}`;
       return 0;
     }
-  }
 
-  const putIntoCart = () => {
-    alert(Object.keys(info));
-  }
+    try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          body: data,
+        });
 
+        if (!response.ok) {
+          const errorText = await response.text();
+          setErrorMessage(errorText);
+          throw new Error(errorText);
+        }
+
+        const result = await response.text();
+        setSuccessMessage(result);
+
+        setNewInfo(info);
+        setImageData(null);
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+      } catch(error) {
+        const errorText = error.message || "Unknown error occurred";
+        setErrorMessage(errorText);
+        console.error(error);
+      }
+  }
+  
   return (
     <div id="product-info" className="product-info">
       <h3>{product.name}</h3>
+
+      {errorMessage && <span style={{ color: "red" }}>{errorMessage}</span>}
+      {successMessage && <span style={{ color: "green" }}>{successMessage}</span>}
       
       <form onSubmit={handleSubmit}>
         {(!showForms) && (category == "PRODUCTS") && (<>
@@ -126,7 +186,7 @@ function ProductInfo({ product, editable, category = "PRODUCTS" }) {
           <ProductInfoButton toEdit={!showForms} handleSubmit={getForms}/>
         </>)}
 
-        {(!editable || showForms) && (<>
+        {((!editable || showForms) && !(category === "CLIENTS" || category === "SALES")) && (<>
           <span id="edit-button">
               <input type="submit" style={{ display: "none" }} />
               <svg

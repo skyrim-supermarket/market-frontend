@@ -1,12 +1,16 @@
 // src/components/ProductItem.js
-import React from 'react';
+import React, { useEffect } from 'react';
 import './styles/Sheet.css';
 import gold from '../assets/gold.png';
 
-function SheetItem({ item, onSelect, isSelected, showStock, showGold}) {
+function SheetItem({ item, onSelect, isSelected, showStock, showGold, alertSheet}) {
   const handleClick = () => {
     onSelect(item);
   };
+
+  useEffect(() => {
+    if (item == null) alertSheet()
+  }, [item])
 
   return (
     <div
