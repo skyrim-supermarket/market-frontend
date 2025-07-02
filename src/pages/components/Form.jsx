@@ -7,7 +7,7 @@ import NewForm from '../query-scripts/NewForm';
 
 /* copiado do anterior -- tem q coisar as mudanças */
 
-const Form = ({whatDoIWant, sendLabelsUp}) => {
+const Form = ({whatDoIWant, sendLabelsUp, appendData}) => {
   const types = ["AMMUNITION", "ARMOR", "BOOKS", "CLOTHING", "FOOD", "INGREDIENTS", "MISCELLANEOUS", "ORES", "POTIONS", "SOUL GEMS", "WEAPONS"];
 
   const [formLabels, setFormLabels] = useState([]);

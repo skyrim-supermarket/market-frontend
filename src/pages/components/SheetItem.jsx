@@ -3,20 +3,21 @@ import React from 'react';
 import './styles/Sheet.css';
 import gold from '../assets/gold.png';
 
-function SheetItem({ item, onSelect, isSelected, showStock }) {
+function SheetItem({ item, onSelect, isSelected, showStock, showGold}) {
   const handleClick = () => {
     onSelect(item);
   };
 
   return (
     <div
-      id={item.id}
+      id={showGold ? item.id : item.name}
       className={`sheet-item ${isSelected ? 'selected' : ''}`}
       onClick={handleClick}
     >
       <div className="sheet-item-name">
         <span className="sheet-item-name-text">{item.name}</span>
       </div>
+        {showGold && (<>
         <div className="sheet-item-price">
             <div className="sheet-item-price-gold">
             <img src={`${gold}`} alt="Gold" />
@@ -30,6 +31,7 @@ function SheetItem({ item, onSelect, isSelected, showStock }) {
             <span> Stock: {item.stock} </span>
         </div>
         </>)} 
+      </>)} 
      </div>
   );
 }

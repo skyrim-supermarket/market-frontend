@@ -17,6 +17,7 @@ import './User.css';
 // scripts
 import NewCategory from '../../query-scripts/NewCategory'
 import setBackgroundImage from '../../style-scripts/setBackgroundImage';
+import WhoAmI from '../../query-scripts/WhoAmI';
 
 // temporario
 import boneArrow from '../../assets/bone-arrow.png';
@@ -63,11 +64,17 @@ function App() {
     { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
   ]);
 
+  // username
+  const [iAm, setWhoIAm] = useState("IDontKnowYEt");
+
   // inicialização
   useEffect(() => {
     setBackgroundImage();
-    //NewCategory(newCategoryRequest, setProductsData, setQtdProducts);
-    
+    async function fetchUser() {
+        const user = await WhoAmI();
+        setWhoIAm(user);
+    } fetchUser();
+
     // pra impedir que um engraçadinho tente dar /user sem estar logado
     let flag = 'none';
     const token = localStorage.getItem("token");
@@ -102,6 +109,7 @@ function App() {
       } else if (direction === 'down') {
         newIndex = (prevIndex + 1)%types.length;
       }
+      console.log(iAm);
       return newIndex;      
     });
   };
@@ -198,12 +206,11 @@ function App() {
       <div className={`container2-user ${selectedProduct ? 'containerWithoutSelection' : 'containerWithSelection'}
                                        ${(types[currentQueryIndex] !== "PROFILE" && qtdProducts !== 0) ? 'sale-info' : 'no-sale-info'}`}>
         <div className="navbar">
-            Username: user
+            <p>I am {iAm.username}</p>
           <SessionButton/>
         </div>
 	
             {(types[currentQueryIndex] !== "PROFILE") && (qtdProducts !== 0) && (<>
-
                 <div className="navbar">
                     <p>Purchased on: [date]</p>
                     <p>Total Value: [value]</p>

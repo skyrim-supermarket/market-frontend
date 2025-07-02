@@ -27,7 +27,7 @@ import boneArrow from '../../assets/bone-arrow.png';
 function App() {
   document.title = "Admin EditSpace";
   const navigate = useNavigate();
-  const qtdProductsPerPage = 84;
+  const qtdProductsPerPage = 108;
 
   // SOBRE ESTILO
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -44,33 +44,13 @@ function App() {
   const [currentAdminEditIndex, setAdminEditIndex] = useState(0); // classses da sidebar 2
   const [newCategoryRequest, setNewCategoryRequest] = useState({type: types[0], page: 1, pageSize: qtdProductsPerPage, });  // solicitação de nova query
   const [qtdProducts, setQtdProducts] = useState(0); // quantidade total de items a serem mostrados, nao apenas no productsData
-  //const [productsData, setProductsData] = useState([]); // modelo: { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  const [productsData, setProductsData] = useState([
-    { id: 'product1', name: 'Shadowed Tower', price: 300, image: `${boneArrow}` },
-    { id: 'product2', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product3', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product4', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product5', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product6', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product7', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product8', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product9', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product10', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product11', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product12', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product13', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product14', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product15', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product16', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product17', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  ]);
+  const [productsData, setProductsData] = useState([]); // modelo: { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
   const [currentLabels, setCurrentLabels] = useState({});
 
   // inicialização
   useEffect(() => {
     setBackgroundImage();
-    //NewCategory(newCategoryRequest, setProductsData, setQtdProducts);
+    NewCategory(types[currentQueryIndex].toLowerCase(), setProductsData, setQtdProducts, false);
     
     // pra impedir que um engraçadinho tente dar /admin sem estar logado
     let flag = 'none';
@@ -144,28 +124,25 @@ function App() {
       setAdminForms(1);
     }
 
-    //const newRequest = {type: 'ALL PRODUCTS', page: 1, pageSize: qtdProductsPerPage, };
-    //setNewCategoryRequest(newRequest);
-    //NewCategory(newRequest, setProductsData, setQtdProducts);
+    if (types[newIndex] == 'PRODUCTS') {
+      const newRequest = {type: 'ALL PRODUCTS', page: 1, pageSize: qtdProductsPerPage, };
+      setNewCategoryRequest(newRequest);
+      NewCategory(newRequest, setProductsData, setQtdProducts);
+    } else {
+      NewCategory(types[newIndex].toLowerCase(), setProductsData, setQtdProducts, false);
+    }
 
   };
 
   // quando clicamos nas classes da sidebar 2
-  const handleClickAdminEdit  = (clickedOnIndex) => {
-    if (clickedOnIndex !== -1 && clickedOnIndex !== 2) {  // não podemos clicar "no vazio"
+  const handleClickAdminEdit  = (clickedOnIndex) => { 
       const newIndex = clickedOnIndex;
       setAdminEditSideBarCenter(newIndex);
       setAdminEditIndex(newIndex);
       setSelectedProduct(null);
-      setAdminForms(1-clickedOnIndex);
 
-      // labels
-
-      //const newRequest = {type: types[newIndex], page: 1, pageSize: qtdProductsPerPage, };
-
-      //setNewCategoryRequest(newRequest);
-      //NewCategory(newRequest, setProductsData, setQtdProducts);
-    }
+      if (types[currentQueryIndex] == 'CLIENTS' || types[currentQueryIndex] == 'SALES') setAdminForms(0);
+      else setAdminForms(1-clickedOnIndex);
   };
 
   // quando queremos uma nova página
@@ -173,7 +150,7 @@ function App() {
     const newPage = indexPage;
     setQueriedPage(newPage);
     setSelectedProduct(null);
-    const newRequest = {type: types[currentQueryIndex], page: newPage, pageSize: qtdProductsPerPage, };
+    const newRequest = {type: "ALL PRODUCTS", page: newPage, pageSize: qtdProductsPerPage, };
     setNewCategoryRequest(newRequest);
     NewCategory(newRequest, setProductsData, setQtdProducts);
   }   
@@ -202,9 +179,16 @@ function App() {
 
       <div className={`container2-admin ${selectedProduct ? 'containerWithoutSelection' : 'containerWithSelection'}`}>
         <div className="navbar">
-          <div className="searchbar-div">
+          {(adminEdit[currentAdminEditIndex] !== "ADD NEW") && (<>
+            <div className="searchbar-div">
             <input type="text" id="searchbar" placeholder="Search..." />
           </div>
+          </>
+          )}
+          {(adminEdit[currentAdminEditIndex] === "ADD NEW") && (<>
+            <p>Add a new {types[currentQueryIndex].toLowerCase().replace(/s$/, '')}</p>
+          </>
+          )}
           <SessionButton/>
         </div>
 	
@@ -220,12 +204,13 @@ function App() {
               onNewQuery={handleNewPageQuery}
               currentQueryIndex={currentQueryIndex}
               showStock={true}
+              isItAProduct={types[currentQueryIndex] == "PRODUCTS"}
             />
 
             {selectedProduct && (
               <>
                 <VertDiv2 id="vertDiv2" showArrow={arrowY !== null} arrowY={arrowY} />
-                <ProductInfo product={selectedProduct} editable={true} labels={currentLabels}/>
+                <ProductInfo product={selectedProduct} editable={true} category={types[currentQueryIndex]}/>
               </>
             )}
           </>
@@ -236,6 +221,7 @@ function App() {
             <Form
               whatDoIWant={types[currentQueryIndex]}
               sendLabelsUp={setCurrentLabels}
+              appendData={setProductsData}
             />
           </>
         )}

@@ -17,10 +17,6 @@ import './Home.css';
 import NewCategory from '../../query-scripts/NewCategory'
 import setBackgroundImage from '../../style-scripts/setBackgroundImage';
 
-// temporario
-import boneArrow from '../../assets/bone-arrow.png';
-
-
 function App() {
   document.title = "Home";
   const qtdProductsPerPage = 36;  // isso aqui é pra testes, mas depois tem q trocar pra isso ser igual a 36
@@ -36,32 +32,12 @@ function App() {
   const [currentQueryIndex, setQueryIndex] = useState(0); // classe da qual os produtos estão aparecendo
   const [newCategoryRequest, setNewCategoryRequest] = useState({type: types[0], page: 1, pageSize: qtdProductsPerPage, });  // solicitação de nova query
   const [qtdProducts, setQtdProducts] = useState(0); // quantidade total de items a serem mostrados, nao apenas no productsData
-  //const [productsData, setProductsData] = useState([]); // modelo: { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  const [productsData, setProductsData] = useState([
-    { id: 'product1', name: 'Shadowed Tower', price: 300, image: `${boneArrow}` },
-    { id: 'product2', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product3', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product4', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product5', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product6', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product7', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product8', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product9', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product10', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product11', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product12', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product13', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product14', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product15', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product16', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product17', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  ]);
+  const [productsData, setProductsData] = useState([]); // modelo: { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
 
   // inicialização
   useEffect(() => {
     setBackgroundImage(); // seta imagem de fundo
-    //NewCategory(newCategoryRequest, setProductsData, setQtdProducts); // solicitação da 1ª classe
+    NewCategory(newCategoryRequest, setProductsData, setQtdProducts); // solicitação da 1ª classe
     
     return () => {
       document.body.style.backgroundImage = '';
