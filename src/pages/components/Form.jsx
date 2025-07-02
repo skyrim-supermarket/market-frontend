@@ -170,6 +170,8 @@ const Form = ({whatDoIWant, sendLabelsUp, appendData}) => {
                   maximum = 1;
                 }
 
+                if (name === "password") labelType=name;
+
                 const newName = name.replace(/([A-Z])/g, ' $1').toLowerCase().replace(/^./, c => c.toUpperCase());
 
                 return (

@@ -1,0 +1,1 @@
+/// disponives, as q tem q entregar e as q ele já entregou

@@ -41,7 +41,7 @@ form {
     margin-bottom: 1%;
 }
 
-.form-text, .form-number, .form-checkbox {
+.form-text, .form-number, .form-checkbox, .form-password {
     background-color: rgb(0, 0, 0, 0.4) !important;
     width: 25%;
     font-family: Futura;
