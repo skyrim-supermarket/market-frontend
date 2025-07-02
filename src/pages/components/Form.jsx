@@ -73,6 +73,7 @@ const Form = ({whatDoIWant, sendLabelsUp, appendData}) => {
       setImageData(null);
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      appendData(); // faz nova query com o novo coiso
       
     } catch(error) {
       const errorText = error.message || "Unknown error occurred";
@@ -83,7 +84,7 @@ const Form = ({whatDoIWant, sendLabelsUp, appendData}) => {
 
   const getLabels = async (e) => {
     // função pra quando trocamos os labels do produto
-    
+
     setProductCategory(e.target.value);
     NewForm(e.target.value, setFormLabels);
     setFormData(
@@ -181,7 +182,7 @@ const Form = ({whatDoIWant, sendLabelsUp, appendData}) => {
                     placeholder={`Insert ${newName.toLowerCase()}`} 
                     id={name} 
                     name={name} 
-                    value={labelType === "checkbox" ? undefined : formData[name]}
+                    value={labelType === "checkbox" ? false : formData[name]}
                     className={`form-${labelType}`} 
                     onChange={handleChange} 
                     required={labelType !== 'checkbox'}

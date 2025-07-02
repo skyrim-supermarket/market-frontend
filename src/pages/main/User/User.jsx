@@ -5,6 +5,7 @@ import { jwtDecode } from 'jwt-decode';
 
 // componentes
 import Sidebar from '../../components/Sidebar';
+import ProfileButton from '../../components/ProfileButton';
 import SessionButton from '../../components/SessionButton';
 import ProductInfo from '../../components/ProductInfo';
 import Sheet from '../../components/Sheet'
@@ -70,11 +71,7 @@ function App() {
   // inicialização
   useEffect(() => {
     setBackgroundImage();
-    async function fetchUser() {
-        const user = await WhoAmI();
-        setWhoIAm(user);
-    } fetchUser();
-
+    
     // pra impedir que um engraçadinho tente dar /user sem estar logado
     let flag = 'none';
     const token = localStorage.getItem("token");
@@ -83,6 +80,12 @@ function App() {
         flag = decodedToken.type;
     }
     if (flag !== 'client') navigate("/");
+
+    // pega meus dados de usuário
+    async function fetchUser() {
+        const user = await WhoAmI();
+        setWhoIAm(user);
+    } fetchUser();
 
     // faz query das past sales e coloca os nomes aqui
     setPastSales(["sale 0", "sale 1", "sale 2", "sale 3",])
@@ -206,8 +209,13 @@ function App() {
       <div className={`container2-user ${selectedProduct ? 'containerWithoutSelection' : 'containerWithSelection'}
                                        ${(types[currentQueryIndex] !== "PROFILE" && qtdProducts !== 0) ? 'sale-info' : 'no-sale-info'}`}>
         <div className="navbar">
+          <div className="searchbar-div">
             <p>I am {iAm.username}</p>
-          <SessionButton/>
+          </div>
+          <div className="navbuttons-div">
+            <ProfileButton goToHome={true}/>
+            <SessionButton/>
+          </div>
         </div>
 	
             {(types[currentQueryIndex] !== "PROFILE") && (qtdProducts !== 0) && (<>

@@ -71,7 +71,7 @@ function NewCategory( newCategoryRequest, setProductsData, setQtdProducts, notAP
                             lastRun: thisItem.lastRun,
                         });
                         if (newCategoryRequest == 'admins') {
-                            listItems[i].isRoot = thisItem.root ? "Yes" : "No";
+                            listItems[i].root = thisItem.root ? "Yes" : "No";
                         }
                         if (newCategoryRequest == 'cashier' || newCategoryRequest == 'carrocaboy') {
                             listItems[i].totalCommissions = thisItem.totalCommissions;

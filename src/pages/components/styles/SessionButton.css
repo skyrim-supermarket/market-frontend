@@ -3,6 +3,7 @@
     height: 100% !important;
     max-height: 10em;
     transition: 0.3s;
+    margin-left: 5%t;
 }
 
 .sessionButton:hover {
@@ -15,7 +16,8 @@
     font-family: futura;
 }
 
-#login-button {
-    display: flex;
-    align-items: flex-end;
+#edit-button {
+  width: auto;
+  height: auto;
+  display: block;
 }

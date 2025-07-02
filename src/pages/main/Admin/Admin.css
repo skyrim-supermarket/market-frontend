@@ -80,6 +80,17 @@ body {
   max-height: 5em;
 }
 
+.navbar> :first-child {
+    flex: 1 1 auto; 
+    max-width: 75%;  /* optional: limit max width */
+}
+
+.navbar> :nth-child(2) {
+    flex: 0 0 auto; 
+    min-width: fit-content;
+    width: auto;
+}
+
 .filters {
     grid-column-start: 1;
     grid-column-end: 4;
@@ -196,8 +207,16 @@ label {
 #searchbar {
     background: rgb(0,0,0, 0.4);
     height: 50% !important;
-    width: 65%;
+    width: 75%;
     font-size: 1em;
     border: 1px solid white;
     border-radius: 10px !important;
+}
+
+.navbuttons-div {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: right;
 }

@@ -5,6 +5,7 @@ import { jwtDecode } from 'jwt-decode';
 
 // componentes
 import Sidebar from '../../components/Sidebar';
+import ProfileButton from '../../components/ProfileButton';
 import SessionButton from '../../components/SessionButton';
 import ProductInfo from '../../components/ProductInfo';
 import Sheet from '../../components/Sheet'
@@ -17,11 +18,7 @@ import './Admin.css';
 
 // scripts
 import NewCategory from '../../query-scripts/NewCategory'
-import NewForm from '../../query-scripts/NewForm';
 import setBackgroundImage from '../../style-scripts/setBackgroundImage';
-
-// temporario
-import boneArrow from '../../assets/bone-arrow.png';
 
 
 function App() {
@@ -33,7 +30,7 @@ function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isItAnAdminForms, setAdminForms] = useState(1);
   const [sideBarCenter, setSideBarCenter] = useState(0);  /// centro da lista circular
-  const [adminEditSideBarCenter, setAdminEditSideBarCenter] = useState(0);  // centro da lista circular 2
+  const [adminEditSideBarCenter, setAdminEditSideBarCenter] = useState(0);  // centro da lista circular menor
   const [arrowY, setArrowY] = useState(null);
   const [types, setTypes] = useState(["ADMINS", "CARROCABOYS", "CASHIERS", "CLIENTS", "PRODUCTS", "SALES"]);
   const [adminEdit, setAdminEdit] = useState(["ADD NEW", "LIST", "\0", ]);
@@ -41,7 +38,7 @@ function App() {
   // Sobre QUERIES
   const [queriedPage, setQueriedPage] = useState(1);
   const [currentQueryIndex, setQueryIndex] = useState(0); // classe da qual os produtos estão aparecendo
-  const [currentAdminEditIndex, setAdminEditIndex] = useState(0); // classses da sidebar 2
+  const [currentAdminEditIndex, setAdminEditIndex] = useState(0); // classes da sidebar menor
   const [newCategoryRequest, setNewCategoryRequest] = useState({type: types[0], page: 1, pageSize: qtdProductsPerPage, });  // solicitação de nova query
   const [qtdProducts, setQtdProducts] = useState(0); // quantidade total de items a serem mostrados, nao apenas no productsData
   const [productsData, setProductsData] = useState([]); // modelo: { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
@@ -74,37 +71,32 @@ function App() {
     setSelectedProduct(prevProduct => (prevProduct && prevProduct.id === product.id ? null : product));
   };
 
-  // quando scrollamos nas classes da sidebar 1
+  // quando scrollamos nas classes da sidebar maior
   const handleScrollClasses = (direction) => {
     setSideBarCenter(prevIndex => {
       let newIndex = prevIndex;
-      if (direction === 'up') {
-        newIndex = ((prevIndex - 1)+types.length)%types.length;
-      } else if (direction === 'down') {
-        newIndex = (prevIndex + 1)%types.length;
-      }
+      if (direction === 'up') newIndex = ((prevIndex - 1)+types.length)%types.length;
+      else if (direction === 'down') newIndex = (prevIndex + 1)%types.length;
       return newIndex;      
     });
   };
 
-  // quando scrollamos nas classes da sidebar 2
+  // quando scrollamos nas classes da sidebar menor
   const handleScrollAdminEdit = (direction) => {
     setAdminEditSideBarCenter(prevIndex => {
+      // clientes nem sales têm "add new", então não faz sentido scrollar
       if (types[sideBarCenter] == 'CLIENTS' || types[sideBarCenter] == 'SALES') {
         return prevIndex;
       }
 
       let newIndex = prevIndex;
-      if (direction === 'up') {
-        newIndex = ((prevIndex - 1)+2)%2;
-      } else if (direction === 'down') {
-        newIndex = (prevIndex + 1)%2;
-      }
+      if (direction === 'up') newIndex = ((prevIndex - 1)+2)%2;
+      else if (direction === 'down') newIndex = (prevIndex + 1)%2;
       return newIndex;      
     });
   };
 
-  // quando clicamos nas classes da sidebar 1
+  // quando clicamos nas classes da sidebar maior
   const handleClickClasses = (clickedOnIndex) => {
     const newIndex = (clickedOnIndex+types.length)%types.length;
     setSideBarCenter(newIndex);
@@ -134,7 +126,7 @@ function App() {
 
   };
 
-  // quando clicamos nas classes da sidebar 2
+  // quando clicamos nas classes da sidebar menor
   const handleClickAdminEdit  = (clickedOnIndex) => { 
       const newIndex = clickedOnIndex;
       setAdminEditSideBarCenter(newIndex);
@@ -150,6 +142,8 @@ function App() {
     const newPage = indexPage;
     setQueriedPage(newPage);
     setSelectedProduct(null);
+
+    // faz novo request
     const newRequest = {type: "ALL PRODUCTS", page: newPage, pageSize: qtdProductsPerPage, };
     setNewCategoryRequest(newRequest);
     NewCategory(newRequest, setProductsData, setQtdProducts);
@@ -179,17 +173,19 @@ function App() {
 
       <div className={`container2-admin ${selectedProduct ? 'containerWithoutSelection' : 'containerWithSelection'}`}>
         <div className="navbar">
-          {(adminEdit[currentAdminEditIndex] !== "ADD NEW") && (<>
-            <div className="searchbar-div">
-            <input type="text" id="searchbar" placeholder="Search..." />
+          <div className="searchbar-div">
+            {(adminEdit[currentAdminEditIndex] !== "ADD NEW") && (<>
+              <input type="text" id="searchbar" placeholder="Search..." />
+            </>
+            )}
+            {(adminEdit[currentAdminEditIndex] === "ADD NEW") && (<>
+              <p>Add a new {types[currentQueryIndex].toLowerCase().replace(/s$/, '')}</p>
+            </>)}
           </div>
-          </>
-          )}
-          {(adminEdit[currentAdminEditIndex] === "ADD NEW") && (<>
-            <p>Add a new {types[currentQueryIndex].toLowerCase().replace(/s$/, '')}</p>
-          </>
-          )}
-          <SessionButton/>
+          <div className="navbuttons-div">
+            <ProfileButton goToHome={true}/>
+            <SessionButton/>
+          </div>
         </div>
 	
         {!isItAnAdminForms && (
@@ -221,7 +217,7 @@ function App() {
             <Form
               whatDoIWant={types[currentQueryIndex]}
               sendLabelsUp={setCurrentLabels}
-              appendData={setProductsData}
+              appendData={() => {handleClickClasses(currentQueryIndex)}}
             />
           </>
         )}

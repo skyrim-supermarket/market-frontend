@@ -1,8 +1,10 @@
 // src/App.js
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // componentes
 import Sidebar from '../../components/Sidebar';
+import ProfileButton from '../../components/ProfileButton';
 import SessionButton from '../../components/SessionButton';
 import ProductList from '../../components/ProductList';
 import ProductInfo from '../../components/ProductInfo';
@@ -16,10 +18,12 @@ import './Home.css';
 // scripts
 import NewCategory from '../../query-scripts/NewCategory'
 import setBackgroundImage from '../../style-scripts/setBackgroundImage';
+import WhatAmI from '../../query-scripts/WhatAmI';
 
 function App() {
   document.title = "Home";
-  const qtdProductsPerPage = 36;  // isso aqui é pra testes, mas depois tem q trocar pra isso ser igual a 36
+  const navigate = useNavigate();
+  const qtdProductsPerPage = 42; // vida verdade e universo
 
   // SOBRE ESTILO
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -34,9 +38,20 @@ function App() {
   const [qtdProducts, setQtdProducts] = useState(0); // quantidade total de items a serem mostrados, nao apenas no productsData
   const [productsData, setProductsData] = useState([]); // modelo: { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
 
+  // sobre USER
+  const [iAm, setWhatIAm] = useState('none');
+
   // inicialização
   useEffect(() => {
     setBackgroundImage(); // seta imagem de fundo
+
+    // vê quem eu sou
+    async function fetchUserType() {
+        const myUserType = await WhatAmI()
+        setWhatIAm(myUserType);
+    } fetchUserType();
+
+    // faz a query inicial
     NewCategory(newCategoryRequest, setProductsData, setQtdProducts); // solicitação da 1ª classe
     
     return () => {
@@ -56,11 +71,8 @@ function App() {
   const handleScrollClasses = (direction) => {
     setSideBarCenter(prevIndex => {
       let newIndex = prevIndex;
-      if (direction === 'up') {
-        newIndex = ((prevIndex - 1)+types.length)%types.length;
-      } else if (direction === 'down') {
-        newIndex = (prevIndex + 1)%types.length;
-      }
+      if (direction === 'up') newIndex = ((prevIndex-1)+types.length)%types.length;
+      else if (direction === 'down') newIndex = (prevIndex+1)%types.length;
       return newIndex;      
     });
   };
@@ -70,9 +82,10 @@ function App() {
     const newIndex = (clickedOnIndex+types.length)%types.length;
     setSideBarCenter(newIndex);
     setQueryIndex(newIndex);
-    setQueriedPage(1);        // reseta pra voltar pra pagina 1
+    setQueriedPage(1);        
     setSelectedProduct(null);
 
+    // faz nova request
     const newRequest = {type: types[newIndex], page: 1, pageSize: qtdProductsPerPage, };
     setNewCategoryRequest(newRequest);
     NewCategory(newRequest, setProductsData, setQtdProducts);
@@ -83,6 +96,8 @@ function App() {
     const newPage = indexPage;
     setQueriedPage(newPage);
     setSelectedProduct(null);
+
+    // faz nova request, com nova página
     const newRequest = {type: types[currentQueryIndex], page: newPage, pageSize: qtdProductsPerPage, };
     setNewCategoryRequest(newRequest);
     NewCategory(newRequest, setProductsData, setQtdProducts);
@@ -105,7 +120,10 @@ function App() {
           <div className="searchbar-div">
             <input type="text" id="searchbar" placeholder="Search..." />
           </div>
-          <SessionButton/>
+          <div className="navbuttons-div">
+            <ProfileButton goToHome={false} iAm={iAm}/>
+            <SessionButton setIAm={setWhatIAm}/>
+          </div>
         </div>
 	  
         <div className="filters">
@@ -171,9 +189,6 @@ function App() {
             listOfOptions={["a", "b", "c"]}
             isSelected={true}
           />
-          {/*Donec faucibus dolor mi, id vestibulum arcu ornare et. Ut sit amet ipsum purus. Nulla ut condimentum nisl.
-          Nunc dictum diam id ultrices faucibus. Maecenas eget auctor arcu. Pellentesque dapibus enim vel turpis tristique,
-          sed aliquam nulla pharetra. Donec faucibus arcu ipsum, ut auctor sem hendrerit id.*/}
           </div>
         </div>
 
