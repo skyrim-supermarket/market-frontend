@@ -76,7 +76,10 @@ function ProductInfo({ product, editable, category = "PRODUCTS", isItACart = fal
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (iAm === 'none') return;
+    if (iAm === null) {
+      setErrorMessage('Log In to add to your cart!');
+      return;
+    }
 
     if (isItACart) handleRemoveFromCart();
     else {
