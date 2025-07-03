@@ -199,9 +199,10 @@ function App() {
               onSelectedItemPositionChange={setArrowY}
               onNewQuery={handleNewPageQuery}
               currentQueryIndex={currentQueryIndex}
-              showStock={true}
+              showStock={types[currentQueryIndex] != "SALES"}
               isItAProduct={types[currentQueryIndex] == "PRODUCTS"}
               alertAdminEdit={() => {setSelectedProduct(null)}}
+              isItASale={types[currentQueryIndex] == "SALES"}
             />
 
             {selectedProduct && (

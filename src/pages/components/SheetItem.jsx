@@ -19,7 +19,7 @@ function SheetItem({ item, onSelect, isSelected, showStock, showGold, alertSheet
       onClick={handleClick}
     >
       <div className="sheet-item-name">
-        <span className="sheet-item-name-text">{(showGold)? item.productName : ((isItASale)? `Order #${item.id}` : item.username)}</span>
+        <span className="sheet-item-name-text">{(showGold)? item.productName : ((isItASale)? `Order #${(typeof(item.id) === 'string')? item.id.slice(2) : item.id}` : item.username)}</span>
       </div>
         {(showGold || isItASale) && (<>
         <div className="sheet-item-price">
