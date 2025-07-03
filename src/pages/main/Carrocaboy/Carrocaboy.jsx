@@ -135,6 +135,7 @@ function App() {
 
   return (
     <div className="container-carrocaboy" >
+        <div className='button-carrocaboy'> <SessionButton/> </div>
         
         <div className='container2-carrocaboy'> 
             <div className='div-carrocaboy'>
@@ -246,9 +247,8 @@ function App() {
             </div>
         </div>
     
-        <div className='div-carrocaboy'> Oioioi </div>
 
-      <div className="rodape"> A série de jogos <i>The Elder Scrolls </i>e <i>The Elder Scrolls V: Skyrim </i> 
+      <div className="carroca-rodape"> A série de jogos <i>The Elder Scrolls </i>e <i>The Elder Scrolls V: Skyrim </i> 
       são propriedade da Bethesda Softworks LLC: Todos os direitos reservados. Este website tem fins educacionais 
       e experimentais, e o tema foi escolhido apenas como plano de fundo.</div>
     </div>

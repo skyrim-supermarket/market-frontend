@@ -30,9 +30,8 @@ body {
 .container-carrocaboy {
     display: grid;
     height: 100%;
-    display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 88% 10% 2%;
+    grid-template-rows: 10% 88% 2%;
     overflow: hidden;
 }
 
@@ -63,9 +62,7 @@ body {
   grid-template-columns: 48% 4% 48%;
 }
 
-.rodape {
-    grid-column-start: 1;
-    grid-column-end: 6;
+.carroca-rodape {
     margin-left: 1em;
     text-align: center;
     opacity: 0.75;
@@ -155,6 +152,11 @@ label {
     align-items: center;
     justify-content: center;
     gap: 2%;
+}
+
+.button-carrocaboy {
+    text-align: center;
+    font-size: 1.8em;
 }
 
 .div-carrocaboy {
