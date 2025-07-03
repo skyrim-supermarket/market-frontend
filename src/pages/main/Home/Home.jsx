@@ -34,7 +34,7 @@ function App() {
   // Sobre QUERIES
   const [queriedPage, setQueriedPage] = useState(1);
   const [currentQueryIndex, setQueryIndex] = useState(0); // classe da qual os produtos estão aparecendo
-  const [newCategoryRequest, setNewCategoryRequest] = useState({type: types[0], page: 1, pageSize: qtdProductsPerPage, productName: '', minPriceGold: null, maxPriceGold: null, orderBy: null, });  // solicitação de nova query
+  const [newCategoryRequest, setNewCategoryRequest] = useState({type: types[0], page: 1, pageSize: qtdProductsPerPage, filterName: '', minPriceGold: null, maxPriceGold: null, orderBy: null, });  // solicitação de nova query
   const [qtdProducts, setQtdProducts] = useState(0); // quantidade total de items a serem mostrados, nao apenas no productsData
   const [productsData, setProductsData] = useState([]); // modelo: { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
   const [searchBarText, setSearchBarText] = useState('');
@@ -90,7 +90,7 @@ function App() {
     setSelectedProduct(null);
 
     // faz nova request
-    const newRequest = {type: types[newIndex], page: 1, pageSize: qtdProductsPerPage, productName: searchBarText, minPriceGold: searchMinPriceGold, maxPriceGold: searchMaxPriceGold, orderBy: searchOrderBy, };
+    const newRequest = {type: types[newIndex], page: 1, pageSize: qtdProductsPerPage, filterName: searchBarText, minPriceGold: searchMinPriceGold, maxPriceGold: searchMaxPriceGold, orderBy: searchOrderBy, };
     setNewCategoryRequest(newRequest);
     NewCategory(newRequest, setProductsData, setQtdProducts);
   };
@@ -101,7 +101,7 @@ function App() {
     setSelectedProduct(null);
     setSearchBarText(newSearchBarText);
 
-    const newRequest = {type: types[currentQueryIndex], page: 1, pageSize: qtdProductsPerPage, productName: newSearchBarText, minPriceGold: searchMinPriceGold, maxPriceGold: searchMaxPriceGold, orderBy: searchOrderBy, };
+    const newRequest = {type: types[currentQueryIndex], page: 1, pageSize: qtdProductsPerPage, filterName: newSearchBarText, minPriceGold: searchMinPriceGold, maxPriceGold: searchMaxPriceGold, orderBy: searchOrderBy, };
     setNewCategoryRequest(newRequest);
     NewCategory(newRequest, setProductsData, setQtdProducts);
 
@@ -111,7 +111,7 @@ function App() {
     const newOrderBy = order.target.value;
     setSearchOrderBy(newOrderBy);
 
-    const newRequest = {type: types[currentQueryIndex], page: queriedPage, pageSize: qtdProductsPerPage, productName: searchBarText, minPriceGold: searchMinPriceGold, maxPriceGold: searchMaxPriceGold, orderBy: newOrderBy, };
+    const newRequest = {type: types[currentQueryIndex], page: queriedPage, pageSize: qtdProductsPerPage, filterName: searchBarText, minPriceGold: searchMinPriceGold, maxPriceGold: searchMaxPriceGold, orderBy: newOrderBy, };
     setNewCategoryRequest(newRequest);
     NewCategory(newRequest, setProductsData, setQtdProducts);
 
@@ -125,7 +125,7 @@ function App() {
       setSelectedProduct(null);
       setSearchMinPriceGold(value);
 
-      const newRequest = {type: types[currentQueryIndex], page: 1, pageSize: qtdProductsPerPage, productName: searchBarText, minPriceGold: value, maxPriceGold: searchMaxPriceGold, orderBy: searchOrderBy, };
+      const newRequest = {type: types[currentQueryIndex], page: 1, pageSize: qtdProductsPerPage, filterName: searchBarText, minPriceGold: value, maxPriceGold: searchMaxPriceGold, orderBy: searchOrderBy, };
       setNewCategoryRequest(newRequest);
       NewCategory(newRequest, setProductsData, setQtdProducts);
     }
@@ -137,9 +137,9 @@ function App() {
     if (value === null || /^\d*$/.test(value)) {
       setQueriedPage(1);        
       setSelectedProduct(null);
-      setSearchMinPriceGold(value);
+      setSearchMaxPriceGold(value);
 
-      const newRequest = {type: types[currentQueryIndex], page: 1, pageSize: qtdProductsPerPage, productName: searchBarText, minPriceGold: searchMinPriceGold, maxPriceGold: value, orderBy: searchOrderBy, };
+      const newRequest = {type: types[currentQueryIndex], page: 1, pageSize: qtdProductsPerPage, filterName: searchBarText, minPriceGold: searchMinPriceGold, maxPriceGold: value, orderBy: searchOrderBy, };
       setNewCategoryRequest(newRequest);
       NewCategory(newRequest, setProductsData, setQtdProducts);
     }
@@ -152,7 +152,7 @@ function App() {
     setSelectedProduct(null);
 
     // faz nova request, com nova página
-    const newRequest = {type: types[currentQueryIndex], page: newPage, pageSize: qtdProductsPerPage, productName: searchBarText, minPriceGold: searchMinPriceGold, maxPriceGold: searchMaxPriceGold, orderBy: searchOrderBy, };
+    const newRequest = {type: types[currentQueryIndex], page: newPage, pageSize: qtdProductsPerPage, filterName: searchBarText, minPriceGold: searchMinPriceGold, maxPriceGold: searchMaxPriceGold, orderBy: searchOrderBy, };
     setNewCategoryRequest(newRequest);
     NewCategory(newRequest, setProductsData, setQtdProducts);
   }   

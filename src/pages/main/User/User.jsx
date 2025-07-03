@@ -182,7 +182,6 @@ function App() {
 
   // quando clicamos nas classes da sidebar 2
   const handleClickSales  = (clickedOnIndex) => {
-      // não podemos clicar "no vazio"
       const newIndex = (clickedOnIndex+pastSalesNames.length)%pastSalesNames.length;;
       setSalesSideBarCenter(newIndex);
       setSalesIndex(newIndex);
@@ -190,11 +189,6 @@ function App() {
 
       setSaleInfo(pastSales[newIndex])
       getPastSale(pastSales[newIndex].id);
-
-      // fazer request dos produtos da sale em clickedOnIndex
-      //const newRequest = {type: types[newIndex], page: 1, pageSize: qtdProductsPerPage, };
-      //setNewCategoryRequest(newRequest);
-      //NewCategory(newRequest, setProductsData, setQtdProducts)
   };
 
   // quando queremos uma nova página
@@ -229,8 +223,6 @@ function App() {
         </>
       )}
       
-
-
       <div className={`container2-user ${selectedProduct ? 'containerWithoutSelection' : 'containerWithSelection'}
                                        ${(types[currentQueryIndex] !== "PROFILE" && productsData.length !== 0) ? 'sale-info' : 'no-sale-info'}`}>
         <div className="navbar">
@@ -246,6 +238,7 @@ function App() {
             {(types[currentQueryIndex] !== "PROFILE") && (productsData.length !== 0) && (<>
                 <div className="navbar-user">
                     <p>{(types[currentQueryIndex] === "CART")? `Created at: ${saleInfo.createdAt}` : `Updated at: ${saleInfo.updatedAt}`}</p>
+                    <p>Status: {saleInfo.status}</p>
                     <p>Total Value: {saleInfo.totalPriceGold}</p>
                     <p>ID of purchase: #{saleInfo.id}</p>
                     {(types[currentQueryIndex] === "CART") && (<>
@@ -269,7 +262,7 @@ function App() {
                               setProductsData([]);
                               setSelectedProduct(null);
 
-                              async function fetchUserAndPreviousOrders() {
+                              async function fetchPreviousOrders() {
                                   const endpoint = `http://localhost:8080/previousOrders/${iAm.email}`;
                                   const response = await fetch(endpoint, {
                                       method: "GET",
@@ -288,7 +281,7 @@ function App() {
                                   setPastSales(res.map((item) => {
                                     if (item.finished) return item
                                   }))
-                              } fetchUserAndPreviousOrders();
+                              } fetchPreviousOrders();
 
                             }}
                         >

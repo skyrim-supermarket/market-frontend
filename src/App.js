@@ -7,6 +7,7 @@ import Home from './pages/main/Home/Home';
 import Admin from './pages/main/Admin/Admin';
 import User from './pages/main/User/User';
 import Cashier from './pages/main/Cashier/Cashier';
+import Carrocaboy from './pages/main/Carrocaboy/Carrocaboy';
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
         <Route path="*" element={<Navigate to="/" />} />
         <Route path="/user" element={<User/>}/>
         <Route path="/cashier" element={<Cashier/>}/>
-        
+        <Route path="/carrocaboy" element={<Carrocaboy/>}/>
       </Routes>
     </BrowserRouter>
   );
