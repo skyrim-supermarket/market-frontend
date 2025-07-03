@@ -31,27 +31,24 @@ body {
     display: grid;
     height: 100%;
     display: grid;
-    grid-template-columns: 31% 4% 30% 4% 31%;
-    grid-template-rows: 98% 2%;
+    grid-template-columns: 100%;
+    grid-template-rows: 88% 10% 2%;
     overflow: hidden;
 }
 
 .container2-carrocaboy {
     display: grid;
     height: 100%;
-    grid-template-rows: 10% 10% 70% 10%;
+    grid-template-columns: 31% 4% 30% 4% 31% !important;
     font-size: 1.8em;
     overflow: hidden;
     margin-right: 3%;
 }
 
-.containerCarrocaboyWithoutSelection {
-    grid-template-rows: 10% 10% 70% 10%;
-}
+.container2-carrocaboy > .div-carrocaboy:nth-child(1) { grid-column: 1; }
+.container2-carrocaboy > .div-carrocaboy:nth-child(3) { grid-column: 3; }
+.container2-carrocaboy > .div-carrocaboy:nth-child(5) { grid-column: 5; }
 
-.containerCarrocaboyWithSelection {
-    grid-template-rows: 10% 10% 65% 5% 10%;
-}
 
 .navbar-carrocaboy {
   display: flex;
@@ -160,7 +157,7 @@ label {
     gap: 2%;
 }
 
-.main-cashier-area {
+.div-carrocaboy {
   display: flex;
   align-items: center;     /* vertical */
   justify-content: center; /* horizontal */
@@ -172,7 +169,7 @@ label {
   gap: 1em;
 }
 
-.main-cashier-area>img {
+.div-carrocaboy>img {
   width: 60%;
   max-width: 50vw;
   height: auto;

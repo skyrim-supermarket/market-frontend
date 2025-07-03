@@ -136,107 +136,117 @@ function App() {
   return (
     <div className="container-carrocaboy" >
         
-        <div className='div-carrocaboy'>
-        <span id="login-button">
-            <svg
-                id="button1"
-                className="sessionButton"
-                viewBox="0 0 251 44"
-                xmlnssvg="http://www.w3.org/2000/svg"
-                onDragStart={(e) => e.preventDefault()}
-                onClick = {(e) => {if (selectedAvailableOrder !== null) handleAcceptOrder(selectedAvailableOrder.id)}}
-            >
-                <image href={button}/>
-                <text
-                x="50%"
-                y="50%"
-                dominantBaseline="middle"
-                textAnchor="middle"
-                className="sessionText"
-                >
-                Accept order
-                </text>
-            </svg>
-        </span>
-        <Sheet
-                n={qtdProducts}
-                qtdProductsPerPage={qtdProductsPerPage} 
-                data={allAvailableOrders}
-                selectedItem={selectedAvailableOrder}
-                onItemSelect={(product) => {setSelectedAvailableOrder(prevProduct => (prevProduct && prevProduct.id === product.id ? null : product))}}
-                onSelectedItemPositionChange={null}
-                onNewQuery={() => {}}
-                showStock={true}
-                currentQueryIndex={(false)}  // passa isso só pra poder resetar a page selector quando uma nova classe é escolhida
-                showPages={false}
-                isItAProduct={true}
-                showGold={true}
-            />
-        </div>
+        <div className='container2-carrocaboy'> 
+            <div className='div-carrocaboy'>
+                {(allAvailableOrders.length === 0) && (<> No available orders. </>)}
+                {(allAvailableOrders.length !== 0) && (<> 
+                <span id="login-button">
+                    <svg
+                        id="button1"
+                        className="sessionButton"
+                        viewBox="0 0 251 44"
+                        xmlnssvg="http://www.w3.org/2000/svg"
+                        onDragStart={(e) => e.preventDefault()}
+                        onClick = {(e) => {if (allAvailableOrders.length !== 0) handleAcceptOrder(selectedAvailableOrder.id)}}
+                    >
+                        <image href={button}/>
+                        <text
+                        x="50%"
+                        y="50%"
+                        dominantBaseline="middle"
+                        textAnchor="middle"
+                        className="sessionText"
+                        >
+                        Accept order
+                        </text>
+                    </svg>
+                </span>
+                <Sheet
+                        n={qtdProducts}
+                        qtdProductsPerPage={qtdProductsPerPage} 
+                        data={allAvailableOrders}
+                        selectedItem={selectedAvailableOrder}
+                        onItemSelect={(product) => {setSelectedAvailableOrder(prevProduct => (prevProduct && prevProduct.id === product.id ? null : product))}}
+                        onSelectedItemPositionChange={null}
+                        onNewQuery={() => {}}
+                        showStock={true}
+                        currentQueryIndex={(false)}  // passa isso só pra poder resetar a page selector quando uma nova classe é escolhida
+                        showPages={false}
+                        isItAProduct={true}
+                        showGold={true}
+                    />
+                    </>)}
+            </div>
 
-        <VertDiv1 id="vertDiv1" showArrow={false} /> 
+            <VertDiv1 id="vertDiv1" showArrow={false} /> 
 
-        <div className='div-carrocaboy'>
-        {(myCurrentOrders.length === 0) && (<> No current orders. </>)}
-        {(myCurrentOrders.length !== 0) && (<> 
-            {Object.keys(myCurrentOrders[0]).map((key) => {
-                if (key == "idClient") {
-                    async function getClientAddress() {
-                        let endpoint = `http://localhost:8080/clientById/${myCurrentOrders[0][key]}`;
-                        let response = await fetch(endpoint, {
-                            method: "GET",
-                        });
-                        if (!response.ok) {
-                            const errorText = await response.text();
-                            throw new Error(errorText);
+            <div className='div-carrocaboy'>
+            {(myCurrentOrders.length === 0) && (<> No current orders. </>)}
+            {(myCurrentOrders.length !== 0) && (<> 
+                {Object.keys(myCurrentOrders[0]).map((key) => {
+                    if (key == "idClient") {
+                        async function getClientAddress() {
+                            let endpoint = `http://localhost:8080/clientById/${myCurrentOrders[0][key]}`;
+                            let response = await fetch(endpoint, {
+                                method: "GET",
+                            });
+                            if (!response.ok) {
+                                const errorText = await response.text();
+                                throw new Error(errorText);
+                            }
+                            let res = await response.json();
+                            return res;
                         }
-                        let res = await response.json();
-                        return res;
-                    }
-                    return <p>Client Address: {getClientAddress().address}</p>
-                } else return <p>{key}: {myCurrentOrders[0][key]}</p>
-            })}
-            <span id="login-button">
-            <svg
-                id="button1"
-                className="sessionButton"
-                viewBox="0 0 251 44"
-                xmlnssvg="http://www.w3.org/2000/svg"
-                onDragStart={(e) => e.preventDefault()}
-                onClick = {(e) => {if (selectedMyCurrentOrder !== null) handleDeliverOrder(selectedMyCurrentOrder.id); }}
-            >
-                <image href={button}/>
-                <text
-                x="50%"
-                y="50%"
-                dominantBaseline="middle"
-                textAnchor="middle"
-                className="sessionText"
+                        return <p>Client Address: {getClientAddress().address}</p>
+                    } else return <p>{key}: {myCurrentOrders[0][key]}</p>
+                })}
+                <span id="login-button">
+                <svg
+                    id="button1"
+                    className="sessionButton"
+                    viewBox="0 0 251 44"
+                    xmlnssvg="http://www.w3.org/2000/svg"
+                    onDragStart={(e) => e.preventDefault()}
+                    onClick = {(e) => {if (selectedMyCurrentOrder !== null) handleDeliverOrder(selectedMyCurrentOrder.id); }}
                 >
-                Confirm order deliver
-                </text>
-            </svg>
-        </span>
-        </>)}
-        </div>
+                    <image href={button}/>
+                    <text
+                    x="50%"
+                    y="50%"
+                    dominantBaseline="middle"
+                    textAnchor="middle"
+                    className="sessionText"
+                    >
+                    Confirm order deliver
+                    </text>
+                </svg>
+            </span>
+            </>)}
+            </div>
         
-        <VertDiv1 id="vertDiv1" showArrow={false} /> 
+            <VertDiv1 id="vertDiv1" showArrow={false} /> 
 
-        <div className='div-carrocaboy'>
-        <Sheet
-                n={qtdProducts}
-                qtdProductsPerPage={qtdProductsPerPage} 
-                data={myPastOrders}
-                selectedItem={selectedMyPastOrder}
-                onItemSelect={(product) => {setSelectedMyPastOrder(prevProduct => (prevProduct && prevProduct.id === product.id ? null : product))}}
-                onSelectedItemPositionChange={null}
-                onNewQuery={() => {}}
-                showStock={true}
-                currentQueryIndex={(false)}  // passa isso só pra poder resetar a page selector quando uma nova classe é escolhida
-                showPages={false}
-                showGold={true}
-            />
+            <div className='div-carrocaboy'>
+            {(myPastOrders.length === 0) && (<> No past orders. </>)}
+            {(myPastOrders.length !== 0) && (<> 
+            <Sheet
+                    n={qtdProducts}
+                    qtdProductsPerPage={qtdProductsPerPage} 
+                    data={myPastOrders}
+                    selectedItem={selectedMyPastOrder}
+                    onItemSelect={(product) => {setSelectedMyPastOrder(prevProduct => (prevProduct && prevProduct.id === product.id ? null : product))}}
+                    onSelectedItemPositionChange={null}
+                    onNewQuery={() => {}}
+                    showStock={true}
+                    currentQueryIndex={(false)}  // passa isso só pra poder resetar a page selector quando uma nova classe é escolhida
+                    showPages={false}
+                    showGold={true}
+                />
+            </>)}
+            </div>
         </div>
+    
+        <div className='div-carrocaboy'> Oioioi </div>
 
       <div className="rodape"> A série de jogos <i>The Elder Scrolls </i>e <i>The Elder Scrolls V: Skyrim </i> 
       são propriedade da Bethesda Softworks LLC: Todos os direitos reservados. Este website tem fins educacionais 
