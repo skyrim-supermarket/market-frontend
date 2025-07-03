@@ -4,6 +4,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import "./Cadastro.css";
 //import logoWhite from "../assets/logoWhite.svg";
+import logo from '../assets/logoWhite.svg';
 import button from "../assets/button.svg";
 
 const Cadastro = () => {
@@ -71,14 +72,7 @@ const Cadastro = () => {
     return (
       <div className="container">
         <div className="cell i1">
-          <svg
-            id="logo"
-            className="logo"
-            viewBox="0 0 516 976"
-            xmlnssvg="http://www.w3.org/2000/svg"
-            onDragStart={preventDrag}
-          >
-          </svg>
+          <img src={logo}/> 
         </div>
         <div className="cell i2">
           {mensagem && <span style={{ color: "red" }}>{mensagem}</span>}

@@ -105,6 +105,9 @@ label {
     .logo {height: 60vh;}
 }
 
+.logo-main>image {
+    height: 50%;
+}
 
 
 

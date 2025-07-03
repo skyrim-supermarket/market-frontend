@@ -4,6 +4,7 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import "./EditAccount.css"; // Certifique-se de que este arquivo exista
 // import logoWhite from "../assets/logoWhite.svg";
+import logo from '../assets/logoWhite.svg';
 import button from "../assets/button.svg";
 
 
@@ -108,14 +109,7 @@ const Login = () => {
     return (
       <div className="container">
         <div className="cell i1">
-          <svg
-            id="logo"
-            className="logo"
-            viewBox="0 0 516 976"
-            xmlnsSvg="http://www.w3.org/2000/svg"
-            onDragStart={preventDrag}
-          >
-          </svg>
+          <img src={logo}/> 
         </div>
         <div className="cell i2">
           {mensagem && <span style={{ color: "red" }}>{mensagem}</span>}
