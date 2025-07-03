@@ -30,6 +30,7 @@ function ProductInfo({ product, editable, category = "PRODUCTS", isItACart = fal
 
       const user = await WhoAmI(userType);
       setWhoIAm(user);
+      console.log(user);
     } fetchUser();
   }, [])
 
@@ -226,7 +227,7 @@ function ProductInfo({ product, editable, category = "PRODUCTS", isItACart = fal
                 </label>
               )
             } else {
-              return <p key={key}>{((key !== "id") ? name : "ID")}: {((key !== "id") ? String(value) : String(value).replace(/\D/g, ''))}</p>;
+              if(!((iAm === null || iAm.type === 'client') && (key.includes('At'))))return <p key={key}>{((key !== "id") ? name : "ID")}: {((key !== "id") ? String(value) : String(value).replace(/\D/g, ''))}</p>;
             }
           }
           return null;
