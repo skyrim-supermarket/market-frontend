@@ -24,76 +24,25 @@ function App() {
   const navigate = useNavigate();
   const qtdProductsPerPage = 5; // vida verdade e universo
 
-  // SOBRE ESTILO
-  const [selectedProduct, setSelectedProduct] = useState(null);
-
   // Sobre QUERIES
-  const inputRef = useRef(null);
   const [qtdProducts, setQtdProducts] = useState(0); // quantidade total de items a serem mostrados, nao apenas no productsData
-  const [productsData, setProductsData] = useState([]); // modelo: { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  const [currentShowingData, setCurrentShowingData] = useState(null); 
-  const [onSale, setAreWeSellingStuff] = useState(false);
-  const [gettingClientInfo, setAreWeGettingClientInfo] = useState(false);
+  
+  const [allAvailableOrders, setAllAvailableOrders] = useState([]); // modelo: { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+  const [myCurrentOrders, setMyCurrentOrders] = useState([]); // modelo: { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+  const [myPastOrders, setMyPastOrders] = useState([]); // modelo: { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+
+  const [selectedAvailableOrder, setSelectedAvailableOrder] = useState([]);
+  const [selectedMyCurrentOrder, setSelectedMyCurrentOrder] = useState([]);
+  const [selectedMyPastOrder, setSelectedMyPastOrder] = useState([]);
 
   // sobre USER
   const [whatIAm, setWhatIAm] = useState('none');
   const [whoIAm, setWhoIAm] = useState('none');
 
-  const handleAddProduct = async (value) => {
-    async function fetchInfo() {
-      let fetchedInfo = {};
-      fetchedInfo = await GetAllProductInfo(value);
-      fetchedInfo.qtd = 1;
-
-      setSelectedProduct(fetchedInfo);
-      setCurrentShowingData(fetchedInfo);
-      setProductsData(prevData => [...prevData, fetchedInfo]);
-
-    }
-
-    const endpoint = `http://localhost:8080/addToIrlPurchase/${value}/${whoIAm.email}`;
+  const handleAcceptOrder = async (id) => {
+    const endpoint = `http://localhost:8080/acceptOrder/${whoIAm.email}/${id}`;
     const response = await fetch(endpoint, {
         method: "POST",
-    });
-
-    if (!response.ok) {
-        const errorText = await response.text();
-        if (errorText !== "This product is already in this purchase!") {
-            throw new Error(errorText);
-        } 
-    } else {
-        fetchInfo();
-    }
-
-  }
-
-  const handleNewAmount = (product) => {
-    return async (value) => {
-        const endpoint = `http://localhost:8080/alterQuantityIrlPurchase/${product.id}/${whoIAm.email}/${value}`;
-        const response = await fetch(endpoint, {
-            method: "POST",
-        });
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(errorText);
-        }
-
-        let info = selectedProduct
-        info.qtd = value;
-
-        setSelectedProduct(info);
-        setCurrentShowingData(info);
-        setProductsData(prevData =>
-            prevData.map(p => p.id === product.id ? { ...p, qtd: value } : p )
-        );
-    }
-  }
-
-  const handleDeleteProduct = async (product) => {
-    const endpoint = `http://localhost:8080/deleteFromIrlPurchase/${product.id}/${whoIAm.email}`;
-    const response = await fetch(endpoint, {
-        method: "DELETE",
     });
 
     if (!response.ok) {
@@ -101,15 +50,15 @@ function App() {
         throw new Error(errorText);
     }
 
-    setSelectedProduct(null);
-    setCurrentShowingData(null);
-    setProductsData(prevData =>
-        prevData.filter(p => p.id !== product.id)
+    setAllAvailableOrders(prev =>
+        prev.filter(item => item.id !== id)
     );
+    window.location.reload();
   }
 
-  const handleAddClientEmail = async (email) => {
-    const endpoint = `http://localhost:8080/addClientToIrlPurchase/${whoIAm.email}/${email}`;
+  const handleDeliverOrder = async (id) => {
+    
+    const endpoint = `http://localhost:8080/deliverOrder/${whoIAm.email}/${id}`;
     const response = await fetch(endpoint, {
         method: "POST",
     });
@@ -118,18 +67,9 @@ function App() {
         const errorText = await response.text();
         throw new Error(errorText);
     }
-  }
 
-  const handleFinishSale = async () => {
-    const endpoint = `http://localhost:8080/finishIrlSale/${whoIAm.email}`;
-    const response = await fetch(endpoint, {
-        method: "POST",
-    });
-
-    if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText);
-    }
+    setMyPastOrders([...myPastOrders, myCurrentOrders[0]])
+    setMyCurrentOrders([])
   }
 
   // inicialização
@@ -137,14 +77,52 @@ function App() {
     setBackgroundImage(); // seta imagem de fundo
 
     // vê quem eu sou
-    async function fetchUser() {
+    async function fetchUserAndSales() {
         const myUserType = await WhatAmI()
         setWhatIAm(myUserType);
         if (myUserType != 'carrocaboy') navigate('/')
         const myUser = await WhoAmI('carrocaBoy')
         setWhoIAm(myUser);
-    } fetchUser();
-    
+
+        // available sales
+        let endpoint = `http://localhost:8080/availableSales`;
+        let response = await fetch(endpoint, {
+            method: "GET",
+        });
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(errorText);
+        }
+        let res = await response.json();
+        setAllAvailableOrders(res);
+
+        // to be delivered sales
+        endpoint = `http://localhost:8080/salesToBeDelivered/${myUser.email}`;
+        response = await fetch(endpoint, {
+            method: "GET",
+        });
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(errorText);
+        }
+        res = await response.json();
+        setMyCurrentOrders(res);
+
+        // past sales
+        endpoint = `http://localhost:8080/previousSales/${myUser.email}`;
+        response = await fetch(endpoint, {
+            method: "GET",
+        });
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(errorText);
+        }
+        res = await response.json();
+        setMyPastOrders(res);
+        console.log(res);
+
+    }  fetchUserAndSales();
+
     return () => {
       document.body.style.backgroundImage = '';
       document.body.style.backgroundSize = '';
@@ -153,57 +131,112 @@ function App() {
     }
   }, []);
 
-  // toda vez que clicamos num produto, ou ele é selecionado ou deselecionado
-  const handleProductSelect = (product) => {
-    setCurrentShowingData((selectedProduct === product) ? null : product);
-    setSelectedProduct(prevProduct => (prevProduct && prevProduct.id === product.id ? null : product));
-  };
+  useEffect(() => {setSelectedMyCurrentOrder(myCurrentOrders[0])}, [myCurrentOrders])
 
   return (
     <div className="container-carrocaboy" >
         
+        <div className='div-carrocaboy'>
+        <span id="login-button">
+            <svg
+                id="button1"
+                className="sessionButton"
+                viewBox="0 0 251 44"
+                xmlnssvg="http://www.w3.org/2000/svg"
+                onDragStart={(e) => e.preventDefault()}
+                onClick = {(e) => {if (selectedAvailableOrder !== null) handleAcceptOrder(selectedAvailableOrder.id)}}
+            >
+                <image href={button}/>
+                <text
+                x="50%"
+                y="50%"
+                dominantBaseline="middle"
+                textAnchor="middle"
+                className="sessionText"
+                >
+                Accept order
+                </text>
+            </svg>
+        </span>
         <Sheet
                 n={qtdProducts}
                 qtdProductsPerPage={qtdProductsPerPage} 
-                data={productsData}
-                selectedItem={selectedProduct}
-                onItemSelect={handleProductSelect}
+                data={allAvailableOrders}
+                selectedItem={selectedAvailableOrder}
+                onItemSelect={(product) => {setSelectedAvailableOrder(prevProduct => (prevProduct && prevProduct.id === product.id ? null : product))}}
                 onSelectedItemPositionChange={null}
                 onNewQuery={() => {}}
                 showStock={true}
-                currentQueryIndex={(currentShowingData !== null)}  // passa isso só pra poder resetar a page selector quando uma nova classe é escolhida
+                currentQueryIndex={(false)}  // passa isso só pra poder resetar a page selector quando uma nova classe é escolhida
                 showPages={false}
+                isItAProduct={true}
+                showGold={true}
             />
+        </div>
 
         <VertDiv1 id="vertDiv1" showArrow={false} /> 
 
-        <Sheet
-                n={qtdProducts}
-                qtdProductsPerPage={qtdProductsPerPage} 
-                data={productsData}
-                selectedItem={selectedProduct}
-                onItemSelect={handleProductSelect}
-                onSelectedItemPositionChange={null}
-                onNewQuery={() => {}}
-                showStock={true}
-                currentQueryIndex={(currentShowingData !== null)}  // passa isso só pra poder resetar a page selector quando uma nova classe é escolhida
-                showPages={false}
-            />
+        <div className='div-carrocaboy'>
+        {(myCurrentOrders.length === 0) && (<> No current orders. </>)}
+        {(myCurrentOrders.length !== 0) && (<> 
+            {Object.keys(myCurrentOrders[0]).map((key) => {
+                if (key == "idClient") {
+                    async function getClientAddress() {
+                        let endpoint = `http://localhost:8080/clientById/${myCurrentOrders[0][key]}`;
+                        let response = await fetch(endpoint, {
+                            method: "GET",
+                        });
+                        if (!response.ok) {
+                            const errorText = await response.text();
+                            throw new Error(errorText);
+                        }
+                        let res = await response.json();
+                        return res;
+                    }
+                    return <p>Client Address: {getClientAddress().address}</p>
+                } else return <p>{key}: {myCurrentOrders[0][key]}</p>
+            })}
+            <span id="login-button">
+            <svg
+                id="button1"
+                className="sessionButton"
+                viewBox="0 0 251 44"
+                xmlnssvg="http://www.w3.org/2000/svg"
+                onDragStart={(e) => e.preventDefault()}
+                onClick = {(e) => {if (selectedMyCurrentOrder !== null) handleDeliverOrder(selectedMyCurrentOrder.id); }}
+            >
+                <image href={button}/>
+                <text
+                x="50%"
+                y="50%"
+                dominantBaseline="middle"
+                textAnchor="middle"
+                className="sessionText"
+                >
+                Confirm order deliver
+                </text>
+            </svg>
+        </span>
+        </>)}
+        </div>
         
         <VertDiv1 id="vertDiv1" showArrow={false} /> 
 
+        <div className='div-carrocaboy'>
         <Sheet
                 n={qtdProducts}
                 qtdProductsPerPage={qtdProductsPerPage} 
-                data={productsData}
-                selectedItem={selectedProduct}
-                onItemSelect={handleProductSelect}
+                data={myPastOrders}
+                selectedItem={selectedMyPastOrder}
+                onItemSelect={(product) => {setSelectedMyPastOrder(prevProduct => (prevProduct && prevProduct.id === product.id ? null : product))}}
                 onSelectedItemPositionChange={null}
                 onNewQuery={() => {}}
                 showStock={true}
-                currentQueryIndex={(currentShowingData !== null)}  // passa isso só pra poder resetar a page selector quando uma nova classe é escolhida
+                currentQueryIndex={(false)}  // passa isso só pra poder resetar a page selector quando uma nova classe é escolhida
                 showPages={false}
+                showGold={true}
             />
+        </div>
 
       <div className="rodape"> A série de jogos <i>The Elder Scrolls </i>e <i>The Elder Scrolls V: Skyrim </i> 
       são propriedade da Bethesda Softworks LLC: Todos os direitos reservados. Este website tem fins educacionais 
