@@ -229,7 +229,7 @@ function App() {
                                        ${(types[currentQueryIndex] !== "PROFILE" && productsData.length !== 0) ? 'sale-info' : 'no-sale-info'}`}>
         <div className="navbar">
           <div className="searchbar-div">
-            <p>I am {iAm.username}</p>
+            <p>Hello, {iAm.username}!</p>
           </div>
           <div className="navbuttons-div">
             <ProfileButton goToHome={true}/>

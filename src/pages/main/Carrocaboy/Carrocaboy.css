@@ -157,6 +157,14 @@ label {
 .button-carrocaboy {
     text-align: center;
     font-size: 1.8em;
+
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.carroca-text {
+    font-size: 2em;
+    margin-right: 2em;
 }
 
 #accept-button1 {

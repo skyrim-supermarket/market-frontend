@@ -139,9 +139,9 @@ function App() {
   return (
     <div className="container-carrocaboy" >
         <div className='button-carrocaboy'> 
-            <span>{`Hello, ${whoIAm.username}!`}</span>
+            <span className='carroca-text'>{`Hello, ${whoIAm.username}!`}</span>
             <SessionButton/> 
-            </div>
+        </div>
         
         <div className='container2-carrocaboy'> 
             <div className='div-carrocaboy'>
