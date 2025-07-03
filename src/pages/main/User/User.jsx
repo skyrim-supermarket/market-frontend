@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
+import button from "../../assets/button.svg";
 
 // componentes
 import Sidebar from '../../components/Sidebar';
@@ -20,10 +21,6 @@ import NewCategory from '../../query-scripts/NewCategory'
 import setBackgroundImage from '../../style-scripts/setBackgroundImage';
 import WhoAmI from '../../query-scripts/WhoAmI';
 
-// temporario
-import boneArrow from '../../assets/bone-arrow.png';
-
-
 function App() {
   document.title = "Your page";
   const navigate = useNavigate();
@@ -35,35 +32,15 @@ function App() {
   const [salesSideBarCenter, setSalesSideBarCenter] = useState(0);  // centro da lista circular 2
   const [arrowY, setArrowY] = useState(null);
   const [types, setTypes] = useState(["PROFILE", "CART", "PAST PURCHASES"]);
+  const [pastSalesNames, setPastSalesNames] = useState([]);
   const [pastSales, setPastSales] = useState([]);
 
   // Sobre QUERIES
-  const [queriedPage, setQueriedPage] = useState(1);
   const [currentQueryIndex, setQueryIndex] = useState(0); // classe da qual os produtos estão aparecendo
   const [currentSalesIndex, setSalesIndex] = useState(0); // classses da sidebar 2
-  const [newCategoryRequest, setNewCategoryRequest] = useState({type: types[0], page: 1, pageSize: qtdProductsPerPage, });  // solicitação de nova query
   const [qtdProducts, setQtdProducts] = useState(0); // quantidade total de items a serem mostrados, nao apenas no productsData
-  //const [productsData, setProductsData] = useState([]); // modelo: { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  const [productsData, setProductsData] = useState([
-    { id: 'product1', name: 'Shadowed Tower', price: 300, image: `${boneArrow}` },
-    { id: 'product2', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product3', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product4', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product5', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product6', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product7', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product8', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product9', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product10', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product11', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product12', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product13', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product14', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product15', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product16', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product17', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-    { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  ]);
+  const [productsData, setProductsData] = useState([]); // modelo: { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+  const [saleInfo, setSaleInfo] = useState([]);
 
   // username
   const [iAm, setWhoIAm] = useState("IDontKnowYEt");
@@ -82,13 +59,30 @@ function App() {
     if (flag !== 'client') navigate("/");
 
     // pega meus dados de usuário
-    async function fetchUser() {
+    async function fetchUserAndPreviousOrders() {
         const user = await WhoAmI(flag);
         setWhoIAm(user);
-    } fetchUser();
 
-    // faz query das past sales e coloca os nomes aqui
-    setPastSales(["sale 0", "sale 1", "sale 2", "sale 3",])
+        const endpoint = `http://localhost:8080/previousOrders/${user.email}`;
+        const response = await fetch(endpoint, {
+            method: "GET",
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(errorText);
+        }
+
+        const res = await response.json();
+        setPastSalesNames(res.map((item) => {
+          if (item.finished) return `#${item.id}`
+        }))
+
+        setPastSales(res.map((item) => {
+          if (item.finished) return item
+        }))
+
+    } fetchUserAndPreviousOrders();
 
     return () => {
       document.body.style.backgroundImage = '';
@@ -97,6 +91,24 @@ function App() {
       document.body.style.backgroundAttachment = '';
     }
   }, []);
+
+  const getPastSale = (id) => {
+     async function fetchPastSales() {
+        const endpoint = `http://localhost:8080/getSale/${id}`;
+        const response = await fetch(endpoint, {
+            method: "GET",
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(errorText);
+        }
+
+        const res = await response.json();
+        console.log(res.products);
+        setProductsData(res.products);
+     } fetchPastSales();
+  }
 
   // quando clicamos em algum item da planilha
   const handleItemSelect = (product) => {
@@ -112,7 +124,6 @@ function App() {
       } else if (direction === 'down') {
         newIndex = (prevIndex + 1)%types.length;
       }
-      console.log(iAm);
       return newIndex;      
     });
   };
@@ -126,9 +137,9 @@ function App() {
 
       let newIndex = prevIndex;
       if (direction === 'up') {
-        newIndex = ((prevIndex - 1)+pastSales.length)%pastSales.length;
+        newIndex = ((prevIndex - 1)+pastSalesNames.length)%pastSalesNames.length;
       } else if (direction === 'down') {
-        newIndex = ((prevIndex + 1)+pastSales.length)%pastSales.length;
+        newIndex = ((prevIndex + 1)+pastSalesNames.length)%pastSalesNames.length;
       }
 
       return newIndex;      
@@ -136,52 +147,66 @@ function App() {
   };
 
   // quando clicamos nas classes da sidebar 1
-  const handleClickClasses = (clickedOnIndex) => {
+  const handleClickClasses = async (clickedOnIndex) => {
     const newIndex = (clickedOnIndex+types.length)%types.length;
     setSideBarCenter(newIndex);
     setQueryIndex(newIndex);
-    
-    setQueriedPage(1);        // reseta pra voltar pra pagina 1
+
     setSelectedProduct(null);
 
     setSalesSideBarCenter(0);
     setSalesIndex(0);
 
-    // if (types[newIndex] == 'PAST PURCHASES' && pastSales.length != 0) {
+    if (types[newIndex] == 'PAST PURCHASES' && pastSalesNames.length != 0) {
         // fazer request dos produtos da 1ª sale listada
-    //const newRequest = {type: 'ALL PRODUCTS', page: 1, pageSize: qtdProductsPerPage, };
-    //setNewCategoryRequest(newRequest);
-    //NewCategory(newRequest, setProductsData, setQtdProducts);
+        setSaleInfo(pastSales[0])
+        getPastSale(pastSales[0].id);
+    }
 
+    if (types[newIndex] === "CART") {
+      const endpoint = `http://localhost:8080/getCart/${iAm.email}`;
+      const response = await fetch(endpoint, {
+          method: "GET",
+      });
+
+      if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(errorText);
+      }
+
+      const res = await response.json();
+      setProductsData(res.products);
+      setSaleInfo(res.sale);
+    }
   };
 
   // quando clicamos nas classes da sidebar 2
   const handleClickSales  = (clickedOnIndex) => {
       // não podemos clicar "no vazio"
-      const newIndex = (clickedOnIndex+pastSales.length)%pastSales.length;;
+      const newIndex = (clickedOnIndex+pastSalesNames.length)%pastSalesNames.length;;
       setSalesSideBarCenter(newIndex);
       setSalesIndex(newIndex);
       setSelectedProduct(null);
 
+      setSaleInfo(pastSales[newIndex])
+      getPastSale(pastSales[newIndex].id);
+
       // fazer request dos produtos da sale em clickedOnIndex
       //const newRequest = {type: types[newIndex], page: 1, pageSize: qtdProductsPerPage, };
       //setNewCategoryRequest(newRequest);
-      //NewCategory(newRequest, setProductsData, setQtdProducts);
-    
+      //NewCategory(newRequest, setProductsData, setQtdProducts)
   };
 
   // quando queremos uma nova página
   const handleNewPageQuery = (indexPage) => {
     const newPage = indexPage;
-    setQueriedPage(newPage);
     setSelectedProduct(null);
     const newRequest = {type: types[currentQueryIndex], page: newPage, pageSize: qtdProductsPerPage, };
-    setNewCategoryRequest(newRequest);
     NewCategory(newRequest, setProductsData, setQtdProducts);
   }   
 
   return (
-    <div className={`container-user ${(types[currentQueryIndex] === "PAST PURCHASES" && pastSales.length !== 0) ? 'two-sidebars' : 'one-sidebar'}`} >
+    <div className={`container-user ${(types[currentQueryIndex] === "PAST PURCHASES" && pastSalesNames.length !== 0) ? 'two-sidebars' : 'one-sidebar'}`} >
       <Sidebar
         types={types}
         selectedClassIndex={sideBarCenter}
@@ -192,9 +217,9 @@ function App() {
 
       <VertDiv1 id="vertDiv1" showArrow={(currentQueryIndex == sideBarCenter)} /> 
 
-      {(types[currentQueryIndex] == "PAST PURCHASES" && pastSales.length != 0) && (<>
+      {(types[currentQueryIndex] == "PAST PURCHASES" && pastSalesNames.length != 0) && (<>
         <Sidebar
-            types={pastSales}
+            types={pastSalesNames}
             selectedClassIndex={salesSideBarCenter}
             onScroll={handleScrollSales}
             onClassClick={handleClickSales}
@@ -207,7 +232,7 @@ function App() {
 
 
       <div className={`container2-user ${selectedProduct ? 'containerWithoutSelection' : 'containerWithSelection'}
-                                       ${(types[currentQueryIndex] !== "PROFILE" && qtdProducts !== 0) ? 'sale-info' : 'no-sale-info'}`}>
+                                       ${(types[currentQueryIndex] !== "PROFILE" && productsData.length !== 0) ? 'sale-info' : 'no-sale-info'}`}>
         <div className="navbar">
           <div className="searchbar-div">
             <p>I am {iAm.username}</p>
@@ -218,11 +243,68 @@ function App() {
           </div>
         </div>
 	
-            {(types[currentQueryIndex] !== "PROFILE") && (qtdProducts !== 0) && (<>
-                <div className="navbar">
-                    <p>Purchased on: [date]</p>
-                    <p>Total Value: [value]</p>
-                    <p>ID of purchase: [ID]</p>
+            {(types[currentQueryIndex] !== "PROFILE") && (productsData.length !== 0) && (<>
+                <div className="navbar-user">
+                    <p>{(types[currentQueryIndex] === "CART")? `Created at: ${saleInfo.createdAt}` : `Updated at: ${saleInfo.updatedAt}`}</p>
+                    <p>Total Value: {saleInfo.totalPriceGold}</p>
+                    <p>ID of purchase: #{saleInfo.id}</p>
+                    {(types[currentQueryIndex] === "CART") && (<>
+                      <span id="login-button">
+                        <svg
+                            id="button1"
+                            className="sessionButton"
+                            viewBox="0 0 251 44"
+                            xmlnssvg="http://www.w3.org/2000/svg"
+                            onDragStart={(e) => e.preventDefault()}
+                            onClick = {async (e) => {
+                              const endpoint = `http://localhost:8080/finishOnlineSale/${iAm.email}`;
+                              const response = await fetch(endpoint, {
+                                  method: "POST",
+                              });
+
+                              if (!response.ok) {
+                                  const errorText = await response.text();
+                                  throw new Error(errorText);
+                              }
+                              setProductsData([]);
+                              setSelectedProduct(null);
+
+                              async function fetchUserAndPreviousOrders() {
+                                  const endpoint = `http://localhost:8080/previousOrders/${iAm.email}`;
+                                  const response = await fetch(endpoint, {
+                                      method: "GET",
+                                  });
+
+                                  if (!response.ok) {
+                                      const errorText = await response.text();
+                                      throw new Error(errorText);
+                                  }
+
+                                  const res = await response.json();
+                                  setPastSalesNames(res.map((item) => {
+                                    if (item.finished) return `#${item.id}`
+                                  }))
+
+                                  setPastSales(res.map((item) => {
+                                    if (item.finished) return item
+                                  }))
+                              } fetchUserAndPreviousOrders();
+
+                            }}
+                        >
+                            <image href={button}/>
+                            <text
+                            x="50%"
+                            y="50%"
+                            dominantBaseline="middle"
+                            textAnchor="middle"
+                            className="sessionText"
+                            >
+                            {"Finish purchase"}
+                            </text>
+                        </svg>
+                    </span>
+                    </>)}
                 </div>
 
                 <Sheet
@@ -239,13 +321,19 @@ function App() {
 
                 {selectedProduct && (<>
                     <VertDiv2 id="vertDiv2" showArrow={arrowY !== null} arrowY={arrowY} />
-                    <ProductInfo product={selectedProduct} editable={false}/>
+                    <ProductInfo 
+                      product={productsData.find(p => p.id === selectedProduct.id)} 
+                      editable={false} 
+                      isItACart={true} 
+                      setSelectedProduct={setSelectedProduct}
+                      forDisplay={(types[currentQueryIndex] === "PAST PURCHASES")? true : false}
+                    />
                 </>
                 )}
             </>
             )}
 
-            {(types[currentQueryIndex] !== "PROFILE") && (qtdProducts === 0) && (<>
+            {(types[currentQueryIndex] !== "PROFILE") && (productsData.length === 0) && (<>
                 <p> Não há produtos a serem mostrados! </p>
             </>
             )}

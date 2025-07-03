@@ -6,11 +6,13 @@ import button from "../assets/button.svg";
 // scripts
 import NewForm from '../query-scripts/NewForm';
 import GetAllProductInfo from '../query-scripts/GetAllProductInfo'
+import WhatAmI from '../query-scripts/WhatAmI';
+import WhoAmI from '../query-scripts/WhoAmI';
 
 // buttons
 import ProductInfoButton from './ProductInfoButton';
 
-function ProductInfo({ product, editable, category = "PRODUCTS" }) {
+function ProductInfo({ product, editable, category = "PRODUCTS", isItACart = false, forDisplay = false, setSelectedProduct = () => {} }) {
   const [showForms, setShowForms] = useState(false);
   const [info, setInfo] = useState({});
   const [newInfo, setNewInfo] = useState({});
@@ -21,6 +23,16 @@ function ProductInfo({ product, editable, category = "PRODUCTS" }) {
   const [errorMessage, setErrorMessage] = useState('');
   const [iAm, setWhoIAm] = useState('none');
 
+  useEffect(() => {
+    async function fetchUser() {
+      const userType = await WhatAmI();
+      if (userType !== 'user') setWhoIAm('none');
+
+      const user = await WhoAmI(userType);
+      setWhoIAm(user);
+    } fetchUser();
+  }, [])
+
   // pega informações do produto
   useEffect(() => {
     async function fetchInfo() {
@@ -29,6 +41,8 @@ function ProductInfo({ product, editable, category = "PRODUCTS" }) {
       setInfo(fetchedInfo);
     } fetchInfo();
     setNewInfo(info);
+    setErrorMessage('');
+    setSuccessMessage('');
   }, [product]);
 
   // pega tipo de cada label
@@ -60,12 +74,13 @@ function ProductInfo({ product, editable, category = "PRODUCTS" }) {
   }
 
   const handleSubmit = async (e) => {
-    async function fetchUser() {
-      const user = await setWhoIAm();
-      setWhoIAm(user);
-    } fetchUser();
-
     e.preventDefault();
+
+    if (iAm === 'none') return;
+
+    if (isItACart) handleRemoveFromCart();
+    else {
+
     setErrorMessage('');
     setSuccessMessage('');
 
@@ -94,7 +109,7 @@ function ProductInfo({ product, editable, category = "PRODUCTS" }) {
     } else {
       // coloca aqui pra inserir no carrinho
       data = {}
-      endpoint = `http://localhost:8080/addToCart/${product.id}/${iAm.email}`;
+      endpoint = `http://localhost:8080/addToCart/${product.id.slice(2)}/${iAm.email}`;
     }
 
     try {
@@ -112,8 +127,11 @@ function ProductInfo({ product, editable, category = "PRODUCTS" }) {
         const result = await response.text();
         setSuccessMessage(result);
 
-        setNewInfo(info);
-        setImageData(null);
+        if (showForms) {
+          setNewInfo(info);
+          setImageData(null);
+          window.location.reload();
+        }
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
         
@@ -122,14 +140,43 @@ function ProductInfo({ product, editable, category = "PRODUCTS" }) {
         setErrorMessage(errorText);
         console.error(error);
       }
-  }
+  }}
   
+  const handleRemoveFromCart = async (e) => {
+    const endpoint = `http://localhost:8080/deleteFromCart/${product.id}/${iAm.email}`;
+    const response = await fetch(endpoint, {
+        method: "DELETE",
+    });
+
+    if (!response.ok) {
+        const errorText = await response.text();
+        setErrorMessage(errorText);
+        throw new Error(errorText);
+    }
+
+    setSuccessMessage('Succesfully removed from cart.');
+    setSelectedProduct(null);
+  }
+
+  const handleNewAmount = (product) => {
+    return async (value) => {
+        const endpoint = `http://localhost:8080/alterQuantityCart/${product.id}/${iAm.email}/${value}`;
+        const response = await fetch(endpoint, {
+            method: "POST",
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(errorText);
+        }
+
+        product.totalQuantity = value;
+    }
+  }
+
   return (
     <div id="product-info" className="product-info">
       <h3>{product.name}</h3>
-
-      {errorMessage && <span style={{ color: "red" }}>{errorMessage}</span>}
-      {successMessage && <span style={{ color: "green" }}>{successMessage}</span>}
       
       <form onSubmit={handleSubmit}>
         {(!showForms) && (category == "PRODUCTS") && (<>
@@ -144,8 +191,7 @@ function ProductInfo({ product, editable, category = "PRODUCTS" }) {
           </>
         )}
 
-        
-
+    
         {Object.keys(info).map((key) => {
           if (key !== "image" && (category !== "PRODUCTS" || key !== "name") && (key != "id") && key != "kind") {
             let name = key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
@@ -187,8 +233,18 @@ function ProductInfo({ product, editable, category = "PRODUCTS" }) {
           <ProductInfoButton toEdit={!showForms} handleSubmit={getForms}/>
         </>)}
 
+        {!forDisplay && (<>
+        {errorMessage && <span style={{ color: "red" }}>{errorMessage}</span>}
+        {successMessage && <span style={{ color: "green" }}>{successMessage}</span>}
+
         {((!editable || showForms) && !(category === "CLIENTS" || category === "SALES")) && (<>
           <span id="edit-button">
+              {(isItACart) && (<>
+                <label id="howMany">
+                    How many? <input type="number" className='form-number' min={1} max={product.stock} value={product.totalQuantity}
+                    onChange={(e) => {if (e.target.value != "") handleNewAmount(product)(e.target.value);}}/>
+                </label>
+              </>)}
               <label>
                 <input type="submit" style={{ display: "none" }} />
                 <svg
@@ -206,11 +262,12 @@ function ProductInfo({ product, editable, category = "PRODUCTS" }) {
                     textAnchor="middle"
                     className="sessionText"
                   >
-                    {showForms ? "Insert changes" : "Add to cart"}
+                    {isItACart ? "Remove from cart" : showForms ? "Insert changes" : "Add to cart"}
                   </text>
                 </svg>
               </label>
           </span>
+          </>)}
           </>)}
       </form>
 

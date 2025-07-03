@@ -214,6 +214,17 @@ label {
     border-radius: 10px !important;
 }
 
+.priceFilter {
+    color: white;
+    background: rgb(0,0,0, 0.5) !important;
+    height: 54% !important;
+    width: 15% !important;
+    margin-left: 3%;
+    font-size: 1em !important;
+    border: 1px solid white !important;
+    border-radius: 10px !important;
+}
+
 .navbuttons-div {
     display: flex;
     height: 100%;
@@ -222,3 +233,4 @@ label {
     justify-content: right;
     gap: 2%;
 }
+

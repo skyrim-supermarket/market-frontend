@@ -73,9 +73,9 @@ body {
     grid-template-columns: 100%;
 }
 
-.navbar {
+.navbar-user {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   grid-column-start: 1;
   grid-column-end: 4;
@@ -97,42 +97,6 @@ body {
     width: auto;
 }
 
-.filters {
-    grid-column-start: 1;
-    grid-column-end: 4;
-    text-overflow: scroll;
-    overflow-y: hidden;
-    overflow-x: scroll;
-    padding-left: 3px;
-
-    -webkit-mask-image: linear-gradient(to left, transparent 0%, black 1%, black 99%, transparent 100%);
-    mask-image: linear-gradient(to left, transparent 0%, black 1%, black 99%, transparent 100%);
-
-    /*pra remover scrollbar*/
-    scrollbar-width: none;  /* firefox */
-    -ms-overflow-style: none; /* internet explorer */
-}
-
-.filters::-webkit-scrollbar {
-    display: none;  /* chrome e safari */
-}
-
-.filters-flex {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    white-space: nowrap;
-    align-items: center;
-    overflow-y: scroll;
-
-    /*pra remover scrollbar*/
-    scrollbar-width: none;  /* firefox */
-    -ms-overflow-style: none; /* internet explorer */
-}
-
-.filters-flex::-webkit-scrollbar {
-    display: none;  /* chrome e safari */
-}
 
 .rodape {
     grid-column-start: 1;

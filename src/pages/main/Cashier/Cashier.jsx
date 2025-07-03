@@ -37,7 +37,6 @@ function App() {
   // sobre USER
   const [whatIAm, setWhatIAm] = useState('none');
   const [whoIAm, setWhoIAm] = useState('none');
-  const [clientEmail, setClientEmail] = useState('none');
 
   const handleAddProduct = async (value) => {
     async function fetchInfo() {

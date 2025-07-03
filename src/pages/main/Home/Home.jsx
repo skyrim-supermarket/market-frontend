@@ -34,9 +34,13 @@ function App() {
   // Sobre QUERIES
   const [queriedPage, setQueriedPage] = useState(1);
   const [currentQueryIndex, setQueryIndex] = useState(0); // classe da qual os produtos estão aparecendo
-  const [newCategoryRequest, setNewCategoryRequest] = useState({type: types[0], page: 1, pageSize: qtdProductsPerPage, });  // solicitação de nova query
+  const [newCategoryRequest, setNewCategoryRequest] = useState({type: types[0], page: 1, pageSize: qtdProductsPerPage, productName: '', minPriceGold: null, maxPriceGold: null, orderBy: null, });  // solicitação de nova query
   const [qtdProducts, setQtdProducts] = useState(0); // quantidade total de items a serem mostrados, nao apenas no productsData
   const [productsData, setProductsData] = useState([]); // modelo: { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+  const [searchBarText, setSearchBarText] = useState('');
+  const [searchMinPriceGold, setSearchMinPriceGold] = useState(null);
+  const [searchMaxPriceGold, setSearchMaxPriceGold] = useState(null);
+  const [searchOrderBy, setSearchOrderBy] = useState(null);
 
   // sobre USER
   const [iAm, setWhatIAm] = useState('none');
@@ -86,9 +90,59 @@ function App() {
     setSelectedProduct(null);
 
     // faz nova request
-    const newRequest = {type: types[newIndex], page: 1, pageSize: qtdProductsPerPage, };
+    const newRequest = {type: types[newIndex], page: 1, pageSize: qtdProductsPerPage, productName: searchBarText, minPriceGold: searchMinPriceGold, maxPriceGold: searchMaxPriceGold, orderBy: searchOrderBy, };
     setNewCategoryRequest(newRequest);
     NewCategory(newRequest, setProductsData, setQtdProducts);
+  };
+
+  const handleSearchBarChange = (searchBar) => {
+    const newSearchBarText = searchBar.target.value;
+    setQueriedPage(1);        
+    setSelectedProduct(null);
+    setSearchBarText(newSearchBarText);
+
+    const newRequest = {type: types[currentQueryIndex], page: 1, pageSize: qtdProductsPerPage, productName: newSearchBarText, minPriceGold: searchMinPriceGold, maxPriceGold: searchMaxPriceGold, orderBy: searchOrderBy, };
+    setNewCategoryRequest(newRequest);
+    NewCategory(newRequest, setProductsData, setQtdProducts);
+
+  }
+
+  const handleOrderChange = (order) => {
+    const newOrderBy = order.target.value;
+    setSearchOrderBy(newOrderBy);
+
+    const newRequest = {type: types[currentQueryIndex], page: queriedPage, pageSize: qtdProductsPerPage, productName: searchBarText, minPriceGold: searchMinPriceGold, maxPriceGold: searchMaxPriceGold, orderBy: newOrderBy, };
+    setNewCategoryRequest(newRequest);
+    NewCategory(newRequest, setProductsData, setQtdProducts);
+
+  }
+
+  const handleMinPrice = (minPrice) => {
+    let value = minPrice.target.value;
+    if(value==='') value = null;
+    if (value === null || /^\d*$/.test(value)) { // apenas números
+      setQueriedPage(1);        
+      setSelectedProduct(null);
+      setSearchMinPriceGold(value);
+
+      const newRequest = {type: types[currentQueryIndex], page: 1, pageSize: qtdProductsPerPage, productName: searchBarText, minPriceGold: value, maxPriceGold: searchMaxPriceGold, orderBy: searchOrderBy, };
+      setNewCategoryRequest(newRequest);
+      NewCategory(newRequest, setProductsData, setQtdProducts);
+    }
+  };
+
+  const handleMaxPrice = (maxPrice) => {
+    let value = maxPrice.target.value;
+    if(value==='') value = null;
+    if (value === null || /^\d*$/.test(value)) {
+      setQueriedPage(1);        
+      setSelectedProduct(null);
+      setSearchMinPriceGold(value);
+
+      const newRequest = {type: types[currentQueryIndex], page: 1, pageSize: qtdProductsPerPage, productName: searchBarText, minPriceGold: searchMinPriceGold, maxPriceGold: value, orderBy: searchOrderBy, };
+      setNewCategoryRequest(newRequest);
+      NewCategory(newRequest, setProductsData, setQtdProducts);
+    }
   };
 
   // paginação
@@ -98,7 +152,7 @@ function App() {
     setSelectedProduct(null);
 
     // faz nova request, com nova página
-    const newRequest = {type: types[currentQueryIndex], page: newPage, pageSize: qtdProductsPerPage, };
+    const newRequest = {type: types[currentQueryIndex], page: newPage, pageSize: qtdProductsPerPage, productName: searchBarText, minPriceGold: searchMinPriceGold, maxPriceGold: searchMaxPriceGold, orderBy: searchOrderBy, };
     setNewCategoryRequest(newRequest);
     NewCategory(newRequest, setProductsData, setQtdProducts);
   }   
@@ -118,7 +172,7 @@ function App() {
       <div className={`container2 ${selectedProduct ? 'containerWithoutSelection' : 'containerWithSelection'}`}>
         <div className="navbar">
           <div className="searchbar-div">
-            <input type="text" id="searchbar" placeholder="Search..." />
+            <input type="text" id="searchbar" name='filterName' placeholder="Search..." onChange={handleSearchBarChange}/>
           </div>
           <div className="navbuttons-div">
             <ProfileButton goToHome={false} iAm={iAm}/>
@@ -129,66 +183,19 @@ function App() {
         <div className="filters">
           <div className="filters-flex">
           <span id="search-title"> Search Filters </span>
-          <Filter 
-            name={"Craft"}
-            listOfOptions={["a", "b", "c"]}
-            isSelected={true}
-          />
-          <Filter 
-            name={"Gravity"}
-            listOfOptions={["a", "b", "c"]}
-            isSelected={true}
-          />
-          <Filter 
-            name={"daiki"}
-            listOfOptions={["a", "b", "c"]}
-            isSelected={true}
-          />
-          <Filter 
-            name={"daiki"}
-            listOfOptions={["a", "b", "c"]}
-            isSelected={true}
-          />
-          <Filter 
-            name={"daiki"}
-            listOfOptions={["a", "b", "c"]}
-            isSelected={true}
-          />
-          <Filter 
-            name={"daiki"}
-            listOfOptions={["a", "b", "c"]}
-            isSelected={true}
-          />
-          <Filter 
-            name={"daiki"}
-            listOfOptions={["a", "b", "c"]}
-            isSelected={true}
-          />
-          <Filter 
-            name={"daiki"}
-            listOfOptions={["a", "b", "c"]}
-            isSelected={true}
-          />
-          <Filter 
-            name={"daiki"}
-            listOfOptions={["a", "b", "c"]}
-            isSelected={true}
-          />
-          <Filter 
-            name={"daiki"}
-            listOfOptions={["a", "b", "c"]}
-            isSelected={true}
-          />
-          <Filter 
-            name={"daiki"}
-            listOfOptions={["a", "b", "c"]}
-            isSelected={true}
-          />
-          <Filter 
-            name={"daiki"}
-            listOfOptions={["a", "b", "c"]}
-            isSelected={true}
-          />
+          <input type="numeric" pattern='\d*' className='priceFilter' id='minPrice' name='minPrice' placeholder='$ From' onChange={handleMinPrice}/>
+          <input type="numeric" pattern='\d*' className='priceFilter' id='maxPrice' name='maxPrice' placeholder='$ To' onChange={handleMaxPrice}/>
+          <select
+          id={`filter-select`}
+          className={`filter-item`}
+          onChange={handleOrderChange}
+          >
+            <option value="" disabled selected>Order by</option>
+            <option value="PriceAsc">Price - Ascending</option>
+            <option value="PriceDesc">Price - Descending</option>
+            <option value="NameAsc">Name - Ascending</option>
+            <option value="NameDesc">Name - Descending</option>
+          </select>
           </div>
         </div>
 
