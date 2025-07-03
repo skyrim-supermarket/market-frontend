@@ -1,6 +1,6 @@
 // src/App.js
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import button from "../../assets/button.svg";
 
@@ -34,6 +34,7 @@ function App() {
   const [types, setTypes] = useState(["PROFILE", "CART", "PAST PURCHASES"]);
   const [pastSalesNames, setPastSalesNames] = useState([]);
   const [pastSales, setPastSales] = useState([]);
+  const [showMyInfo, setShowMyInfo] = useState(true);
 
   // Sobre QUERIES
   const [currentQueryIndex, setQueryIndex] = useState(0); // classe da qual os produtos estão aparecendo
@@ -61,6 +62,7 @@ function App() {
     // pega meus dados de usuário
     async function fetchUserAndPreviousOrders() {
         const user = await WhoAmI(flag);
+        console.log(user);
         setWhoIAm(user);
 
         const endpoint = `http://localhost:8080/previousOrders/${user.email}`;
@@ -326,12 +328,40 @@ function App() {
             </>
             )}
 
-            {(types[currentQueryIndex] !== "PROFILE") && (productsData.length === 0) && (<>
-                <p> Não há produtos a serem mostrados! </p>
+            {(types[currentQueryIndex] === "CART") && (productsData.length === 0) && (<>
+                <p> There are no products in your cart! </p>
             </>
             )}
 
-            {(types[currentQueryIndex] == "PROFILE") && (<> aaa
+            {(types[currentQueryIndex] === "PAST PURCHASES") && (productsData.length === 0) && (<>
+                <p> You haven't bought here yet! </p>
+            </>
+            )}
+
+            {(types[currentQueryIndex] == "PROFILE") && (<>
+                <div>
+                  <p>Email: {iAm.email}</p>
+                  <p>Address: {iAm.address}</p>
+                  <p>Last login: {iAm.lastRun}</p>
+                  <Link to="/editAccount">
+                    <svg
+                      className="sessionButton"
+                      viewBox="0 0 251 44"
+                      xmlnssvg="http://www.w3.org/2000/svg"
+                    >
+                    <image href={button}/>
+                    <text
+                        x="50%"
+                        y="50%"
+                        dominantBaseline="middle"
+                        textAnchor="middle"
+                        className="sessionText"
+                    >
+                        Edit Account
+                    </text>
+                    </svg>
+                  </Link>
+                </div>
             </>   
             )}
 

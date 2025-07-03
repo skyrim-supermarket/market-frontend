@@ -8,6 +8,7 @@ import Admin from './pages/main/Admin/Admin';
 import User from './pages/main/User/User';
 import Cashier from './pages/main/Cashier/Cashier';
 import Carrocaboy from './pages/main/Carrocaboy/Carrocaboy';
+import EditAccount from './pages/EditAccount/EditAccount';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/user" element={<User/>}/>
         <Route path="/cashier" element={<Cashier/>}/>
         <Route path="/carrocaboy" element={<Carrocaboy/>}/>
+        <Route path="/editAccount" element={<EditAccount/>}/>
       </Routes>
     </BrowserRouter>
   );

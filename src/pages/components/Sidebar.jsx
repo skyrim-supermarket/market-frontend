@@ -2,8 +2,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './styles/Sidebar.css';
 import useWindowSize from '../hooks/useWindowSize'; // Caminho ajustado
-import gold from '../assets/gold.png';
+import logo from '../assets/logoWhiteText.svg';
 import { getCLS } from 'web-vitals';
+import { Link } from 'react-router-dom';
 
 function Sidebar({ types, selectedClassIndex, onScroll, onClassClick, showLogo }) {
   const sidebarRef = useRef(null);
@@ -92,7 +93,7 @@ function Sidebar({ types, selectedClassIndex, onScroll, onClassClick, showLogo }
       <div>
         {/* a */}
         {showLogo && (<>
-          <img className="logo" src={gold} alt="Logo" />
+          <Link to="/"><img className="logo" src={logo} alt="Logo"/></Link>
         </>)}
       </div>
       <div className="productClasses">

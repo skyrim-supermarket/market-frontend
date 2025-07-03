@@ -1,6 +1,7 @@
 // src/App.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
 // componentes
 import Sidebar from '../../components/Sidebar';
@@ -48,6 +49,14 @@ function App() {
   // inicialização
   useEffect(() => {
     setBackgroundImage(); // seta imagem de fundo
+
+    let flag = 'none';
+    const token = localStorage.getItem("token");
+    if(token) {
+        const decodedToken = jwtDecode(token);
+        flag = decodedToken.type;
+    }
+    if (flag === 'carrocaboy' || flag === 'cashier') navigate(`/${flag}`);
 
     // vê quem eu sou
     async function fetchUserType() {
