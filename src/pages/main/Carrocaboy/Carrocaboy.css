@@ -159,15 +159,18 @@ label {
     font-size: 1.8em;
 }
 
+#accept-button1 {
+    width: 75%;
+    font-size: 0.6em;
+}
+
 .div-carrocaboy {
-  display: flex;
   align-items: center;     /* vertical */
   justify-content: center; /* horizontal */
   height: 100%;
   width: 100%;
   text-align: center;
-  flex-direction: column; /* empilha conteúdo verticalmente */
-  font-size: 2em;
+  font-size: 1em;
   gap: 1em;
 }
 

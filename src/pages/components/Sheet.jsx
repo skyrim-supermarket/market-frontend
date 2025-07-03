@@ -76,7 +76,7 @@ function ResetEntireListOnIndexChange({setStartPage, setSelectedPage, currentQue
 }
 
 function Sheet({ n, qtdProductsPerPage, data, onItemSelect, selectedItem, onSelectedItemPositionChange, 
-                  onNewQuery, currentQueryIndex, alertAdminEdit, showStock = true, isItAProduct = true, showPages = true }) {
+                  onNewQuery, currentQueryIndex, alertAdminEdit, showStock = true, isItAProduct = true, showPages = true, isItASale = false }) {
   const sheetRef = useRef(null);
   const [startPage, setStartPage] = useState(1);        // 1º cara da esquerda do grupo de paginas
   const [selectedPage, setSelectedPage] = useState(1);  // pagina selecionada
@@ -101,6 +101,7 @@ function Sheet({ n, qtdProductsPerPage, data, onItemSelect, selectedItem, onSele
             showStock={showStock}
             showGold={isItAProduct}
             alertSheet={alertAdminEdit}
+            isItASale={isItASale}
           />
         ))}
       </div>

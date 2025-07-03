@@ -96,6 +96,8 @@ function App() {
         let res = await response.json();
         setAllAvailableOrders(res);
 
+        console.log(res);
+
         // to be delivered sales
         endpoint = `http://localhost:8080/salesToBeDelivered/${myUser.email}`;
         response = await fetch(endpoint, {
@@ -107,6 +109,7 @@ function App() {
         }
         res = await response.json();
         setMyCurrentOrders(res);
+
 
         // past sales
         endpoint = `http://localhost:8080/previousSales/${myUser.email}`;
@@ -135,15 +138,19 @@ function App() {
 
   return (
     <div className="container-carrocaboy" >
-        <div className='button-carrocaboy'> <SessionButton/> </div>
+        <div className='button-carrocaboy'> 
+            <span>{`Hello, ${whoIAm.username}!`}</span>
+            <SessionButton/> 
+            </div>
         
         <div className='container2-carrocaboy'> 
             <div className='div-carrocaboy'>
-                {(allAvailableOrders.length === 0) && (<> No available orders. </>)}
+                <p>Available orders:</p>
+                {(allAvailableOrders.length === 0) && (<> <p>No available orders.</p> </>)}
                 {(allAvailableOrders.length !== 0) && (<> 
                 <span id="login-button">
                     <svg
-                        id="button1"
+                        id="accept-button1"
                         className="sessionButton"
                         viewBox="0 0 251 44"
                         xmlnssvg="http://www.w3.org/2000/svg"
@@ -170,11 +177,12 @@ function App() {
                         onItemSelect={(product) => {setSelectedAvailableOrder(prevProduct => (prevProduct && prevProduct.id === product.id ? null : product))}}
                         onSelectedItemPositionChange={null}
                         onNewQuery={() => {}}
-                        showStock={true}
+                        showStock={false}
                         currentQueryIndex={(false)}  // passa isso só pra poder resetar a page selector quando uma nova classe é escolhida
                         showPages={false}
-                        isItAProduct={true}
-                        showGold={true}
+                        isItAProduct={false}
+                        showGold={false}
+                        isItASale={true}
                     />
                     </>)}
             </div>
@@ -182,6 +190,7 @@ function App() {
             <VertDiv1 id="vertDiv1" showArrow={false} /> 
 
             <div className='div-carrocaboy'>
+                <p>Current order:</p>
             {(myCurrentOrders.length === 0) && (<> No current orders. </>)}
             {(myCurrentOrders.length !== 0) && (<> 
                 {Object.keys(myCurrentOrders[0]).map((key) => {
@@ -228,6 +237,7 @@ function App() {
             <VertDiv1 id="vertDiv1" showArrow={false} /> 
 
             <div className='div-carrocaboy'>
+                <p>Completed orders:</p>
             {(myPastOrders.length === 0) && (<> No past orders. </>)}
             {(myPastOrders.length !== 0) && (<> 
             <Sheet
@@ -238,10 +248,11 @@ function App() {
                     onItemSelect={(product) => {setSelectedMyPastOrder(prevProduct => (prevProduct && prevProduct.id === product.id ? null : product))}}
                     onSelectedItemPositionChange={null}
                     onNewQuery={() => {}}
-                    showStock={true}
+                    showStock={false}
                     currentQueryIndex={(false)}  // passa isso só pra poder resetar a page selector quando uma nova classe é escolhida
                     showPages={false}
-                    showGold={true}
+                    showGold={false}
+                    isItASale={true}
                 />
             </>)}
             </div>
