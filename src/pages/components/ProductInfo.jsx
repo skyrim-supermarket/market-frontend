@@ -85,9 +85,9 @@ function ProductInfo({ product, editable, category = "PRODUCTS" }) {
         data.append("image", imageData);
       }
 
-      const target = (category === "PRODUCTS") ? `Product/${product.id}` 
+      const target = (category === "PRODUCTS") ? `Product/${product.id.slice(2)}` 
       : ((category === "ADMINS")? `Admins/${product.id}/${iAm.email}` : 
-      `${category.charAt(0).toUpperCase() + category.slice(1).toLowerCase()}/${product.id}`);
+      `${category.charAt(0).toUpperCase() + category.slice(1).toLowerCase()}/${product.id.slice(2)}`);
       endpoint = `http://localhost:8080/edit${target}`;
 
     // CASO 2: COLOCAR PRODUTO NO CARRINHO
@@ -95,7 +95,6 @@ function ProductInfo({ product, editable, category = "PRODUCTS" }) {
       // coloca aqui pra inserir no carrinho
       data = {}
       endpoint = `http://localhost:8080/addToCart/${product.id}/${iAm.email}`;
-      return 0;
     }
 
     try {
@@ -145,8 +144,10 @@ function ProductInfo({ product, editable, category = "PRODUCTS" }) {
           </>
         )}
 
+        
+
         {Object.keys(info).map((key) => {
-          if (key !== "image" && (category !== "PRODUCTS" || key !== "name") && (key != "id")) {
+          if (key !== "image" && (category !== "PRODUCTS" || key !== "name") && (key != "id") && key != "kind") {
             let name = key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
             
             let value = info[key];
@@ -188,25 +189,27 @@ function ProductInfo({ product, editable, category = "PRODUCTS" }) {
 
         {((!editable || showForms) && !(category === "CLIENTS" || category === "SALES")) && (<>
           <span id="edit-button">
-              <input type="submit" style={{ display: "none" }} />
-              <svg
-                id="button1"
-                className="sessionButton"
-                viewBox="0 0 251 44"
-                xmlnssvg="http://www.w3.org/2000/svg"
-                onDragStart={(e) => e.preventDefault()}
-              >
-                <image href={button}/>
-                <text
-                  x="50%"
-                  y="50%"
-                  dominantBaseline="middle"
-                  textAnchor="middle"
-                  className="sessionText"
+              <label>
+                <input type="submit" style={{ display: "none" }} />
+                <svg
+                  id="button1"
+                  className="sessionButton"
+                  viewBox="0 0 251 44"
+                  xmlnssvg="http://www.w3.org/2000/svg"
+                  onDragStart={(e) => e.preventDefault()}
                 >
-                  {showForms ? "Insert changes" : "Add to cart"}
-                </text>
-              </svg>
+                  <image href={button}/>
+                  <text
+                    x="50%"
+                    y="50%"
+                    dominantBaseline="middle"
+                    textAnchor="middle"
+                    className="sessionText"
+                  >
+                    {showForms ? "Insert changes" : "Add to cart"}
+                  </text>
+                </svg>
+              </label>
           </span>
           </>)}
       </form>

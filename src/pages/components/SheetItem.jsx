@@ -19,7 +19,7 @@ function SheetItem({ item, onSelect, isSelected, showStock, showGold, alertSheet
       onClick={handleClick}
     >
       <div className="sheet-item-name">
-        <span className="sheet-item-name-text">{item.name}</span>
+        <span className="sheet-item-name-text">{(showGold)? item.productName : item.username}</span>
       </div>
         {showGold && (<>
         <div className="sheet-item-price">
@@ -27,7 +27,7 @@ function SheetItem({ item, onSelect, isSelected, showStock, showGold, alertSheet
             <img src={`${gold}`} alt="Gold" />
             </div>
             <div className="sheet-item-price-value">
-            <span>{item.price}</span>
+            <span>{item.priceGold || item.price}</span>
             </div>
         </div>
         {showStock && (<>

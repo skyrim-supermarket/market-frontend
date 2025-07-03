@@ -31,7 +31,7 @@ function NewCategory( newCategoryRequest, setProductsData, setQtdProducts, notAP
                         let thisProduct = data.query[i];
                         listProducts.push({ 
                             id: "ID"+thisProduct.id, 
-                            name: thisProduct.productName, 
+                            productName: thisProduct.productName, 
                             stock: thisProduct.stock,
                             price: thisProduct.priceGold, 
                             image: thisProduct.image, });
@@ -64,7 +64,7 @@ function NewCategory( newCategoryRequest, setProductsData, setQtdProducts, notAP
                         let thisItem = res[i];
                         listItems.push({ 
                             id: "ID"+thisItem.id, 
-                            name: thisItem.username, 
+                            username: thisItem.username, 
                             email: thisItem.email,
                             created: thisItem.createdAt,
                             updated: thisItem.updatedAt,

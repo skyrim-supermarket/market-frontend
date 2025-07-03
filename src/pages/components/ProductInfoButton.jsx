@@ -23,7 +23,7 @@ const ProductInfoButton = ({ toEdit, handleSubmit }) => {
                 textAnchor="middle"
                 className="sessionText"
             >
-                {toEdit ? "Edit product" : "Cancel"}
+                {toEdit ? "Edit product" : "Return"}
             </text>
             </svg>
         </span>

@@ -27,27 +27,11 @@ body {
     height: 100%;
 }
 
-.container-index {
-    height: 100%;
-    display: grid;
-    grid-template-columns: 12% 4% 84%;
-    grid-template-rows: 98% 2%;
-    overflow: hidden;
-}
-
 .container-admin {
     height: 100%;
     display: grid;
     grid-template-columns: 12% 4% 7% 4% 73%;
     grid-template-rows: 98% 2%;
-    overflow: hidden;
-}
-
-.container2 {
-    display: grid;
-    height: 100%;
-    grid-template-rows: 10% 7% 83%;
-    font-size: 1.8em;
     overflow: hidden;
 }
 

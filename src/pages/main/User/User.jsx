@@ -83,7 +83,7 @@ function App() {
 
     // pega meus dados de usuário
     async function fetchUser() {
-        const user = await WhoAmI();
+        const user = await WhoAmI(flag);
         setWhoIAm(user);
     } fetchUser();
 

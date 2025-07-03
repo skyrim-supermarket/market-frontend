@@ -1,0 +1,179 @@
+/* src/styles/style.css */
+
+@font-face {
+    font-family: Futura;
+    src: url('/public/assets/fonts/futura.woff') format("WOFF"); 
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Futura;
+    src: url('/public//assets/fonts/futuraHeavy.woff') format("WOFF");
+    font-weight: bold;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    font-family: Futura;
+    font-weight: 400;
+    color: white;
+}
+
+#root {
+    height: 100%;
+}
+
+.container-cashier {
+    display: grid;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 60% 4% 36%;
+    grid-template-rows: 98% 2%;
+    overflow: hidden;
+}
+
+.container2-cashier {
+    display: grid;
+    height: 100%;
+    grid-template-rows: 10% 10% 70% 10%;
+    font-size: 1.8em;
+    overflow: hidden;
+    margin-right: 3%;
+}
+
+.containerCashierWithoutSelection {
+    grid-template-rows: 10% 10% 70% 10%;
+}
+
+.containerCashierWithSelection {
+    grid-template-rows: 10% 10% 65% 5% 10%;
+}
+
+.navbar-cashier {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-column-start: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 1em;
+  height: 100%;
+  max-height: 5em;
+  grid-template-columns: 48% 4% 48%;
+}
+
+.rodape {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    margin-left: 1em;
+    text-align: center;
+    opacity: 0.75;
+    height: 100%;
+}
+
+.pages {
+    margin-left: 1em;
+}
+
+input[type="email"], input[type="password"], input[type="text"] {
+    background-color: black;
+    width: 14em;
+    font-family: Futura;
+    font-weight: 400;
+    color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid white;
+    font-size: 1.8em;
+}
+
+input[type="submit"] {
+    display: none;
+}
+
+::placeholder {
+    font-family: Futura;
+    font-weight: 400;
+    color: white;
+}
+
+.buttonText {
+    fill: white;
+    font-weight: 400;
+    font-size: 1.6em;
+}
+
+.button {
+    width: 14em;
+    height: auto;
+    transition: 0.3s;
+}
+
+.button:hover {
+    cursor: pointer;
+    opacity: 75%;
+}
+
+.cell { 
+    color: white;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+}
+
+label { 
+    display: block;
+    margin-bottom: 1em;
+}
+
+#search-title {
+    text-shadow: 0 0 5px white;
+}
+
+.cashier-insert-div {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+}
+
+#cashier-insert {
+    background: rgb(0,0,0, 0.4);
+    height: 50% !important;
+    width: 100%;
+    font-size: 1em;
+    border: 1px solid white;
+    border-radius: 10px !important;
+}
+
+.navbuttons-cashier-div {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 2%;
+}
+
+.main-cashier-area {
+  display: flex;
+  align-items: center;     /* vertical */
+  justify-content: center; /* horizontal */
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  flex-direction: column; /* empilha conteúdo verticalmente */
+  font-size: 2em;
+  gap: 1em;
+}
+
+.main-cashier-area>img {
+  width: 60%;
+  max-width: 50vw;
+  height: auto;
+}

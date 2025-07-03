@@ -1,7 +1,7 @@
 import React from 'react';
 import { jwtDecode } from 'jwt-decode';
 
-function WhoAmI() {
+function WhoAmI(whatAmI) {
 
     const handleSubmit = async () => {
         let email = 'none';
@@ -11,7 +11,7 @@ function WhoAmI() {
             email = decodedToken.email;
 
             try {
-                const response = await fetch(`http://localhost:8080/clientByEmail/${email}`, {
+                const response = await fetch(`http://localhost:8080/${whatAmI}ByEmail/${email}`, {
                     method: 'GET',
                 });
 

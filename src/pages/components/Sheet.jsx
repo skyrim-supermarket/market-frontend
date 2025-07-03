@@ -75,7 +75,8 @@ function ResetEntireListOnIndexChange({setStartPage, setSelectedPage, currentQue
   }, [currentQueryIndex]);
 }
 
-function Sheet({ n, qtdProductsPerPage, data, onItemSelect, selectedItem, onSelectedItemPositionChange, onNewQuery, currentQueryIndex, alertAdminEdit, showStock = true, isItAProduct = true }) {
+function Sheet({ n, qtdProductsPerPage, data, onItemSelect, selectedItem, onSelectedItemPositionChange, 
+                  onNewQuery, currentQueryIndex, alertAdminEdit, showStock = true, isItAProduct = true, showPages = true }) {
   const sheetRef = useRef(null);
   const [startPage, setStartPage] = useState(1);        // 1º cara da esquerda do grupo de paginas
   const [selectedPage, setSelectedPage] = useState(1);  // pagina selecionada
@@ -85,7 +86,7 @@ function Sheet({ n, qtdProductsPerPage, data, onItemSelect, selectedItem, onSele
   ResetEntireListOnIndexChange({setStartPage, setSelectedPage, currentQueryIndex});
 
   return (
-    <div className={`listAndSelector`}>
+    <div className={`listAndSelector ${!showPages && 'noSelector'}`}>
       <div
         id="sheet"
         className={`sheet ${selectedItem ? 'itemSelected' : 'itemNotSelected'}`}
@@ -103,7 +104,8 @@ function Sheet({ n, qtdProductsPerPage, data, onItemSelect, selectedItem, onSele
           />
         ))}
       </div>
-      <PageSelector 
+      {(showPages) && (<>
+        <PageSelector 
         n={n}
         maximum={qtdProductsPerPage}
         onPageClick={(clickedOnPage) => {
@@ -114,6 +116,7 @@ function Sheet({ n, qtdProductsPerPage, data, onItemSelect, selectedItem, onSele
         startPage={startPage}
         setStartPage={setStartPage}
       /> 
+      </>)}
     </div>
   );
 }

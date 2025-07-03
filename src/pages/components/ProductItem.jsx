@@ -15,10 +15,10 @@ function ProductItem({ product, onSelect, isSelected }) {
       onClick={handleClick}
     >
       <div className="product-item-image">
-        <img src={product.image} alt={product.name} />
+        <img src={product.image} alt={product.productName} />
       </div>
       <div className="product-item-name">
-        <span className="product-item-name-text">{product.name}</span>
+        <span className="product-item-name-text">{product.productName}</span>
       </div>
       <div className="product-item-price">
         <div className="product-item-price-gold">

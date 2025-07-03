@@ -5,6 +5,10 @@
     grid-template-rows: 90% 10%;
 }
 
+.noSelector {
+    grid-template-rows: 100%;
+}
+
 .sheet {
     margin-top: 0.1em;
     margin-bottom: 0.5em;
@@ -12,6 +16,7 @@
     display: grid;
     gap: 3px;
     align-content: start;
+    width: 100%;
     
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 0.8%, black 99.2%, transparent 100%);
   mask-image: linear-gradient(to bottom, transparent 0%, black 0.8%, black 99.2%, transparent 100%);
@@ -24,7 +29,7 @@
 }
 
 .itemNotSelected {
-    grid-template-columns: 95%;
+    grid-template-columns: 100%;
 }
 
 /* ocultar a scrollbar krl!! */
