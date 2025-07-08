@@ -76,7 +76,6 @@ function ProductInfo({ product, saleInfo = null, editable, category = "PRODUCTS"
           }
 
           const data = await response.json();
-          console.log(data);
           setQtdSaleProduct(data.quantity);
       } catch(erro) {
           console.error(erro);
