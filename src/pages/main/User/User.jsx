@@ -74,14 +74,11 @@ function App() {
             method: "GET",
         });
 
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(errorText);
+        if (response.ok) {
+          const res = await response.json();
+          setPastSalesNames(res.filter(item => item.finished).map(item => `#${item.id}`))
+          setPastSales(res.filter(item => item.finished))
         }
-
-        const res = await response.json();
-        setPastSalesNames(res.filter(item => item.finished).map(item => `#${item.id}`))
-        setPastSales(res.filter(item => item.finished))
 
     } fetchUserAndPreviousOrders();
 
@@ -119,14 +116,11 @@ function App() {
           method: "GET",
       });
 
-      if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(errorText);
+      if (response.ok) {
+        const res = await response.json();
+        setProductsData(res.products);
+        setSaleInfo(res.sale);
       }
-
-      const res = await response.json();
-      setProductsData(res.products);
-      setSaleInfo(res.sale);
     } fetchCart();
   }
 

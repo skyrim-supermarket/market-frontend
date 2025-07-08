@@ -38,7 +38,7 @@ function SheetItem({ item, onSelect, isSelected, showStock, showGold, alertSheet
             <img src={`${gold}`} alt="Gold" />
             </div>
             <div className="sheet-item-price-value">
-            <span>{(isItASale)? item.totalPriceGold : (item.priceGold || item.price)}</span>
+            <span>{isItASale ? item.totalPriceGold : (item.priceGold != null ? item.priceGold : item.price)}</span>
             </div>
         </div>
         {showStock && (<>
