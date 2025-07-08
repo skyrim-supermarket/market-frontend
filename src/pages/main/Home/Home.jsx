@@ -13,7 +13,6 @@ import ProductInfo from '../../components/ProductInfo';
 // estilo
 import VertDiv1 from '../../components/VerticalDiv1';
 import VertDiv2 from '../../components/VerticalDiv2';
-import Filter from '../../components/Filter';
 import './Home.css';
 
 // scripts
