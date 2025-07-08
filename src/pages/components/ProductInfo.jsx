@@ -1,7 +1,9 @@
 // src/components/ProductInfo.js
 import React, { useEffect, useState } from 'react';
+import { jwtDecode } from 'jwt-decode';
 import './styles/ProductInfo.css';
 import button from "../assets/button.svg";
+import gold from '../assets/gold.png';
 
 // scripts
 import NewForm from '../query-scripts/NewForm';
@@ -12,7 +14,7 @@ import WhoAmI from '../query-scripts/WhoAmI';
 // buttons
 import ProductInfoButton from './ProductInfoButton';
 
-function ProductInfo({ product, editable, category = "PRODUCTS", isItACart = false, forDisplay = false, setSelectedProduct = () => {} }) {
+function ProductInfo({ product, saleInfo = null, editable, category = "PRODUCTS", isItACart = false, forDisplay = false, setSelectedProduct = () => {}, getCart = null }) {
   const [showForms, setShowForms] = useState(false);
   const [info, setInfo] = useState({});
   const [newInfo, setNewInfo] = useState({});
@@ -22,15 +24,18 @@ function ProductInfo({ product, editable, category = "PRODUCTS", isItACart = fal
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [iAm, setWhoIAm] = useState('none');
+  const [qtdSaleProduct, setQtdSaleProduct] = useState(1);
+  const [errorQtd, setErrorQtd] = useState(null);
+  const [deleteError, setDeleteError] = useState(null);
+  const [deleteSuccess, setDeleteSuccess] = useState(null);
 
   useEffect(() => {
     async function fetchUser() {
       const userType = await WhatAmI();
-      if (userType !== 'user') setWhoIAm('none');
+      if (userType !== "client") setWhoIAm('none');
 
       const user = await WhoAmI(userType);
       setWhoIAm(user);
-      console.log(user);
     } fetchUser();
   }, [])
 
@@ -56,7 +61,34 @@ function ProductInfo({ product, editable, category = "PRODUCTS", isItACart = fal
     setNewInfo(info);
   }, [info]);
 
-  // função pra coisar tipo <--> tipo do input
+  // pega info especifica de um produto em uma venda
+  useEffect(() => {
+    async function fetchSaleProduct() {
+      try {
+          const response = await fetch(`http://localhost:8080/saleProduct/${saleInfo.id}/${product.id}`, {
+                method: 'GET',
+            });
+
+          if (!response.ok) {
+            const errorText = await response.text();
+            console.error(errorText)
+            throw new Error;
+          }
+
+          const data = await response.json();
+          console.log(data);
+          setQtdSaleProduct(data.quantity);
+      } catch(erro) {
+          console.error(erro);
+          throw new Error;
+      }
+    }
+    if (isItACart) 
+        fetchSaleProduct();
+  }, [product]);
+
+
+  // função pra converter tipo em tipo do input
   const typeToInputType = (type) => {
     if (!type) return "text";
     const lower = type.toLowerCase();
@@ -160,10 +192,12 @@ function ProductInfo({ product, editable, category = "PRODUCTS", isItACart = fal
 
     setSuccessMessage('Succesfully removed from cart.');
     setSelectedProduct(null);
+    getCart();
   }
 
   const handleNewAmount = (product) => {
     return async (value) => {
+      try{
         const endpoint = `http://localhost:8080/alterQuantityCart/${product.id}/${iAm.email}/${value}`;
         const response = await fetch(endpoint, {
             method: "POST",
@@ -171,20 +205,57 @@ function ProductInfo({ product, editable, category = "PRODUCTS", isItACart = fal
 
         if (!response.ok) {
             const errorText = await response.text();
-            throw new Error(errorText);
-        }
+            setErrorQtd(errorText);
+        } else {
 
-        product.totalQuantity = value;
+          setQtdSaleProduct(value);
+          setErrorQtd(null);
+          getCart();
+        }
+      } catch(error) {
+        setErrorQtd(`${error}`);
+        console.error(error);
+      }
+    }
+  }
+
+  const handleDeleteAccount = async (e) => {
+    try {
+      const response = await fetch(`http://localhost:8080/deleteAccount/${product.id.slice(2)}/${iAm.email}`, {
+        method: "DELETE",
+      });
+
+      if(!response.ok) {
+        const errorText = await response.text();
+        setDeleteError(errorText);
+        setDeleteSuccess(null);
+      } else {
+        const successText = await response.text();
+        setDeleteError(null);
+        setDeleteSuccess(successText)
+      }
+    } catch (error) {
+      setDeleteError(error);
+      console.error(error);
     }
   }
 
   return (
     <div id="product-info" className="product-info">
-      <h3>{product.name}</h3>
+      {(!showForms) && (category == "PRODUCTS") && (<>
+          <h2>{product.productName} {product.quantity != null && ` (x${product.quantity})`}</h2>
+
+          <div className='top-price'>
+            <img src={`${gold}`} alt="Gold" />
+            <span> {product?.price && <>{product.price}</>}
+                   {product?.priceGold && <>{product.priceGold}</>}
+            </span>
+          </div>
+      </>)}
       
       <form onSubmit={handleSubmit}>
         {(!showForms) && (category == "PRODUCTS") && (<>
-          <img src={product.image} alt={product.name} />
+          <div className='product-info-image'><img src={product.image} alt={product.name} /></div>
         </>)}
 
         {(editable && showForms && (category == "PRODUCTS")) && (<>
@@ -209,7 +280,7 @@ function ProductInfo({ product, editable, category = "PRODUCTS", isItACart = fal
               const labelDef = labels.find(l => l.name === key);
               const labelType = typeToInputType(labelDef?.type);
 
-              if (!(key.includes("created") || key.includes("updated") || key.includes("lastRun")))
+              if (!(key.includes("created") || key.includes("updated") || key.includes("lastRun") || key.includes("type") || key.includes("total")))
               return (
                 <label> {((key !== "id") ? name : "ID")}: 
                     <input 
@@ -227,7 +298,8 @@ function ProductInfo({ product, editable, category = "PRODUCTS", isItACart = fal
                 </label>
               )
             } else {
-              if(!((iAm === null || iAm.type === 'client') && (key.includes('At'))))return <p key={key}>{((key !== "id") ? name : "ID")}: {((key !== "id") ? String(value) : String(value).replace(/\D/g, ''))}</p>;
+              if(!(key.includes('Name') || key.includes('Gold') || (iAm === null || iAm.type === 'client') && (key.includes('At'))))
+                return <p key={key}>{((key !== "id") ? name : "ID")}: {((key !== "id") ? String(value) : String(value).replace(/\D/g, ''))}</p>;
             }
           }
           return null;
@@ -235,6 +307,11 @@ function ProductInfo({ product, editable, category = "PRODUCTS", isItACart = fal
 
         {editable && (<>
           <ProductInfoButton toEdit={!showForms} handleSubmit={getForms}/>
+          {(category === "ADMINS" || category === "CARROCABOYS" || category === "CASHIERS") && (!showForms) && <>
+            <ProductInfoButton toEdit={false} toDelete={true} handleSubmit={handleDeleteAccount}/>
+            {deleteError && <p style={{ color: "red" }}>{deleteError}</p>}
+            {deleteSuccess && <p style={{ color: "green" }}>{deleteSuccess}</p>}
+          </>}
         </>)}
 
         {!forDisplay && (<>
@@ -242,10 +319,11 @@ function ProductInfo({ product, editable, category = "PRODUCTS", isItACart = fal
         {successMessage && <span style={{ color: "green" }}>{successMessage}</span>}
 
         {((!editable || showForms) && !(category === "CLIENTS" || category === "SALES")) && (<>
+          {errorQtd && <p style={{ color: "red" }}>{errorQtd}</p>}
           <span id="edit-button">
               {(isItACart) && (<>
                 <label id="howMany">
-                    How many? <input type="number" className='form-number' min={1} max={product.stock} value={product.totalQuantity}
+                    How many? <input type="number" className='form-number' min={1} max={product.stock} value={qtdSaleProduct}
                     onChange={(e) => {if (e.target.value != "") handleNewAmount(product)(e.target.value);}}/>
                 </label>
               </>)}

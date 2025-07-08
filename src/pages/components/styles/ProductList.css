@@ -27,7 +27,7 @@
     grid-template-columns: 15.36% 15.36% 15.36% 15.36% 15.36% 15.36%;
 }
 
-/* ocultar a scrollbar krl!! */
+/* ocultar a scrollbar!! */
 .product-list::-webkit-scrollbar {
     display: none;
 }

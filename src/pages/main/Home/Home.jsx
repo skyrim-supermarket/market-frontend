@@ -222,7 +222,7 @@ function App() {
         {selectedProduct && (
           <>
             <VertDiv2 id="vertDiv2" showArrow={arrowY!==null} arrowY={arrowY} />
-            <ProductInfo product={selectedProduct} editable={false}/>
+            <ProductInfo product={selectedProduct} editable={false} forDisplay={iAm==="admin"}/>
           </>
         )}
         

@@ -29,6 +29,27 @@
     display: none;  /* chrome e safari */
 }
 
-#product-info > img {
-    width: 75%;
+.product-info-image {
+    width: 100%;
+    text-align: center;
+}
+
+.product-info-image > img {
+    width: 50%;
+    object-fit: contain;
+}
+
+.top-price {
+    align-items: center;
+    
+}
+
+.top-price > span {
+    font-weight: bold;
+    font-size: 1.4em;
+    color: gold;
+}
+
+.top-price > img {
+    height: 1.1em;
 }

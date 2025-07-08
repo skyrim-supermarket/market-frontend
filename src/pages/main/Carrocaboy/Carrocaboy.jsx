@@ -8,6 +8,7 @@ import button from "../../assets/button.svg";
 import ProfileButton from '../../components/ProfileButton';
 import SessionButton from '../../components/SessionButton';
 import Sheet from '../../components/Sheet';
+import SaleInfo from '../../components/SaleInfo';
 
 // estilo
 import VertDiv1 from '../../components/VerticalDiv1';
@@ -17,7 +18,6 @@ import './Carrocaboy.css';
 import setBackgroundImage from '../../style-scripts/setBackgroundImage';
 import WhatAmI from '../../query-scripts/WhatAmI';
 import WhoAmI from '../../query-scripts/WhoAmI';
-import GetAllProductInfo from '../../query-scripts/GetAllProductInfo';
 
 function App() {
   document.title = "Home";
@@ -28,32 +28,41 @@ function App() {
   const [qtdProducts, setQtdProducts] = useState(0); // quantidade total de items a serem mostrados, nao apenas no productsData
   
   const [allAvailableOrders, setAllAvailableOrders] = useState([]); // modelo: { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
-  const [myCurrentOrders, setMyCurrentOrders] = useState([]); // modelo: { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
+  const [myCurrentOrder, setMyCurrentOrder] = useState(null); // modelo: { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
   const [myPastOrders, setMyPastOrders] = useState([]); // modelo: { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
 
   const [selectedAvailableOrder, setSelectedAvailableOrder] = useState([]);
   const [selectedMyCurrentOrder, setSelectedMyCurrentOrder] = useState([]);
   const [selectedMyPastOrder, setSelectedMyPastOrder] = useState([]);
 
+  const [errorAccepting, setErrorAccepting] = useState(null);
+
   // sobre USER
   const [whatIAm, setWhatIAm] = useState('none');
   const [whoIAm, setWhoIAm] = useState('none');
 
   const handleAcceptOrder = async (id) => {
-    const endpoint = `http://localhost:8080/acceptOrder/${whoIAm.email}/${id}`;
-    const response = await fetch(endpoint, {
-        method: "POST",
-    });
+    try {
+        const endpoint = `http://localhost:8080/acceptOrder/${whoIAm.email}/${id}`;
+        const response = await fetch(endpoint, {
+            method: "POST",
+        });
 
-    if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText);
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error(errorText);
+            setErrorAccepting(errorText);
+        } else {
+
+            setAllAvailableOrders(prev =>
+                prev.filter(item => item.id !== id)
+            );
+            window.location.reload();
+        }
+    } catch (error) {
+        console.error(error);
+        setErrorAccepting(error);
     }
-
-    setAllAvailableOrders(prev =>
-        prev.filter(item => item.id !== id)
-    );
-    window.location.reload();
   }
 
   const handleDeliverOrder = async (id) => {
@@ -67,9 +76,9 @@ function App() {
         const errorText = await response.text();
         throw new Error(errorText);
     }
-
-    setMyPastOrders([...myPastOrders, myCurrentOrders[0]])
-    setMyCurrentOrders([])
+    window.location.reload();
+    /*setMyPastOrders([...myPastOrders, myCurrentOrder])
+    setMyCurrentOrder([])*/
   }
 
   // inicialização
@@ -96,10 +105,8 @@ function App() {
         let res = await response.json();
         setAllAvailableOrders(res);
 
-        console.log(res);
-
         // to be delivered sales
-        endpoint = `http://localhost:8080/salesToBeDelivered/${myUser.email}`;
+        endpoint = `http://localhost:8080/saleToBeDelivered/${myUser.email}`;
         response = await fetch(endpoint, {
             method: "GET",
         });
@@ -108,8 +115,7 @@ function App() {
             throw new Error(errorText);
         }
         res = await response.json();
-        setMyCurrentOrders(res);
-
+        setMyCurrentOrder(res);
 
         // past sales
         endpoint = `http://localhost:8080/previousSales/${myUser.email}`;
@@ -122,7 +128,6 @@ function App() {
         }
         res = await response.json();
         setMyPastOrders(res);
-        console.log(res);
 
     }  fetchUserAndSales();
 
@@ -134,41 +139,48 @@ function App() {
     }
   }, []);
 
-  useEffect(() => {setSelectedMyCurrentOrder(myCurrentOrders[0])}, [myCurrentOrders])
+  useEffect(() => {setSelectedMyCurrentOrder(myCurrentOrder)}, [myCurrentOrder])
 
   return (
     <div className="container-carrocaboy" >
-        <div className='button-carrocaboy'> 
-            <span className='carroca-text'>{`Hello, ${whoIAm.username}!`}</span>
-            <SessionButton/> 
+        <div className='header-carrocaboy'> 
+            <div className='header-carroca-left'><span className='carroca-text'>{`Hello, ${whoIAm.username}!`}</span></div>
+            <div className='header-carroca-center'><SessionButton/></div>
+            <div className='header-carroca-right'><span className='carroca-text'>{`Your commissions: ${whoIAm.totalCommissions}`}</span> </div>
         </div>
         
         <div className='container2-carrocaboy'> 
             <div className='div-carrocaboy'>
                 <p>Available orders:</p>
                 {(allAvailableOrders.length === 0) && (<> <p>No available orders.</p> </>)}
-                {(allAvailableOrders.length !== 0) && (<> 
-                <span id="login-button">
-                    <svg
-                        id="accept-button1"
-                        className="sessionButton"
-                        viewBox="0 0 251 44"
-                        xmlnssvg="http://www.w3.org/2000/svg"
-                        onDragStart={(e) => e.preventDefault()}
-                        onClick = {(e) => {if (allAvailableOrders.length !== 0) handleAcceptOrder(selectedAvailableOrder.id)}}
-                    >
-                        <image href={button}/>
-                        <text
-                        x="50%"
-                        y="50%"
-                        dominantBaseline="middle"
-                        textAnchor="middle"
-                        className="sessionText"
+                {(allAvailableOrders.length !== 0) && (<>
+                <div className='carroca-accept-button'> 
+                    <span id="login-button">
+                        <svg
+                            id="accept-button1"
+                            className="sessionButton"
+                            viewBox="0 0 251 44"
+                            xmlnssvg="http://www.w3.org/2000/svg"
+                            onDragStart={(e) => e.preventDefault()}
+                            onClick = {(e) => {if (allAvailableOrders.length !== 0) handleAcceptOrder(selectedAvailableOrder.id)}}
                         >
-                        Accept order
-                        </text>
-                    </svg>
-                </span>
+                            <image href={button}/>
+                            <text
+                            x="50%"
+                            y="50%"
+                            dominantBaseline="middle"
+                            textAnchor="middle"
+                            className="sessionText"
+                            >
+                            Accept order
+                            </text>
+                        </svg>
+                    </span>
+                </div>
+                {errorAccepting && 
+                (<>
+                    <p style={{color: "red"}}>{errorAccepting}</p>
+                </>)}
                 <Sheet
                         n={qtdProducts}
                         qtdProductsPerPage={qtdProductsPerPage} 
@@ -189,48 +201,37 @@ function App() {
 
             <VertDiv1 id="vertDiv1" showArrow={false} /> 
 
-            <div className='div-carrocaboy'>
+            <div className='div-carrocaboy carrocaboy-middle'>
                 <p>Current order:</p>
-            {(myCurrentOrders.length === 0) && (<> No current orders. </>)}
-            {(myCurrentOrders.length !== 0) && (<> 
-                {Object.keys(myCurrentOrders[0]).map((key) => {
-                    if (key == "idClient") {
-                        async function getClientAddress() {
-                            let endpoint = `http://localhost:8080/clientById/${myCurrentOrders[0][key]}`;
-                            let response = await fetch(endpoint, {
-                                method: "GET",
-                            });
-                            if (!response.ok) {
-                                const errorText = await response.text();
-                                throw new Error(errorText);
-                            }
-                            let res = await response.json();
-                            return res;
-                        }
-                        return <p>Client Address: {getClientAddress().address}</p>
-                    } else return <p>{key}: {myCurrentOrders[0][key]}</p>
-                })}
-                <span id="login-button">
-                <svg
-                    id="button1"
-                    className="sessionButton"
-                    viewBox="0 0 251 44"
-                    xmlnssvg="http://www.w3.org/2000/svg"
-                    onDragStart={(e) => e.preventDefault()}
-                    onClick = {(e) => {if (selectedMyCurrentOrder !== null) handleDeliverOrder(selectedMyCurrentOrder.id); }}
-                >
-                    <image href={button}/>
-                    <text
-                    x="50%"
-                    y="50%"
-                    dominantBaseline="middle"
-                    textAnchor="middle"
-                    className="sessionText"
-                    >
-                    Confirm order deliver
-                    </text>
-                </svg>
-            </span>
+            {myCurrentOrder?.res && (<> <p>{myCurrentOrder.res}</p> </>)}
+            {!myCurrentOrder?.res && myCurrentOrder && (<> 
+
+                <div className='carroca-deliver-button'>
+                    <span id="button">
+                        <svg
+                            id="button1"
+                            className="carroca-button"
+                            viewBox="0 0 251 44"
+                            xmlnssvg="http://www.w3.org/2000/svg"
+                            onDragStart={(e) => e.preventDefault()}
+                            onClick = {(e) => {if (selectedMyCurrentOrder !== null) handleDeliverOrder(selectedMyCurrentOrder.id); }}
+                        >
+                            <image href={button}/>
+                            <text
+                            x="50%"
+                            y="50%"
+                            dominantBaseline="middle"
+                            textAnchor="middle"
+                            className="sessionText"
+                            >
+                            Confirm order deliver
+                            </text>
+                        </svg>
+                    </span>
+                </div>
+
+                <SaleInfo idSale={myCurrentOrder.id}/>
+                
             </>)}
             </div>
         
@@ -238,7 +239,7 @@ function App() {
 
             <div className='div-carrocaboy'>
                 <p>Completed orders:</p>
-            {(myPastOrders.length === 0) && (<> No past orders. </>)}
+            {(myPastOrders.length === 0) && (<> <p>No past orders.</p> </>)}
             {(myPastOrders.length !== 0) && (<> 
             <Sheet
                     n={qtdProducts}
@@ -252,6 +253,7 @@ function App() {
                     currentQueryIndex={(false)}  // passa isso só pra poder resetar a page selector quando uma nova classe é escolhida
                     showPages={false}
                     showGold={false}
+                    isItAProduct={false}
                     isItASale={true}
                 />
             </>)}

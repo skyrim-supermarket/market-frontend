@@ -1,0 +1,44 @@
+.saleinfo-grid {
+  display: grid;
+  grid-template-columns: 100%; /* número de colunas se adapta */
+}
+
+.saleinfo-grid > div {
+    height: 3em;
+}
+
+.saleinfo-grid > div > div > span > h4 {
+    color: gold;
+}
+
+.saledata {
+    display: grid;
+    grid-template-columns: 80% 20%;
+
+    width: 100%;
+    height: 100%;
+
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.saleinfo-product {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    
+    width: 100%;
+    height: 100%;
+
+}
+
+.saleinfo-product > div, .saledata > div {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.saleinfo-product > div > img, .saledata > div > img {
+    height: 2em;
+    object-fit: contain;
+}

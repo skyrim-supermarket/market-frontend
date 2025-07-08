@@ -4,7 +4,7 @@ import React from "react";
 import button from "../assets/button.svg";
 import './styles/SessionButton.css';
 
-const ProductInfoButton = ({ toEdit, handleSubmit }) => {
+const ProductInfoButton = ({ toEdit, toDelete = false, handleSubmit }) => {
 
     return (
         <span id="edit-button">
@@ -23,7 +23,7 @@ const ProductInfoButton = ({ toEdit, handleSubmit }) => {
                 textAnchor="middle"
                 className="sessionText"
             >
-                {toEdit ? "Edit product" : "Return"}
+                {toEdit ? "Edit" : (toDelete ? "Delete" : "Return")}
             </text>
             </svg>
         </span>

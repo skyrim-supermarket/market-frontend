@@ -182,12 +182,13 @@ const Form = ({whatDoIWant, sendLabelsUp, appendData}) => {
                     placeholder={`Insert ${newName.toLowerCase()}`} 
                     id={name} 
                     name={name} 
-                    value={labelType === "checkbox" ? false : formData[name]}
+                    value={labelType === "checkbox" ? true : formData[name]}
                     className={`form-${labelType}`} 
                     onChange={handleChange} 
                     required={labelType !== 'checkbox'}
                     min={labelType === "number" ? minimum : undefined}
                     max={labelType === "number" ? maximum : undefined}
+                    step={labelType === "number" ? step : undefined}
                   />
                 </label>)
               }

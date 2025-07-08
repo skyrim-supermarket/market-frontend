@@ -68,24 +68,26 @@ function App() {
 
   const handleNewAmount = (product) => {
     return async (value) => {
-        const endpoint = `http://localhost:8080/alterQuantityIrlPurchase/${product.id}/${whoIAm.email}/${value}`;
-        const response = await fetch(endpoint, {
-            method: "POST",
-        });
+        if(Number.isInteger(Number(value)) && Number(value)>0) {
+            const endpoint = `http://localhost:8080/alterQuantityIrlPurchase/${product.id}/${whoIAm.email}/${value}`;
+            const response = await fetch(endpoint, {
+                method: "POST",
+            });
 
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(errorText);
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(errorText);
+            }
+
+            let info = selectedProduct
+            info.qtd = value;
+
+            setSelectedProduct(info);
+            setCurrentShowingData(info);
+            setProductsData(prevData =>
+                prevData.map(p => p.id === product.id ? { ...p, qtd: value } : p )
+            );
         }
-
-        let info = selectedProduct
-        info.qtd = value;
-
-        setSelectedProduct(info);
-        setCurrentShowingData(info);
-        setProductsData(prevData =>
-            prevData.map(p => p.id === product.id ? { ...p, qtd: value } : p )
-        );
     }
   }
 
@@ -219,23 +221,25 @@ function App() {
       <div className={`container2-cashier ${selectedProduct ? 'containerCashierWithSelection' : 'containerCashierWithoutSelection'}`}>
         <div className="navbar-cashier">
           <div className="navbuttons-cashier-div">
-            <ProfileButton goToHome={null} iAm={whatIAm} additionalFunction={async (e) => {
-                            if (onSale) { 
-                                const endpoint = `http://localhost:8080/cancelIrlPurchase/${whoIAm.email}`;
-                                const response = await fetch(endpoint, {
-                                    method: "DELETE",
-                                });
-                                if (!response.ok) {
-                                    const errorText = await response.text();
-                                    throw new Error(errorText);
-                                }
-                            
-                                setAreWeSellingStuff(false);
-                                setProductsData([]);
-                                setSelectedProduct(null);
-                                setCurrentShowingData(null);
-                            }
-                        }}/>
+            {onSale && <>
+                <ProfileButton goToHome={null} iAm={whatIAm} additionalFunction={async (e) => {
+                if (onSale) { 
+                    const endpoint = `http://localhost:8080/cancelIrlPurchase/${whoIAm.email}`;
+                    const response = await fetch(endpoint, {
+                        method: "DELETE",
+                    });
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        throw new Error(errorText);
+                    }
+                
+                    setAreWeSellingStuff(false);
+                    setProductsData([]);
+                    setSelectedProduct(null);
+                    setCurrentShowingData(null);
+                }
+            }}/>
+            </>}
             <SessionButton setIAm={setWhatIAm}/>
           </div>
         </div>

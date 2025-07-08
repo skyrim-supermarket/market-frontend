@@ -41,6 +41,7 @@ body {
     grid-template-columns: 31% 4% 30% 4% 31% !important;
     font-size: 1.8em;
     overflow: hidden;
+    margin-left: 3%;
     margin-right: 3%;
 }
 
@@ -102,6 +103,17 @@ input[type="submit"] {
     font-size: 1.6em;
 }
 
+.carroca-button {
+    width: 70%;
+    height: auto;
+    transition: 0.3s;
+}
+
+.carroca-button:hover {
+    opacity: 75%;
+    cursor: pointer;
+}
+
 .button {
     width: 14em;
     height: auto;
@@ -154,17 +166,30 @@ label {
     gap: 2%;
 }
 
-.button-carrocaboy {
-    text-align: center;
+.header-carrocaboy {
     font-size: 1.8em;
 
     margin-top: auto;
     margin-bottom: auto;
+
+    display: grid;
+    grid-template-columns: 40% 20% 40%;
+}
+
+.header-carroca-left {
+    text-align: end;
+}
+
+.header-carroca-center {
+    text-align: center;
+}
+
+.header-carroca-right {
+    text-align: start;
 }
 
 .carroca-text {
     font-size: 2em;
-    margin-right: 2em;
 }
 
 #accept-button1 {
@@ -177,13 +202,18 @@ label {
   justify-content: center; /* horizontal */
   height: 100%;
   width: 100%;
-  text-align: center;
   font-size: 1em;
   gap: 1em;
 }
 
-.div-carrocaboy>img {
-  width: 60%;
-  max-width: 50vw;
-  height: auto;
+.div-carrocaboy > p, .carroca-accept-button, .carroca-deliver-button {
+    text-align: center;
+}
+
+.carrocaboy-middle {
+    overflow-y: scroll;
+}
+
+.carrocaboy-middle::-webkit-scrollbar {
+    display: none;
 }

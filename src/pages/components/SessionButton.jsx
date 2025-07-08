@@ -12,6 +12,7 @@ const SessionButton = ({ setIAm = () => 'none' }) => {
         localStorage.removeItem("token");
         setIAm('none');
         navigate("/");
+        window.location.reload();
     }
 
     return (

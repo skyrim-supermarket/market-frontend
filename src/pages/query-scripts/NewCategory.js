@@ -1,11 +1,11 @@
 import React, { Link } from 'react';
 
-function NewCategory( newCategoryRequest, setProductsData, setQtdProducts, notAProduct = true ) {
+function NewCategory( newCategoryRequest, setProductsData, setQtdProducts, getProducts = true ) {
 
     const handleSubmit = async () => {
         
         try {
-            if (notAProduct) {
+            if (getProducts) {
                 const response = await fetch('http://localhost:8080/products', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', },
@@ -16,7 +16,7 @@ function NewCategory( newCategoryRequest, setProductsData, setQtdProducts, notAP
                     const errorText = await response.text();
                     console.error(errorText);
                     setProductsData([]);
-                    throw new Error;
+                    throw new Error(errorText);
                 }
                 
                 else {
@@ -54,7 +54,7 @@ function NewCategory( newCategoryRequest, setProductsData, setQtdProducts, notAP
                     const errorText = await response.text();
                     console.error(errorText);
                     setProductsData([]);
-                    throw new Error;
+                    throw new Error(errorText);
 
                 } else {
                     const res = await response.json();
@@ -62,26 +62,38 @@ function NewCategory( newCategoryRequest, setProductsData, setQtdProducts, notAP
 
                     for (let i = 0; i < res.length; i += 1) {
                         let thisItem = res[i];
-                        listItems.push({ 
-                            id: "ID"+thisItem.id, 
-                            username: thisItem.username, 
-                            email: thisItem.email,
-                            created: thisItem.createdAt,
-                            updated: thisItem.updatedAt,
-                            lastRun: thisItem.lastRun,
-                        });
-                        if (newCategoryRequest == 'admins') {
-                            listItems[i].root = thisItem.root ? "Yes" : "No";
-                        }
-                        if (newCategoryRequest == 'cashier' || newCategoryRequest == 'carrocaboy') {
-                            listItems[i].totalCommissions = thisItem.totalCommissions;
-                        }
-                        if (newCategoryRequest == 'cashier') {
-                            listItems[i].section = thisItem.section;
-                        }
-                        if (newCategoryRequest == 'client') {
-                            listItems[i].isSpecialClient = thisItem.isSpecialClient;
-                            listItems[i].address = thisItem.address;
+                        if(newCategoryRequest!=="sales") {
+                            listItems.push({ 
+                                id: "ID"+thisItem.id, 
+                                username: thisItem.username, 
+                                email: thisItem.email,
+                                created: thisItem.createdAt,
+                                updated: thisItem.updatedAt,
+                                lastRun: thisItem.lastRun,
+                            });
+                            if (newCategoryRequest === 'admins') {
+                                listItems[i].root = thisItem.root;
+                            }
+                            if (newCategoryRequest === 'cashiers' || newCategoryRequest === 'carrocaboys') {
+                                listItems[i].totalCommissions = thisItem.totalCommissions;
+                            }
+                            if (newCategoryRequest === 'cashiers') {
+                                listItems[i].section = thisItem.section;
+                            }
+                            if (newCategoryRequest === 'clients') {
+                                listItems[i].address = thisItem.address;
+                            }
+                        } else {
+                            listItems.push({
+                                id: "ID"+thisItem.id,
+                                idClient: thisItem.idClient,
+                                idEmployee: thisItem.idEmployee,
+                                totalPriceGold: thisItem.totalPriceGold,
+                                status: thisItem.status,
+                                address: thisItem.address,
+                                createdAt: thisItem.createdAt,
+                                updatedAt: thisItem.updatedAt
+                            })
                         }
                     }
 
@@ -96,7 +108,7 @@ function NewCategory( newCategoryRequest, setProductsData, setQtdProducts, notAP
         
         catch (erro) {
             console.error(erro);
-            throw new Error;
+            throw new Error(erro);
         }
     };
 

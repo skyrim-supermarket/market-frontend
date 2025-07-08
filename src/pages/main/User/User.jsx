@@ -43,6 +43,10 @@ function App() {
   const [productsData, setProductsData] = useState([]); // modelo: { id: 'product18', name: 'Shadowed Tower Netch Leather Shield', price: 300, image: `${boneArrow}` },
   const [saleInfo, setSaleInfo] = useState([]);
 
+  // Sobre o modal
+  const [address, setAddress] = useState('');
+  const [errorBuying, setErrorBuying] = useState(null);
+
   // username
   const [iAm, setWhoIAm] = useState("IDontKnowYEt");
 
@@ -62,8 +66,8 @@ function App() {
     // pega meus dados de usuário
     async function fetchUserAndPreviousOrders() {
         const user = await WhoAmI(flag);
-        console.log(user);
         setWhoIAm(user);
+        setAddress(user.address);
 
         const endpoint = `http://localhost:8080/previousOrders/${user.email}`;
         const response = await fetch(endpoint, {
@@ -76,13 +80,8 @@ function App() {
         }
 
         const res = await response.json();
-        setPastSalesNames(res.map((item) => {
-          if (item.finished) return `#${item.id}`
-        }))
-
-        setPastSales(res.map((item) => {
-          if (item.finished) return item
-        }))
+        setPastSalesNames(res.filter(item => item.finished).map(item => `#${item.id}`))
+        setPastSales(res.filter(item => item.finished))
 
     } fetchUserAndPreviousOrders();
 
@@ -93,6 +92,8 @@ function App() {
       document.body.style.backgroundAttachment = '';
     }
   }, []);
+
+  
 
   const getPastSale = (id) => {
      async function fetchPastSales() {
@@ -107,9 +108,26 @@ function App() {
         }
 
         const res = await response.json();
-        console.log(res.products);
         setProductsData(res.products);
      } fetchPastSales();
+  }
+
+  const getCart = () => {
+    async function fetchCart() {
+      const endpoint = `http://localhost:8080/getCart/${iAm.email}`;
+      const response = await fetch(endpoint, {
+          method: "GET",
+      });
+
+      if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(errorText);
+      }
+
+      const res = await response.json();
+      setProductsData(res.products);
+      setSaleInfo(res.sale);
+    } fetchCart();
   }
 
   // quando clicamos em algum item da planilha
@@ -148,6 +166,11 @@ function App() {
     });
   };
 
+  const handleAddressChange = (e) => {
+    if(e.target.value !== '' && e.target.value !== null) setAddress(e.target.value);
+  };
+
+
   // quando clicamos nas classes da sidebar 1
   const handleClickClasses = async (clickedOnIndex) => {
     const newIndex = (clickedOnIndex+types.length)%types.length;
@@ -166,19 +189,7 @@ function App() {
     }
 
     if (types[newIndex] === "CART") {
-      const endpoint = `http://localhost:8080/getCart/${iAm.email}`;
-      const response = await fetch(endpoint, {
-          method: "GET",
-      });
-
-      if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(errorText);
-      }
-
-      const res = await response.json();
-      setProductsData(res.products);
-      setSaleInfo(res.sale);
+      getCart();
     }
   };
 
@@ -202,6 +213,7 @@ function App() {
   }   
 
   return (
+    <>
     <div className={`container-user ${(types[currentQueryIndex] === "PAST PURCHASES" && pastSalesNames.length !== 0) ? 'two-sidebars' : 'one-sidebar'}`} >
       <Sidebar
         types={types}
@@ -237,13 +249,17 @@ function App() {
           </div>
         </div>
 	
-            {(types[currentQueryIndex] !== "PROFILE") && (productsData.length !== 0) && (<>
+            {(
+              (types[currentQueryIndex] === "CART" && productsData.length !== 0) ||
+              (types[currentQueryIndex] === "PAST PURCHASES" && pastSales.length !== 0) ||
+              (types[currentQueryIndex] !== "CART" && types[currentQueryIndex] !== "PAST PURCHASES" && types[currentQueryIndex] !== "PROFILE" && productsData.length !== 0)
+            )&& (<>
                 <div className="navbar-user">
-                    <p>{(types[currentQueryIndex] === "CART")? `Created at: ${saleInfo.createdAt}` : `Updated at: ${saleInfo.updatedAt}`}</p>
                     <p>Status: {saleInfo.status}</p>
                     <p>Total Value: {saleInfo.totalPriceGold}</p>
-                    <p>ID of purchase: #{saleInfo.id}</p>
+                    
                     {(types[currentQueryIndex] === "CART") && (<>
+                      <span>To deliver at: <input className="address-input" type='text' name='address' value={address} onChange={handleAddressChange}/></span>
                       <span id="login-button">
                         <svg
                             id="button1"
@@ -252,6 +268,22 @@ function App() {
                             xmlnssvg="http://www.w3.org/2000/svg"
                             onDragStart={(e) => e.preventDefault()}
                             onClick = {async (e) => {
+                              try {
+                                const response = await fetch(`http://localhost:8080/alterCartAddress/${iAm.email}/${address}`, {
+                                  method: "POST",
+                                });
+
+                                if(!response.ok) {
+                                  const errorText = await response.text();
+                                  setErrorBuying(errorText);
+                                  console.error(errorText);
+                                }
+                              } catch (error) {
+                                setErrorBuying(`${error}`);
+                                console.error(error);
+                              }
+
+
                               const endpoint = `http://localhost:8080/finishOnlineSale/${iAm.email}`;
                               const response = await fetch(endpoint, {
                                   method: "POST",
@@ -263,6 +295,7 @@ function App() {
                               }
                               setProductsData([]);
                               setSelectedProduct(null);
+                              setErrorBuying(null);
 
                               async function fetchPreviousOrders() {
                                   const endpoint = `http://localhost:8080/previousOrders/${iAm.email}`;
@@ -299,6 +332,7 @@ function App() {
                             </text>
                         </svg>
                     </span>
+                    {errorBuying && (<>{errorBuying}</>)}
                     </>)}
                 </div>
 
@@ -312,16 +346,19 @@ function App() {
                 onNewQuery={handleNewPageQuery}
                 currentQueryIndex={currentQueryIndex}
                 showStock={false}
+                showPages={false}
                 />
 
                 {selectedProduct && (<>
-                    <VertDiv2 id="vertDiv2" showArrow={arrowY !== null} arrowY={arrowY} />
+                    <VertDiv2 id="vertDiv2" showArrow={false} arrowY={arrowY} />
                     <ProductInfo 
-                      product={productsData.find(p => p.id === selectedProduct.id)} 
+                      product={productsData.find(p => p.id === selectedProduct.id)}
+                      saleInfo={saleInfo} 
                       editable={false} 
                       isItACart={true} 
                       setSelectedProduct={setSelectedProduct}
                       forDisplay={(types[currentQueryIndex] === "PAST PURCHASES")? true : false}
+                      getCart={(types[currentQueryIndex] === "CART")? getCart : false}
                     />
                 </>
                 )}
@@ -333,7 +370,7 @@ function App() {
             </>
             )}
 
-            {(types[currentQueryIndex] === "PAST PURCHASES") && (productsData.length === 0) && (<>
+            {(types[currentQueryIndex] === "PAST PURCHASES") && (pastSales.length === 0) && (<>
                 <p> You haven't bought here yet! </p>
             </>
             )}
@@ -345,7 +382,7 @@ function App() {
                   <p>Last login: {iAm.lastRun}</p>
                   <Link to="/editAccount">
                     <svg
-                      className="sessionButton"
+                      className="edit-account-button"
                       viewBox="0 0 251 44"
                       xmlnssvg="http://www.w3.org/2000/svg"
                     >
@@ -370,7 +407,11 @@ function App() {
       <div className="rodape"> A série de jogos <i>The Elder Scrolls </i>e <i>The Elder Scrolls V: Skyrim </i> 
       são propriedade da Bethesda Softworks LLC: Todos os direitos reservados. Este website tem fins educacionais 
       e experimentais, e o tema foi escolhido apenas como plano de fundo.</div>
+
+      
     </div>
+
+    </>
   );
 
 }

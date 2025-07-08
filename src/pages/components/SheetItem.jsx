@@ -15,13 +15,24 @@ function SheetItem({ item, onSelect, isSelected, showStock, showGold, alertSheet
   return (
     <div
       id={(showGold || isItASale) ? item.id : item.name}
-      className={`sheet-item ${isSelected ? 'selected' : ''}`}
+      className={`sheet-item ${isItASale ? 'sheet-sale' : 'sheet-not-sale'} ${isSelected ? 'selected' : ''}`}
       onClick={handleClick}
     >
-      <div className="sheet-item-name">
-        <span className="sheet-item-name-text">{(showGold)? item.productName : ((isItASale)? `Order #${(typeof(item.id) === 'string')? item.id.slice(2) : item.id}` : item.username)}</span>
+      <div className={`sheet-item-name`}>
+        <span className="sheet-item-name-text">
+          {showGold ? (
+            <>
+              {item.productName}
+              {item.quantity != null && ` (x${item.quantity})`}
+            </>
+          ) : (
+            isItASale
+              ? `Order #${typeof item.id === 'string' ? item.id.slice(2) : item.id}`
+              : item.username
+          )}
+        </span>
       </div>
-        {(showGold || isItASale) && (<>
+      {(showGold || isItASale) && (<>
         <div className="sheet-item-price">
             <div className="sheet-item-price-gold">
             <img src={`${gold}`} alt="Gold" />
@@ -34,6 +45,11 @@ function SheetItem({ item, onSelect, isSelected, showStock, showGold, alertSheet
           <div className="sheet-item-stock">
             <span> Stock: {item.stock} </span>
         </div>
+        </>)}
+        {isItASale && (<>
+          <div className='sheet-item-address'>
+            <span>Address: {item.address}</span>
+          </div>
         </>)} 
       </>)} 
      </div>

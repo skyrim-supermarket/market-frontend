@@ -14,7 +14,7 @@
     -ms-overflow-style: none;  /* internet explorer e edge */
 }
 
-/* ocultar a scrollbar krl!! */
+/* ocultar a scrollbar!! */
 .adminInsertionContainer::-webkit-scrollbar {
     display: none;
 }

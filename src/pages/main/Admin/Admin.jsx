@@ -10,6 +10,7 @@ import SessionButton from '../../components/SessionButton';
 import ProductInfo from '../../components/ProductInfo';
 import Sheet from '../../components/Sheet'
 import Form from '../../components/Form';
+import SaleInfo from '../../components/SaleInfo';
 
 // estilos
 import VertDiv1 from '../../components/VerticalDiv1';
@@ -175,7 +176,7 @@ function App() {
         <div className="navbar">
           <div className="searchbar-div">
             {(adminEdit[currentAdminEditIndex] !== "ADD NEW") && (<>
-              <input type="text" id="searchbar" placeholder="Search..." />
+              <p>List of every {types[currentQueryIndex].toLowerCase().replace(/s$/, '')}</p>
             </>
             )}
             {(adminEdit[currentAdminEditIndex] === "ADD NEW") && (<>
@@ -199,18 +200,26 @@ function App() {
               onSelectedItemPositionChange={setArrowY}
               onNewQuery={handleNewPageQuery}
               currentQueryIndex={currentQueryIndex}
-              showStock={types[currentQueryIndex] != "SALES"}
-              isItAProduct={types[currentQueryIndex] == "PRODUCTS"}
+              showStock={types[currentQueryIndex] !== "SALES"}
+              showPages={types[currentQueryIndex] === "PRODUCTS"}
+              isItAProduct={types[currentQueryIndex] === "PRODUCTS"}
               alertAdminEdit={() => {setSelectedProduct(null)}}
-              isItASale={types[currentQueryIndex] == "SALES"}
+              isItASale={types[currentQueryIndex] === "SALES"}
             />
 
             {selectedProduct && (
               <>
                 <VertDiv2 id="vertDiv2" showArrow={arrowY !== null} arrowY={arrowY} />
-                <ProductInfo product={selectedProduct} editable={
-                  ((types[currentQueryIndex] == "CLIENTS" || types[currentQueryIndex] == "SALES")? false : true) 
+
+                {types[currentQueryIndex] === "SALES" && (<>
+                  <SaleInfo idSale={selectedProduct.id.slice(2)} showExtraInfo={true}/>
+                </>)}
+
+                {types[currentQueryIndex] !== "SALES" && (<>
+                  <ProductInfo product={selectedProduct} editable={
+                  ((types[currentQueryIndex] === "CLIENTS")? false : true) 
                  } category={types[currentQueryIndex]}/>
+                </>)}
               </>
             )}
           </>
