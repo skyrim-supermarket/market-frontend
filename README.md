@@ -30,7 +30,7 @@ Inicie o servidor de frontend:
 npm start
 ```
 
-A aplicação será aberta automaticamente no navegador padrão em `http://localhost:3000`.
+A aplicação será aberta automaticamente no navegador padrão em `http://localhost:3000` (certifique-se que o servidor backend também está executando).
 
 # Funcionalidades
 
@@ -72,4 +72,8 @@ A aplicação será aberta automaticamente no navegador padrão em `http://local
 
 # Licença
 
-Todo o projeto está sob a licença MIT.
+Todo o projeto está sob a licença GPL 3.0.
+
+# Disclaimer
+
+O desenvolvimento desse projeto contou com auxílio de ferramentas de inteligência artificial.
